@@ -9,6 +9,10 @@ open Suave.CORS
 let getRoutes httpContext =
     let result = DAL.getAllRoutes
     Successful.OK (JsonConvert.SerializeObject(result)) httpContext
+
+let getStations httpContext =
+    let result = DAL.getAllStations
+    Successful.OK (JsonConvert.SerializeObject(result)) httpContext
     
 let corsConfig =
     { defaultCORSConfig with allowedUris = InclusiveOption.Some [ "http://localhost:8080" ] }    
@@ -17,6 +21,7 @@ let app =
     choose [
         GET >=> choose [
             path "/routes" >=> cors corsConfig >=> getRoutes >=> setMimeType "application/json; charset=utf-8"
+            path "/stations" >=> cors corsConfig >=> getStations >=> setMimeType "application/json; charset=utf-8"
         ]
     ]
 
@@ -25,5 +30,6 @@ let serverConfig =
 
 [<EntryPoint>]
 let main argv = 
+    SeedStations.seed
     startWebServer serverConfig app
     0
