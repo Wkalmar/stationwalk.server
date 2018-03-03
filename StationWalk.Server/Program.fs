@@ -3,16 +3,22 @@ open Suave.Filters
 open Suave.Operators
 open Suave.Writers
 open Suave.Successful
+open Suave.ServerErrors
 open Newtonsoft.Json
 open Suave.CORS
 
 let getRoutes httpContext =
-    let result = DAL.getAllRoutes
-    Successful.OK (JsonConvert.SerializeObject(result)) httpContext
+    let result = (>>-) DomainMappers.dbRoutesToRoutes DAL.getAllRoutes
+    match result with
+    | Success s -> Successful.OK (JsonConvert.SerializeObject(s)) httpContext
+    | Failure f -> ServerErrors.INTERNAL_ERROR (f) httpContext
+    
 
 let getStations httpContext =
-    let result = DAL.getAllStations
-    Successful.OK (JsonConvert.SerializeObject(result)) httpContext
+    let result = (>>-) DomainMappers.dbStationsToStations DAL.getAllStations
+    match result with
+    | Success s -> Successful.OK (JsonConvert.SerializeObject(s)) httpContext
+    | Failure f -> ServerErrors.INTERNAL_ERROR (f) httpContext
     
 let corsConfig =
     { defaultCORSConfig with allowedUris = InclusiveOption.Some [ "http://localhost:8080" ] }    
@@ -30,6 +36,6 @@ let serverConfig =
 
 [<EntryPoint>]
 let main argv = 
-    SeedStations.seed
+    //SeedStations.seed
     startWebServer serverConfig app
     0

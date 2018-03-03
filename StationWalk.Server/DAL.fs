@@ -10,28 +10,32 @@ let private routes = db.GetCollection<DbRoute> "Routes"
 let private stations = db.GetCollection<DbStation> "Stations"
 
 let getAllRoutes =
-    let filter = FilterDefinition.Empty
-    let allDbRoutes = 
-        routes.Find(filter).ToListAsync()
-        |> Async.AwaitTask
-        |> Async.RunSynchronously
-    allDbRoutes.ToArray()
-        |> Array.map (fun i -> dbRouteToRoute i)
+    try
+        let filter = FilterDefinition.Empty
+        let allDbRoutes = 
+            routes.Find(filter).ToListAsync()
+            |> Async.AwaitTask
+            |> Async.RunSynchronously
+        Success(allDbRoutes.ToArray())
+    with
+    | ex -> Failure ex.Message
 
 let getAllStations = 
-    let filter = FilterDefinition.Empty
-    let allDbStations = 
-        stations.Find(filter).ToListAsync()
-        |> Async.AwaitTask
-        |> Async.RunSynchronously
-    allDbStations.ToArray()
-        |> Array.map (fun i -> dbStationToStation i)
+    try
+        let filter = FilterDefinition.Empty
+        let allDbStations = 
+            stations.Find(filter).ToListAsync()
+            |> Async.AwaitTask
+            |> Async.RunSynchronously
+        Success(allDbStations.ToArray())
+    with
+    | ex -> Failure ex.Message
 
 let seedStations (seedStations : Station array) =
     let filter = FilterDefinition.Empty
     stations.DeleteMany(filter) |> ignore
     seedStations
-        |> Array.map (fun i -> stationToDbStation i)
+        |> Array.map (fun i -> DomainMappers.stationToDbStation i)
         |> stations.InsertMany
         |> ignore
     (seedStations) |> ignore
