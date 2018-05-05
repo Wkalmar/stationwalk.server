@@ -35,7 +35,7 @@ let seedStations (seedStations : Station array) =
     let filter = FilterDefinition.Empty
     stations.DeleteMany(filter) |> ignore
     seedStations
-        |> Array.map (fun i -> DomainMappers.stationToDbStation i)
+        |> Array.map (DomainMappers.stationToDbStation)
         |> stations.InsertMany
         |> ignore
     (seedStations) |> ignore

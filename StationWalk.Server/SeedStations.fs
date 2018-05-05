@@ -5,7 +5,8 @@ let stations : Station array =
        { 
            name = "Академмістечко"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.464861
                longitude = 30.355083
            }
@@ -13,7 +14,8 @@ let stations : Station array =
        { 
            name = "Житомирська"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.456175
                longitude = 30.365628
            }
@@ -21,7 +23,8 @@ let stations : Station array =
        { 
            name = "Святошин"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.457903
                longitude = 30.390614
            }
@@ -29,7 +32,8 @@ let stations : Station array =
        { 
            name = "Нивки"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.458653
                longitude = 30.404042
            }
@@ -37,7 +41,8 @@ let stations : Station array =
        { 
            name = "Берестейська"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.458333
                longitude = 30.420833
            }
@@ -45,7 +50,8 @@ let stations : Station array =
        { 
            name = "Шулявська"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.455
                longitude = 30.445278
            }
@@ -53,7 +59,8 @@ let stations : Station array =
        { 
            name = "Політехнічний Інститут"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.450833
                longitude = 30.466111
            }
@@ -61,7 +68,8 @@ let stations : Station array =
        { 
            name = "Вокзальна"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.441667
                longitude = 30.4875
            }
@@ -69,7 +77,8 @@ let stations : Station array =
        { 
            name = "Університет"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.444167
                longitude = 30.505833
            }
@@ -77,7 +86,8 @@ let stations : Station array =
        { 
            name = "Театральна"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.444722
                longitude = 30.518056
            }
@@ -85,7 +95,8 @@ let stations : Station array =
        { 
            name = "Хрещатик"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.357425
                longitude = 30.439872
            }
@@ -93,7 +104,8 @@ let stations : Station array =
        { 
            name = "Арсенальна"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.443889
                longitude = 30.545556
            }
@@ -101,7 +113,8 @@ let stations : Station array =
        { 
            name = "Дніпро"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.441111
                longitude = 30.558611
            }
@@ -109,7 +122,8 @@ let stations : Station array =
        { 
            name = "Гідропарк"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.445556
                longitude = 30.576944
            }
@@ -117,7 +131,8 @@ let stations : Station array =
        { 
            name = "Лівобережна"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.451389
                longitude = 30.598889
            }
@@ -125,7 +140,8 @@ let stations : Station array =
        { 
            name = "Дарниця"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.455556
                longitude = 30.613056
            }
@@ -133,7 +149,8 @@ let stations : Station array =
        { 
            name = "Чернігівська"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.459722
                longitude = 30.630833
            }
@@ -141,7 +158,8 @@ let stations : Station array =
        { 
            name = "Лісова"
            branch = Branch.Red
-           location = {
+           location = 
+           {
                lattitude = 50.464639
                longitude = 30.645556
            }
@@ -149,7 +167,8 @@ let stations : Station array =
        { 
            name = "Героїв Дніпра"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.5225
                longitude = 30.498611
            }
@@ -157,7 +176,8 @@ let stations : Station array =
        { 
            name = "Мінська"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.512222
                longitude = 30.498333
            }
@@ -165,15 +185,17 @@ let stations : Station array =
        { 
            name = "Оболонь"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.501111
                longitude = 30.498056
            }
        }
        { 
-           name = "Петрівка"
+           name = "Почайна"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.486667
                longitude = 30.497778
            }
@@ -181,7 +203,8 @@ let stations : Station array =
        { 
            name = "Тараса Шевченка"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.473056
                longitude = 30.505
            }
@@ -189,7 +212,8 @@ let stations : Station array =
        { 
            name = "Контрактова Площа"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.465
                longitude = 30.516667
            }
@@ -197,7 +221,8 @@ let stations : Station array =
        { 
            name = "Поштова Площа"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.459167
                longitude = 30.525556
            }
@@ -205,7 +230,8 @@ let stations : Station array =
        { 
            name = "Майдан Незалежності"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.45
                longitude = 30.524167
            }
@@ -213,7 +239,8 @@ let stations : Station array =
        { 
            name = "Площа Льва Толстого"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.439444
                longitude = 30.516944
            }
@@ -221,7 +248,8 @@ let stations : Station array =
        { 
            name = "Олімпійська"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.431944
                longitude = 30.516389
            }
@@ -229,7 +257,8 @@ let stations : Station array =
        { 
            name = "Палац Україна"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.420833
                longitude = 30.520833
            }
@@ -237,7 +266,8 @@ let stations : Station array =
        { 
            name = "Либідська"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.420833
                longitude = 30.520833
            }
@@ -245,7 +275,8 @@ let stations : Station array =
        { 
            name = "Деміївська"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.404792
                longitude = 30.516833
            }
@@ -253,7 +284,8 @@ let stations : Station array =
        { 
            name = "Голосіївська"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.3975
                longitude = 30.508333
            }
@@ -261,7 +293,8 @@ let stations : Station array =
        { 
            name = "Васильківська"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.393333
                longitude = 30.488056
            }
@@ -269,7 +302,8 @@ let stations : Station array =
        { 
            name = "Виставковий Центр"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.382581
                longitude = 30.477536
            }
@@ -277,7 +311,8 @@ let stations : Station array =
        { 
            name = "Іподром"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.376556
                longitude = 30.469117
            }
@@ -285,7 +320,8 @@ let stations : Station array =
        { 
            name = "Теремки"
            branch = Branch.Blue
-           location = {
+           location = 
+           {
                lattitude = 50.367044
                longitude = 30.454203
            }
@@ -293,7 +329,8 @@ let stations : Station array =
        { 
            name = "Сирець"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.476111
                longitude = 30.430556
            }
@@ -301,7 +338,8 @@ let stations : Station array =
        { 
            name = "Дорогожичі"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.473611
                longitude = 30.449444
            }
@@ -309,7 +347,8 @@ let stations : Station array =
        { 
            name = "Лук'янівська"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.462222
                longitude = 30.481667
            }
@@ -317,7 +356,8 @@ let stations : Station array =
        { 
            name = "Золоті Ворота"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.448333
                longitude = 30.513333
            }
@@ -325,7 +365,8 @@ let stations : Station array =
        { 
            name = "Палац Спорту"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.438056
                longitude = 30.520833
            }
@@ -333,7 +374,8 @@ let stations : Station array =
        { 
            name = "Кловська"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.436944
                longitude = 30.531667
            }
@@ -341,7 +383,8 @@ let stations : Station array =
        { 
            name = "Печерська"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.4275
                longitude = 30.538889
            }
@@ -349,7 +392,8 @@ let stations : Station array =
        { 
            name = "Дружби Народів"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.418056
                longitude = 30.545
            }
@@ -357,7 +401,8 @@ let stations : Station array =
        { 
            name = "Видубичі"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.402222
                longitude = 30.560833
            }
@@ -365,7 +410,8 @@ let stations : Station array =
        { 
            name = "Славутич"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.394167
                longitude = 30.604167
            }
@@ -373,7 +419,8 @@ let stations : Station array =
        { 
            name = "Осокорки"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.395278
                longitude = 30.616111
            }
@@ -381,7 +428,8 @@ let stations : Station array =
        { 
            name = "Позняки"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.398056
                longitude = 30.633333
            }
@@ -389,7 +437,8 @@ let stations : Station array =
        { 
            name = "Харківська"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.400833
                longitude = 30.652222
            }
@@ -397,7 +446,8 @@ let stations : Station array =
        { 
            name = "Вирлиця"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.403333
                longitude = 30.666111
            }
@@ -405,7 +455,8 @@ let stations : Station array =
        { 
            name = "Червоний Хутір"
            branch = Branch.Green
-           location = {
+           location = 
+           {
                lattitude = 50.408889
                longitude = 30.694444
            }
