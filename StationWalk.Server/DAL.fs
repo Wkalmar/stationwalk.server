@@ -9,27 +9,26 @@ let private db = client.GetDatabase("<your db>")
 let private routes = db.GetCollection<DbRoute> "Routes"
 let private stations = db.GetCollection<DbStation> "Stations"
 
-let getAllRoutes() =
+let getAllRoutes() = async { 
+    try
+        let filter = FilterDefinition.Empty 
+        let! allDbRoutes = 
+            routes.Find(filter).ToListAsync()  
+            |> Async.AwaitTask  
+        return Success(allDbRoutes.ToArray()) 
+    with 
+    | ex -> return Failure ex.Message 
+} 
+let getAllStations() = async {
     try
         let filter = FilterDefinition.Empty
-        let allDbRoutes = 
-            routes.Find(filter).ToListAsync()
-            |> Async.AwaitTask
-            |> Async.RunSynchronously
-        Success(allDbRoutes.ToArray())
-    with
-    | ex -> Failure ex.Message
-
-let getAllStations() = 
-    try
-        let filter = FilterDefinition.Empty
-        let allDbStations = 
+        let! allDbStations = 
             stations.Find(filter).ToListAsync()
-            |> Async.AwaitTask
-            |> Async.RunSynchronously
-        Success(allDbStations.ToArray())
+            |> Async.AwaitTask            
+        return Success(allDbStations.ToArray())
     with
-    | ex -> Failure ex.Message
+    | ex -> return Failure ex.Message
+}
 
 let seedStations (seedStations : Station array) =
     let filter = FilterDefinition.Empty

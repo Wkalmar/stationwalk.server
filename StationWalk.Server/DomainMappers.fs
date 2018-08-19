@@ -18,13 +18,14 @@ let private dbStationToStation (dbStation : DbStation) : Station =
     }
     station
 
-let dbStationsToStations dbStations = 
+let dbStationsToStations dbStations = async { 
     try
-        dbStations 
+        return dbStations 
         |> Array.map(fun i -> dbStationToStation i)
         |> Success
     with
-    | ex -> Failure ex.Message
+    | ex -> return Failure ex.Message
+}
 
 let stationToDbStation (station : Station) : DbStation = 
     let dbStation = {
@@ -45,11 +46,12 @@ let private dbRouteToRoute (dbRoute : DbRoute) : Route =
     }
     route
 
-let dbRoutesToRoutes dbRoutes =
+let dbRoutesToRoutes dbRoutes = async {
     try
-        dbRoutes
+        return dbRoutes
         |> Array.map (fun i -> dbRouteToRoute i)
         |> Success
     with
-    | e -> Failure e.Message
+    | e -> return Failure e.Message
+}
 

@@ -7,18 +7,22 @@ open Suave.ServerErrors
 open Newtonsoft.Json
 open Suave.CORS
 
-let getRoutes httpContext =
-    let result = DAL.getAllRoutes >-> DomainMappers.dbRoutesToRoutes 
-    match result() with
-    | Success s -> Successful.OK (JsonConvert.SerializeObject(s)) httpContext
-    | Failure f -> ServerErrors.INTERNAL_ERROR (f) httpContext
+let getRoutes httpContext = async {
+    let routes = DAL.getAllRoutes >--> DomainMappers.dbRoutesToRoutes
+    let! result = routes()
+    match result with
+    | Success s -> return! Successful.OK (JsonConvert.SerializeObject(s)) httpContext
+    | Failure f -> return! ServerErrors.INTERNAL_ERROR (f) httpContext
+}
     
 
-let getStations httpContext =
-    let result = DAL.getAllStations >-> DomainMappers.dbStationsToStations
-    match result() with
-    | Success s -> Successful.OK (JsonConvert.SerializeObject(s)) httpContext
-    | Failure f -> ServerErrors.INTERNAL_ERROR (f) httpContext
+let getStations httpContext = async {
+    let stations = DAL.getAllStations >--> DomainMappers.dbStationsToStations
+    let! result = stations() 
+    match result with
+    | Success s -> return! Successful.OK (JsonConvert.SerializeObject(s)) httpContext
+    | Failure f -> return! ServerErrors.INTERNAL_ERROR (f) httpContext
+}
     
 let corsConfig =
     { defaultCORSConfig with allowedUris = InclusiveOption.Some [ "http://localhost:8080" ] }    

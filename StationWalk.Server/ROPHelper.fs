@@ -21,5 +21,15 @@ module ROPHelpers =
         | Success s -> switchFunction2 s 
         | Failure f -> Failure f
 
+    let switchAsync switchFunction1 switchFunction2 input = async { 
+        let! result = switchFunction1 input
+        match result with
+        | Success s -> return! switchFunction2 s 
+        | Failure f ->  return Failure f
+    }
+
     let (>->) switchFunction1 switchFunction2 input = 
         switch switchFunction1 switchFunction2 input
+
+    let (>-->) switchFunction1 switchFunction2 input = 
+        switchAsync switchFunction1 switchFunction2 input
