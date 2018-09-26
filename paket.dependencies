@@ -1,8 +1,5 @@
 source https://api.nuget.org/v3/index.json
 
-nuget FSharp.Core
-nuget MongoDB.Bson 2.5.1
 nuget MongoDB.Driver 2.5.1
-nuget MongoDB.Driver.Core 2.5.1
 nuget Newtonsoft.Json 10.0.3
 nuget Suave 2.2.1
