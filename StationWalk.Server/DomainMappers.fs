@@ -45,6 +45,16 @@ let private dbRouteToRoute (dbRoute : DbRoute) : Route =
 let dbRoutesToRoutes dbRoutes = 
     dbRoutes
     |> Array.map (fun i -> dbRouteToRoute i)
-    |> Ok    
+    |> Ok
+    
+let routeToDbRoute (route : Route) : DbRoute =
+    let dbRoute = {
+        _id = BsonObjectId(ObjectId.GenerateNewId())
+        name = route.name
+        stationStart = route.stationStart
+        stationEnd = route.stationEnd
+        checkpoints = route.checkpoints
+    }
+    dbRoute
 
 

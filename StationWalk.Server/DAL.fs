@@ -18,7 +18,19 @@ let getAllRoutes() = async {
         return Ok(allDbRoutes.ToArray()) 
     with 
     | ex -> return Error ex.Message 
-} 
+}
+
+let submitRoute (route : Route) = async {
+    try
+        let dbRoute = DomainMappers.routeToDbRoute route
+        let! insertResult = 
+            routes.InsertOneAsync(dbRoute)
+            |> Async.AwaitTask
+        return Ok(insertResult)
+    with
+    | ex -> return Error ex.Message 
+}
+
 let getAllStations() = async {
     try
         let filter = FilterDefinition.Empty

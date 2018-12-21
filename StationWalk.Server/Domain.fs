@@ -2,7 +2,6 @@
 module Domain
 
 open MongoDB.Bson
-open System
 
 type Location = {
      lattitude: float
