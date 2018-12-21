@@ -1,7 +1,7 @@
 ﻿module DomainMappers
 
 open MongoDB.Bson
-open System
+
 
 let private branchFromString s =
     match s with
@@ -18,14 +18,10 @@ let private dbStationToStation (dbStation : DbStation) : Station =
     }
     station
 
-let dbStationsToStations dbStations = async { 
-    try
-        return dbStations 
-        |> Array.map(fun i -> dbStationToStation i)
-        |> Success
-    with
-    | ex -> return Failure ex.Message
-}
+let dbStationsToStations dbStations = 
+    dbStations 
+    |> Array.map(fun i -> dbStationToStation i)
+    |> Ok    
 
 let stationToDbStation (station : Station) : DbStation = 
     let dbStation = {
@@ -46,12 +42,9 @@ let private dbRouteToRoute (dbRoute : DbRoute) : Route =
     }
     route
 
-let dbRoutesToRoutes dbRoutes = async {
-    try
-        return dbRoutes
-        |> Array.map (fun i -> dbRouteToRoute i)
-        |> Success
-    with
-    | e -> return Failure e.Message
-}
+let dbRoutesToRoutes dbRoutes = 
+    dbRoutes
+    |> Array.map (fun i -> dbRouteToRoute i)
+    |> Ok    
+
 

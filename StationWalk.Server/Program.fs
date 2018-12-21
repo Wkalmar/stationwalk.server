@@ -8,20 +8,25 @@ open Newtonsoft.Json
 open Suave.CORS
 
 let getRoutes httpContext = async {
-    let routes = DAL.getAllRoutes >--> DomainMappers.dbRoutesToRoutes
-    let! result = routes()
+    let! routes = DAL.getAllRoutes()
+    let result = 
+        routes
+        |> Result.bind DomainMappers.dbRoutesToRoutes  
+    
     match result with
-    | Success s -> return! Successful.OK (JsonConvert.SerializeObject(s)) httpContext
-    | Failure f -> return! ServerErrors.INTERNAL_ERROR (f) httpContext
+    | Ok s -> return! Successful.OK (JsonConvert.SerializeObject(s)) httpContext
+    | Error f -> return! ServerErrors.INTERNAL_ERROR (f) httpContext
 }
     
 
 let getStations httpContext = async {
-    let stations = DAL.getAllStations >--> DomainMappers.dbStationsToStations
-    let! result = stations() 
+    let! stations = DAL.getAllStations() 
+    let result =
+        stations
+        |> Result.bind DomainMappers.dbStationsToStations    
     match result with
-    | Success s -> return! Successful.OK (JsonConvert.SerializeObject(s)) httpContext
-    | Failure f -> return! ServerErrors.INTERNAL_ERROR (f) httpContext
+    | Ok s -> return! Successful.OK (JsonConvert.SerializeObject(s)) httpContext
+    | Error f -> return! ServerErrors.INTERNAL_ERROR (f) httpContext
 }
     
 let corsConfig =

@@ -15,9 +15,9 @@ let getAllRoutes() = async {
         let! allDbRoutes = 
             routes.Find(filter).ToListAsync()  
             |> Async.AwaitTask  
-        return Success(allDbRoutes.ToArray()) 
+        return Ok(allDbRoutes.ToArray()) 
     with 
-    | ex -> return Failure ex.Message 
+    | ex -> return Error ex.Message 
 } 
 let getAllStations() = async {
     try
@@ -25,9 +25,9 @@ let getAllStations() = async {
         let! allDbStations = 
             stations.Find(filter).ToListAsync()
             |> Async.AwaitTask            
-        return Success(allDbStations.ToArray())
+        return Ok(allDbStations.ToArray())
     with
-    | ex -> return Failure ex.Message
+    | ex -> return Error ex.Message
 }
 
 let seedStations (seedStations : Station array) =
