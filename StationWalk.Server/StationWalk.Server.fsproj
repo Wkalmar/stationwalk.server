@@ -2,7 +2,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Domain.fs" />
@@ -11,5 +14,13 @@
     <Compile Include="SeedStations.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
-  <Import Project="..\.paket\Paket.Restore.targets" />
+  <ItemGroup>
+    <PackageReference Include="Giraffe" Version="3.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.1" />
+    <PackageReference Include="MongoDB.Driver" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="MongoDB.Driver" Version="2.8.0" />
+  </ItemGroup>
+  
 </Project>
