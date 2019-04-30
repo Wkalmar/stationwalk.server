@@ -52,7 +52,7 @@ let app : HttpHandler =
         GET >=> choose [
             route "/routes" >=> getRoutes
             route "/stations" >=> getStations
-            route "/" >=> htmlFile "dist/index.html"
+            route "/" >=> htmlFile "client/dist/index.html"
         ]        
         POST >=> choose [
             route "/route" >=> submitRoute 
@@ -63,11 +63,11 @@ let configureApp (appBuilder : IApplicationBuilder) =
     appBuilder.UseGiraffe app
     appBuilder.UseStaticFiles() |> ignore
     appBuilder.UseSpaStaticFiles()
-    appBuilder.UseSpa(fun spa -> spa.Options.SourcePath <- "dist")
+    appBuilder.UseSpa(fun spa -> spa.Options.SourcePath <- "client/dist")
 
 let configureServices (services : IServiceCollection) =     
     services.AddGiraffe() |> ignore
-    services.AddSpaStaticFiles(fun configuration -> configuration.RootPath <- "dist")
+    services.AddSpaStaticFiles(fun configuration -> configuration.RootPath <- "client/dist")
 
 [<EntryPoint>]
 let main argv = 
