@@ -15,7 +15,7 @@ let getRoutes =
         |> Result.bind DomainMappers.dbRoutesToRoutes  
     
     match result with
-    | Ok s -> return! json (JsonConvert.SerializeObject(s)) next httpContext
+    | Ok s -> return! json s next httpContext
     | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
 }
     
@@ -28,7 +28,7 @@ let getStations =
         stations
         |> Result.bind DomainMappers.dbStationsToStations    
     match result with
-    | Ok s -> return! json (JsonConvert.SerializeObject(s)) next httpContext
+    | Ok s -> return! json s next httpContext
     | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
 }
 
@@ -52,6 +52,7 @@ let app : HttpHandler =
         GET >=> choose [
             route "/routes" >=> getRoutes
             route "/stations" >=> getStations
+            route "/" >=> htmlFile "dist/index.html"
         ]        
         POST >=> choose [
             route "/route" >=> submitRoute 
@@ -60,10 +61,13 @@ let app : HttpHandler =
 
 let configureApp (appBuilder : IApplicationBuilder) =
     appBuilder.UseGiraffe app
+    appBuilder.UseStaticFiles() |> ignore
+    appBuilder.UseSpaStaticFiles()
+    appBuilder.UseSpa(fun spa -> spa.Options.SourcePath <- "dist")
 
-let configureServices (services : IServiceCollection) =
-    // Add Giraffe dependencies
+let configureServices (services : IServiceCollection) =     
     services.AddGiraffe() |> ignore
+    services.AddSpaStaticFiles(fun configuration -> configuration.RootPath <- "dist")
 
 [<EntryPoint>]
 let main argv = 
