@@ -20,6 +20,36 @@
     </Content>  
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Remove="Client\node_modules\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Client\index.html" />
+    <Content Include="Client\package-lock.json" />
+    <Content Include="Client\package.json" />
+    <Content Include="Client\styles\submitModal.css" />
+    <Content Include="Client\tsconfig.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Client\karma.unit.js" />
+    <None Include="Client\README.md" />
+    <None Include="Client\src\business-logic\routeDrawer.ts" />
+    <None Include="Client\src\business-logic\routeToCheckpointsMapper.ts" />
+    <None Include="Client\src\business-logic\stationsContainer.ts" />
+    <None Include="Client\src\business-logic\stationToMarkerMapper.ts" />
+    <None Include="Client\src\controllers\homeController.ts" />
+    <None Include="Client\src\controllers\icontroller.ts" />
+    <None Include="Client\src\controllers\submitController.ts" />
+    <None Include="Client\src\main.ts" />
+    <None Include="Client\src\models\location.ts" />
+    <None Include="Client\src\models\route.ts" />
+    <None Include="Client\src\models\station.ts" />
+    <None Include="Client\src\utils\distance.ts" />
+    <None Include="Client\test\routeDrawer.spec.ts" />
+    <None Include="Client\test\routeToCheckPointsMapper.spec.ts" />
+    <None Include="Client\test\stationToMarkerMapper.spec.ts" />
+    <None Include="Client\webpack.config.js" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Giraffe" Version="3.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.2.0" />
@@ -27,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="MongoDB.Driver" Version="2.8.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Client\dist\styles\" />
   </ItemGroup> 
   <Target Name="BuildClient" BeforeTargets="Build">
     <Exec Command="npm install" WorkingDirectory="client" />
