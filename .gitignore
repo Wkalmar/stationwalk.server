@@ -4,3 +4,9 @@
 .paket/paket.exe
 packages/*
 *.DotSettings.user
+
+\.vscode/
+
+StationWalk\.Server/client/dist/
+StationWalk.Server/Client/*
+*.user

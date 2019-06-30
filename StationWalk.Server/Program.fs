@@ -1,72 +1,81 @@
-﻿open Suave
-open Suave.Filters
-open Suave.Operators
-open Suave.Writers
+﻿open Giraffe
+open FSharp.Control.Tasks.V2.ContextInsensitive
+open Microsoft.AspNetCore.Builder
+open Microsoft.AspNetCore.Hosting
+open Microsoft.Extensions.DependencyInjection
 open Newtonsoft.Json
-open Suave.CORS
+open System
 
-let getRoutes httpContext = async {
+let getRoutes = 
+    fun next httpContext ->
+    task {
     let! routes = DAL.getAllRoutes()
     let result = 
         routes
         |> Result.bind DomainMappers.dbRoutesToRoutes  
     
     match result with
-    | Ok s -> return! Successful.OK (JsonConvert.SerializeObject(s)) httpContext
-    | Error f -> return! ServerErrors.INTERNAL_ERROR (f) httpContext
+    | Ok s -> return! json s next httpContext
+    | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
 }
     
 
-let getStations httpContext = async {
+let getStations = 
+    fun next httpContext ->
+    task {
     let! stations = DAL.getAllStations() 
     let result =
         stations
         |> Result.bind DomainMappers.dbStationsToStations    
     match result with
-    | Ok s -> return! Successful.OK (JsonConvert.SerializeObject(s)) httpContext
-    | Error f -> return! ServerErrors.INTERNAL_ERROR (f) httpContext
+    | Ok s -> return! json s next httpContext
+    | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
 }
 
 let fromJson<'a> json =
   JsonConvert.DeserializeObject(json, typeof<'a>) :?> 'a
 
-let getResourceFromReq<'a> req =
-  let getString rawForm =
-    System.Text.Encoding.UTF8.GetString(rawForm)
-
-  req.rawForm 
-  |> getString 
-  |> fromJson<'a>
-
-let submitRoute req httpContext = async {
-    let route = getResourceFromReq req
+let submitRoute = 
+    fun next (httpContext : Microsoft.AspNetCore.Http.HttpContext) ->
+    task {
+    let! route = httpContext.BindJsonAsync<Route>()
     let! result = DAL.submitRoute route
     match result with
-    | Ok _ -> return! Successful.OK "" httpContext
-    | Error f -> return! ServerErrors.INTERNAL_ERROR (f) httpContext
+    | Ok _ -> return! text "" next httpContext
+    | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
 }
 
     
-let corsConfig =
-    { defaultCORSConfig with allowedUris = InclusiveOption.Some [ "http://localhost:8080" ] }    
-
-let app =
+let app : HttpHandler =
     choose [
-        OPTIONS >=> cors corsConfig >=> Successful.OK ""
+        OPTIONS >=> Successful.OK ""
         GET >=> choose [
-            path "/routes" >=> cors corsConfig >=> getRoutes >=> setMimeType "application/json; charset=utf-8"
-            path "/stations" >=> cors corsConfig >=> getStations >=> setMimeType "application/json; charset=utf-8"
+            route "/routes" >=> getRoutes
+            route "/stations" >=> getStations
+            route "/" >=> htmlFile "client/dist/index.html"
         ]        
         POST >=> choose [
-            path "/route" >=> cors corsConfig >=> request (submitRoute) 
+            route "/route" >=> submitRoute 
         ]
     ]
 
-let serverConfig = 
-    { defaultConfig with bindings = [ HttpBinding.createSimple HTTP "127.0.0.1" 8888 ] }
+let configureApp (appBuilder : IApplicationBuilder) =
+    appBuilder.UseGiraffe app
+    appBuilder.UseStaticFiles() |> ignore
+    appBuilder.UseSpaStaticFiles()
+    appBuilder.UseSpa(fun spa -> spa.Options.SourcePath <- "client/dist")
+
+let configureServices (services : IServiceCollection) =     
+    services.AddGiraffe() |> ignore
+    services.AddSpaStaticFiles(fun configuration -> configuration.RootPath <- "client/dist")
 
 [<EntryPoint>]
 let main argv = 
     //SeedStations.seed
-    startWebServer serverConfig app
+    WebHostBuilder()
+        .UseKestrel()
+        .Configure(Action<IApplicationBuilder> configureApp)
+        .ConfigureServices(configureServices)
+        .Build()
+        .Run()
     0
