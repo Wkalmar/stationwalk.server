@@ -61,7 +61,7 @@
   <ItemGroup>
     <Folder Include="Client\dist\styles\" />
   </ItemGroup> 
-  <Target Name="BuildClient" BeforeTargets="Build">
+  <Target Name="BuildClient" AfterTargets="Build">
     <Exec Command="npm install" WorkingDirectory="client" />
     <Exec Command="npm run build" WorkingDirectory="client" />
   </Target> 
