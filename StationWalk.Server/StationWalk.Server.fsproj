@@ -6,7 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-  </PropertyGroup>  
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Domain.fs" />
     <Compile Include="DomainMappers.fs" />
@@ -15,9 +15,9 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="client\dist\*">
+    <Content Include="client\dist\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>  
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="Client\node_modules\**" />
@@ -60,9 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Client\dist\styles\" />
-  </ItemGroup> 
+  </ItemGroup>
   <Target Name="BuildClient" AfterTargets="Build">
     <Exec Command="npm install" WorkingDirectory="client" />
     <Exec Command="npm run build" WorkingDirectory="client" />
-  </Target> 
+  </Target>
 </Project>

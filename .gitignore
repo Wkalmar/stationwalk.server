@@ -10,3 +10,4 @@ packages/*
 StationWalk\.Server/client/dist/
 StationWalk.Server/Client/*
 *.user
+.ionide/*
