@@ -1,10 +1,9 @@
 import * as L from "leaflet";
 import { StationToMarkerMapper } from "./business-logic/stationToMarkerMapper";
 import { Station } from "./models/station";
-import { HomeController } from './controllers/homeController';
-import { SubmitController } from './controllers/submitController';
-import { IController } from './controllers/icontroller';
 import { StationsContainer } from "./business-logic/stationsContainer";
+import { ControllersEngine } from "./controllersEngine";
+import { ApplicationContext } from "./applicationContext";
 
 (function() {
     const mapboxAccesToken = '<your key here>>';
@@ -18,6 +17,7 @@ import { StationsContainer } from "./business-logic/stationsContainer";
         id: 'mapbox.streets',
         accessToken: mapboxAccesToken
     }).addTo(mymap);
+    ApplicationContext.map = mymap;
 
     const stationsRequestResolver = (stations: Station[]) => {
         StationsContainer.stations = stations;
@@ -41,29 +41,11 @@ import { StationsContainer } from "./business-logic/stationsContainer";
         console.error(error)
     });
 
-    let currentController : IController = new HomeController(mymap);
-    currentController.go();
+    ControllersEngine.go('home');
 
     document.getElementsByTagName('nav')[0]
     .addEventListener('click', (e : MouseEvent) => {
         const eventTarget = e.target as HTMLElement;
-        let newController : IController;
-        switch (eventTarget.dataset.path) {
-            case "home":
-                newController = new HomeController(mymap);
-                break;
-            case "submit":
-                newController = new SubmitController(mymap);
-                break;
-            default:
-                newController = new HomeController(mymap);
-                break;
-        }
-        if (newController.path !== currentController.path) {
-            currentController.clear();
-            currentController = newController;
-            currentController.go();
-        }
+        ControllersEngine.go(eventTarget.dataset.path || 'home');
     });
-
 })();

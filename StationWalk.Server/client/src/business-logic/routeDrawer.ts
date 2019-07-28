@@ -4,6 +4,7 @@ import { Location } from './../models/location';
 import { StationsContainer } from './stationsContainer';
 import { Distance } from "../utils/distance";
 import * as L from "leaflet";
+import { ApplicationContext } from '../applicationContext';
 
 export class RouteDrawer {
     private neglectibleDistance: number = 0.0003;
@@ -73,21 +74,21 @@ export class RouteDrawer {
         L.polyline(this.points).addTo(map);
     }
 
-    addPoint = (map : L.Map, point : L.LatLng) => {
+    addPoint = (point : L.LatLng) => {
         let latLngPoint = this.mapLatLngToExpression(point);
-        this.initDrawingIfNeeded(map, latLngPoint);
+        this.initDrawingIfNeeded(ApplicationContext.map, latLngPoint);
         this.submitDrawingIfNeeded(latLngPoint);
-        this.drawPointIfNeeded(map, latLngPoint);
-        this.hypotheticalRoute.removeFrom(map);
+        this.drawPointIfNeeded(ApplicationContext.map, latLngPoint);
+        this.hypotheticalRoute.removeFrom(ApplicationContext.map);
     }
 
-    addHypotheticalPoint = (map : L.Map, point : L.LatLng) => {
+    addHypotheticalPoint = (point : L.LatLng) => {
         if (this.isDrawingInProgress) {
             let head = this.points[this.points.length - 1];
             let tail = this.mapLatLngToExpression(point);
-            this.hypotheticalRoute.removeFrom(map);
+            this.hypotheticalRoute.removeFrom(ApplicationContext.map);
             this.hypotheticalRoute = L.polyline([head, tail], {color: 'red'});
-            this.hypotheticalRoute.addTo(map);
+            this.hypotheticalRoute.addTo(ApplicationContext.map);
         }
     }
 

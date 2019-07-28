@@ -1,10 +1,11 @@
-import { HomeController } from './homeController';
 import { Route } from './../models/route';
 import { IController } from "./icontroller";
 import { RouteDrawer } from "../business-logic/routeDrawer";
+import { ControllersEngine } from '../controllersEngine';
+import { ApplicationContext } from '../applicationContext';
 
 export class SubmitController implements IController {
-    constructor(private mymap: L.Map) {}
+    constructor() {}
 
     path = "submit";
 
@@ -53,9 +54,7 @@ export class SubmitController implements IController {
     }
 
     private goToHome = () => {
-        this.clear();
-        const homeController = new HomeController(this.mymap);
-        homeController.go();
+        ControllersEngine.go('home');
     }
 
     private addDrawingSubmittedEventListener() {
@@ -65,18 +64,18 @@ export class SubmitController implements IController {
     private addHypotheticalPoint = (e: L.LeafletEvent) => {
         const mouseEvent = e as L.LeafletMouseEvent;
         const routeDrawer = RouteDrawer.drawer;
-        routeDrawer.addHypotheticalPoint(this.mymap, mouseEvent.latlng);
+        routeDrawer.addHypotheticalPoint(mouseEvent.latlng);
     }
 
     private addPoint = (e: L.LeafletEvent) => {
         const mouseEvent = e as L.LeafletMouseEvent;
         const routeDrawer = RouteDrawer.drawer;
-        routeDrawer.addPoint(this.mymap, mouseEvent.latlng);
+        routeDrawer.addPoint(mouseEvent.latlng);
     }
 
     private addMapEventListeners() {
-        this.mymap.addEventListener('mousemove', this.addHypotheticalPoint);
-        this.mymap.addEventListener('click', this.addPoint);
+        ApplicationContext.map.addEventListener('mousemove', this.addHypotheticalPoint);
+        ApplicationContext.map.addEventListener('click', this.addPoint);
     }
 
     go(): void {
@@ -113,8 +112,8 @@ export class SubmitController implements IController {
     }
 
     private removeMapEventListeners() {
-        this.mymap.removeEventListener('mousemove', this.addHypotheticalPoint);
-        this.mymap.removeEventListener('click', this.addPoint);
+        ApplicationContext.map.removeEventListener('mousemove', this.addHypotheticalPoint);
+        ApplicationContext.map.removeEventListener('click', this.addPoint);
     }
 
     private removeDrawingSubmittedeventListener() {
