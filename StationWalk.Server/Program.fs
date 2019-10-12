@@ -3,8 +3,8 @@ open FSharp.Control.Tasks.V2.ContextInsensitive
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.DependencyInjection
-open Newtonsoft.Json
 open System
+open System.Text.Json
 
 let getRoutes = 
     fun next httpContext ->
@@ -15,7 +15,7 @@ let getRoutes =
         |> Result.bind DomainMappers.dbRoutesToRoutes  
     
     match result with
-    | Ok s -> return! json s next httpContext
+    | Ok s -> return! text (JsonSerializer.Serialize(s)) next httpContext
     | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
 }
     
@@ -28,12 +28,12 @@ let getStations =
         stations
         |> Result.bind DomainMappers.dbStationsToStations    
     match result with
-    | Ok s -> return! json s next httpContext
+    | Ok s -> return! text (JsonSerializer.Serialize(s)) next httpContext
     | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
 }
 
-let fromJson<'a> json =
-  JsonConvert.DeserializeObject(json, typeof<'a>) :?> 'a
+let fromJson<'a> (json : string) =
+  JsonSerializer.Deserialize<'a>(json)
 
 let submitRoute = 
     fun next (httpContext : Microsoft.AspNetCore.Http.HttpContext) ->
