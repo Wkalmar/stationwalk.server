@@ -8,6 +8,15 @@
         "resolved": "4.7.0",
         "contentHash": "6Bf2qzSCaJoP6tTfO+a5muUS7QbyJANqSut73zQvwQ9It5P0ITz9VKseeia2ofco30c55EQ0jA2wf2+A2gpGnw=="
       },
+      "FSharp.SystemTextJson": {
+        "type": "Direct",
+        "requested": "[0.4.1, )",
+        "resolved": "0.4.1",
+        "contentHash": "qPdHMxuhQFo1FOJz+E415ah8AltXJixxKyzNVyiyMbVlw77x4p1W7gtJo9H2CcWYbGpaguWFybjSw3o/TVgBlA==",
+        "dependencies": {
+          "FSharp.Core": "4.7.0"
+        }
+      },
       "Giraffe": {
         "type": "Direct",
         "requested": "[4.0.0, )",

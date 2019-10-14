@@ -37,8 +37,9 @@ let fromJson<'a> (json : string) =
 
 let submitRoute = 
     fun next (httpContext : Microsoft.AspNetCore.Http.HttpContext) ->
-    task {
-    let! route = httpContext.BindJsonAsync<Route>()
+    task {    
+    let! body = httpContext.ReadBodyFromRequestAsync()
+    let route = fromJson<Route> body
     let! result = DAL.submitRoute route
     match result with
     | Ok _ -> return! text "" next httpContext

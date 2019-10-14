@@ -2,17 +2,21 @@
 module Domain
 
 open MongoDB.Bson
+open System.Text.Json.Serialization
 
+[<JsonFSharpConverter>]
 type Location = {
      lattitude: float
      longitude: float
 }
 
+[<JsonFSharpConverter(JsonUnionEncoding.BareFieldlessTags)>]
 type Branch =
     | Red
     | Blue
     | Green
 
+[<JsonFSharpConverter>]
 type Station = {
     name: string
     branch: Branch
@@ -26,6 +30,7 @@ type DbStation = {
     location: Location
 }
 
+[<JsonFSharpConverter>]
 type Route = {
     id: string
     name: string
