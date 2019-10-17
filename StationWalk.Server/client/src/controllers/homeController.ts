@@ -23,7 +23,7 @@ import { ApplicationContext } from '../applicationContext';
             fetch('http://localhost:5000/routes')
             .then((response) => {
                 if (response.ok) {
-                    ApplicationContext.map.setView([50.415, 30.521], 12);
+                    ApplicationContext.map.setView([50.425, 30.521], 12);
                     return response.json();
                 } else {
                     throw new Error();

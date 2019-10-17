@@ -4,9 +4,9 @@
     ".NETCoreApp,Version=v2.2": {
       "FSharp.Core": {
         "type": "Direct",
-        "requested": "[4.5.2, )",
-        "resolved": "4.5.2",
-        "contentHash": "apbdQOjzsjQ637kTWQuW29jqwY18jsHMyNC5A+TPJZKFEIE2cIfQWf3V7+mXrxlbX69BueYkv293/g70wuXuRw=="
+        "requested": "[4.7.0, )",
+        "resolved": "4.7.0",
+        "contentHash": "6Bf2qzSCaJoP6tTfO+a5muUS7QbyJANqSut73zQvwQ9It5P0ITz9VKseeia2ofco30c55EQ0jA2wf2+A2gpGnw=="
       },
       "Giraffe": {
         "type": "Direct",

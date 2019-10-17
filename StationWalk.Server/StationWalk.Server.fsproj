@@ -26,6 +26,8 @@
     <Content Include="Client\index.html" />
     <Content Include="Client\package-lock.json" />
     <Content Include="Client\package.json" />
+    <Content Include="Client\styles\container.css" />
+    <Content Include="Client\styles\navbar.css" />
     <Content Include="Client\styles\submitModal.css" />
     <Content Include="Client\tsconfig.json" />
   </ItemGroup>
