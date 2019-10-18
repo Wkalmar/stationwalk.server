@@ -1,10 +1,12 @@
 ﻿module SeedStations
 
-let stations : Station array = 
+open MongoDB.Bson
+
+let stations : MongoModels.Station array = 
     [| 
        { 
-           name = "Академмістечко"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700d7"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.464861
@@ -12,8 +14,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Житомирська"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700d8"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.456175
@@ -21,8 +23,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Святошин"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700d9"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.457903
@@ -30,8 +32,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Нивки"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700da"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.458653
@@ -39,8 +41,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Берестейська"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700db"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.458333
@@ -48,8 +50,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Шулявська"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700dc"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.455
@@ -57,8 +59,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Політехнічний Інститут"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700dd"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.450833
@@ -66,8 +68,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Вокзальна"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700de"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.441667
@@ -75,8 +77,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Університет"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700df"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.444167
@@ -84,8 +86,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Театральна"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e0"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.444722
@@ -93,8 +95,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Хрещатик"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e1"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.357425
@@ -102,8 +104,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Арсенальна"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e2"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.443889
@@ -111,8 +113,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Дніпро"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e3"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.441111
@@ -120,8 +122,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Гідропарк"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e4"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.445556
@@ -129,8 +131,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Лівобережна"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e5"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.451389
@@ -138,8 +140,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Дарниця"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e6"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.455556
@@ -147,8 +149,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Чернігівська"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e7"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.459722
@@ -156,8 +158,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Лісова"
-           branch = Branch.Red
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e8"))
+           branch = "Red"
            location = 
            {
                lattitude = 50.464639
@@ -165,8 +167,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Героїв Дніпра"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e9"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.5225
@@ -174,8 +176,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Мінська"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700ea"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.512222
@@ -183,8 +185,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Оболонь"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700eb"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.501111
@@ -192,8 +194,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Почайна"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700ec"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.486667
@@ -201,8 +203,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Тараса Шевченка"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700ed"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.473056
@@ -210,8 +212,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Контрактова Площа"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700ee"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.465
@@ -219,8 +221,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Поштова Площа"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700ef"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.459167
@@ -228,8 +230,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Майдан Незалежності"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f0"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.45
@@ -237,8 +239,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Площа Льва Толстого"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f1"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.439444
@@ -246,8 +248,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Олімпійська"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f2"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.431944
@@ -255,8 +257,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Палац Україна"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f3"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.420833
@@ -264,8 +266,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Либідська"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f4"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.420833
@@ -273,8 +275,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Деміївська"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f5"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.404792
@@ -282,8 +284,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Голосіївська"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f6"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.3975
@@ -291,8 +293,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Васильківська"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f7"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.393333
@@ -300,8 +302,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Виставковий Центр"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f8"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.382581
@@ -309,8 +311,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Іподром"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f9"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.376556
@@ -318,8 +320,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Теремки"
-           branch = Branch.Blue
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700fa"))
+           branch = "Blue"
            location = 
            {
                lattitude = 50.367044
@@ -327,8 +329,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Сирець"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700fb"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.476111
@@ -336,8 +338,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Дорогожичі"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700fc"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.473611
@@ -345,8 +347,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Лук'янівська"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700fd"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.462222
@@ -354,8 +356,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Золоті Ворота"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700fe"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.448333
@@ -363,8 +365,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Палац Спорту"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700ff"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.438056
@@ -372,8 +374,8 @@ let stations : Station array =
            }
        }   
        { 
-           name = "Кловська"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a633538670100"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.436944
@@ -381,8 +383,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Печерська"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a633538670101"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.4275
@@ -390,8 +392,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Дружби Народів"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a633538670102"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.418056
@@ -399,8 +401,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Видубичі"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a633538670103"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.402222
@@ -408,8 +410,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Славутич"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a633538670104"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.394167
@@ -417,8 +419,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Осокорки"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a633538670105"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.395278
@@ -426,8 +428,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Позняки"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a633538670106"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.398056
@@ -435,8 +437,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Харківська"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a633538670107"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.400833
@@ -444,8 +446,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Вирлиця"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a633538670108"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.403333
@@ -453,8 +455,8 @@ let stations : Station array =
            }
        }
        { 
-           name = "Червоний Хутір"
-           branch = Branch.Green
+           _id = BsonObjectId(ObjectId("5c2e1d0c867a633538670109"))
+           branch = "Green"
            location = 
            {
                lattitude = 50.408889
@@ -463,5 +465,367 @@ let stations : Station array =
        }
     |]
 
+let elacticStations : ElasticModels.Station array = 
+    [| 
+       { 
+           id = "5c2e1d0c867a6335386700d7"
+           name = {
+               ua = "Академмістечко"
+               en = "Akademmistechko"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700d8"
+           name = {
+               ua = "Житомирська"
+               en = "Zhytomyrska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700d9"
+           name = {
+               ua = "Святошин"
+               en = "Svyatoshyn"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700da"
+           name = {
+               ua = "Нивки"
+               en = "Nyvky"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700db"
+           name = {
+               ua = "Берестейська"
+               en = "Beresteyska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700dc"
+           name = {
+               ua = "Шулявська"
+               en = "Shulyavska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700dd"
+           name = {
+               ua = "Політехнічний Інститут"
+               en = "Polytechnical Institute"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700de"
+           name = {
+               ua = "Вокзальна"
+               en = "Vokzalna"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700df"
+           name = {
+               ua = "Університет"
+               en = "Universytet"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700e0"
+           name = {
+               ua = "Театральна"
+               en = "Teatralna"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700e1"
+           name = {
+               ua = "Хрещатик"
+               en = "Khreshatyk"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700e2"
+           name = {
+               ua = "Арсенальна"
+               en = "Arsenalna"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700e3"
+           name = {
+               ua = "Дніпро"
+               en = "Dnipro"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700e4"
+           name = {
+               ua = "Гідропарк"
+               en = "Hydropark"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700e5"
+           name = {
+               ua = "Лівобережна"
+               en = "Livoberezhna"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700e6"
+           name = {
+               ua = "Дарниця"
+               en = "Darnytsya"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700e7"
+           name = {
+               ua = "Чернігівська"
+               en = "Chernihivska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700e8"
+           name = {
+               ua = "Лісова"
+               en = "Lisova"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700e9"
+           name = {
+               ua = "Героїв Дніпра"
+               en = "Heroiv Dnipra"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700ea"
+           name = {
+               ua = "Мінська"
+               en = "Minska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700eb"
+           name = {
+               ua = "Оболонь"
+               en = "Obolon"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700ec"
+           name = {
+               ua = "Почайна"
+               en = "Pochayna"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700ed"
+           name = {
+               ua = "Тараса Шевченка"
+               en = "Tarasa Shevchenka"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700ee"
+           name = {
+               ua = "Контрактова Площа"
+               en = "Kontraktova square"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700ef"
+           name = {
+               ua = "Поштова Площа"
+               en = "Poshtova square"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700f0"
+           name = {
+               ua = "Майдан Незалежності"
+               en = "Maydan Nezalezhnosti"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700f1"
+           name = {
+               ua = "Площа Льва Толстого"
+               en = "Lva Tolstoho square"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700f2"
+           name = {
+               ua = "Олімпійська"
+               en = "Olimpiyska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700f3"
+           name = {
+               ua = "Палац Україна"
+               en = "Palats Ukraina"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700f4"
+           name = {
+               ua = "Либідська"
+               en = "Lybidska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700f5"
+           name = {
+               ua = "Деміївська"
+               en = "Demiyvska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700f6"
+           name = {
+               ua = "Голосіївська"
+               en = "Holosiivska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700f7"
+           name = {
+               ua = "Васильківська"
+               en = "Vasylkivska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700f8"
+           name = {
+               ua = "Виставковий Центр"
+               en = "Vystavkovyi Tsentr"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700f9"
+           name = {
+               ua = "Іподром"
+               en = "Ipodrom"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700fa"
+           name = {
+               ua = "Теремки"
+               en = "Teremky"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700fb"
+           name = {
+               ua = "Сирець"
+               en = "Syrets"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700fc"
+           name = {
+               ua = "Дорогожичі"
+               en = "Dorohozhychi"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700fd"
+           name = {
+               ua = "Лук'янівська"
+               en = "Lukyanivska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700fe"
+           name = {
+               ua = "Золоті Ворота"
+               en = "Zoloti vorota"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a6335386700ff"
+           name = {
+               ua = "Палац Спорту"
+               en = "Palats Sportu"
+           }
+       }   
+       { 
+           id = "5c2e1d0c867a633538670100"
+           name = {
+               ua = "Кловська"
+               en = "Klovska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a633538670101"
+           name = {
+               ua = "Печерська"
+               en = "Pecherska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a633538670102"
+           name = {
+               ua = "Дружби Народів"
+               en = "Druzhby narodiv"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a633538670103"
+           name = {
+               ua = "Видубичі"
+               en = "Vydubychi"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a633538670104"
+           name = {
+               ua = "Славутич"
+               en = "Slavutych"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a633538670105"
+           name = {
+               ua = "Осокорки"
+               en = "Osokorky"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a633538670106"
+           name = {
+               ua = "Позняки"
+               en = "Poznyaky"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a633538670107"
+           name = {
+               ua = "Харківська"
+               en = "Kharkivska"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a633538670108"
+           name = {
+               ua = "Вирлиця"
+               en = "Vyrlytsya"
+           }
+       }
+       { 
+           id = "5c2e1d0c867a633538670109"
+           name = {
+            ua = "Червоний Хутір"
+            en = "Chervoniy Khutir"
+           }
+       }
+    |]
+
 let seed = 
     DAL.seedStations stations
+    ElasticAdapter.seedStations elacticStations

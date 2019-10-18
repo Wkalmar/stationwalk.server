@@ -16,17 +16,16 @@ type Branch =
     | Blue
     | Green
 
-[<JsonFSharpConverter>]
-type Station = {
-    name: string
-    branch: Branch
-    location: Location
+type LocalizableString = {
+    en: string
+    ua: string
 }
 
-type DbStation = {
-    _id: BsonObjectId
+[<JsonFSharpConverter>]
+type Station = {
+    id: string
     name: string
-    branch: string
+    branch: Branch
     location: Location
 }
 
@@ -34,15 +33,7 @@ type DbStation = {
 type Route = {
     id: string
     name: string
-    stationStart: Station
-    stationEnd: Station
-    checkpoints: Location seq
-}
-
-type DbRoute = {
-    _id: BsonObjectId
-    name: string
-    stationStart: Station
-    stationEnd: Station
+    stationStartId: string 
+    stationEndId: string
     checkpoints: Location seq
 }

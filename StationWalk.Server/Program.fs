@@ -7,6 +7,7 @@ open Microsoft.Extensions.DependencyInjection
 open System
 open System.Text.Json
 open Microsoft.AspNetCore.Http
+open Domain
 
 let authEndpoint = "<your auth endpoint>"
 
@@ -31,12 +32,14 @@ let getStations =
     fun next httpContext ->
     task {
     let! stations = DAL.getAllStations() 
-    let result =
-        stations
-        |> Result.bind DomainMappers.dbStationsToStations    
-    match result with
-    | Ok s -> return! text (JsonSerializer.Serialize(s, serializerOptions)) next httpContext
-    | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
+    let elasticStations = ElasticAdapter.getAllStations
+    match stations, elasticStations with    
+    | Ok s, Ok e -> 
+        let result = DomainMappers.dbStationsToStations (s, e)        
+        match result with
+        | Ok s -> return! text (JsonSerializer.Serialize(s, serializerOptions)) next httpContext
+        | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
+    | _, _ -> return! ServerErrors.INTERNAL_ERROR "" next httpContext       
 }
 
 let fromJson<'a> (json : string) =
@@ -111,7 +114,7 @@ let configureServices (services : IServiceCollection) =
 
 [<EntryPoint>]
 let main argv = 
-    //SeedStations.seed
+    //SeedStations.seed |> ignore
     WebHostBuilder()
         .UseKestrel()
         .Configure(Action<IApplicationBuilder> configureApp)

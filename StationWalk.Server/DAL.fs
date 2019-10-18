@@ -7,8 +7,8 @@ let private connectionString = "<Your connection string>"
 let private client = new MongoClient(connectionString)
 let private db = client.GetDatabase("<your db>")
 
-let private routes = db.GetCollection<DbRoute> "Routes"
-let private stations = db.GetCollection<DbStation> "Stations"
+let private routes = db.GetCollection<MongoModels.Route> "Routes"
+let private stations = db.GetCollection<MongoModels.Station> "Stations"
 
 let getAllRoutes() = async { 
     try
@@ -52,11 +52,10 @@ let getAllStations() = async {
     | ex -> return Error ex.Message
 }
 
-let seedStations (seedStations : Station array) =
+let seedStations (seedStations : MongoModels.Station array) =
     let filter = FilterDefinition.Empty
     stations.DeleteMany(filter) |> ignore
-    seedStations
-        |> Array.map (DomainMappers.stationToDbStation)
+    seedStations        
         |> stations.InsertMany
         |> ignore
     (seedStations) |> ignore
