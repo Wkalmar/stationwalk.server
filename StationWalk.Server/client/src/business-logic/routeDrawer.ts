@@ -36,19 +36,15 @@ export class RouteDrawer {
         return StationsContainer.stations.sort((a,b) => {
             const distanceA = new Distance([a.location.lattitude, a.location.longitude], latLngPoint).euclidean();
             const distanceB = new Distance([b.location.lattitude, b.location.longitude], latLngPoint).euclidean();
-            if (distanceA < distanceB)
-                return -1;
-            if (distanceA > distanceB)
-                return 1;
-            return 0;
+            return distanceA - distanceB;
         })[0];
     }
 
     private transformStateToRoute = () : Route => {
         let route = new Route()
-        route.stationStart = this.startStation;
-        route.stationEnd = this.endStation;
-        route.checkpoints = this.points.slice(1, this.points.length - 1).map(p => {
+        route.stationStartId = this.startStation.id;
+        route.stationEndId = this.endStation.id;
+        route.checkpoints = this.points.map(p => {
             let location = new Location();
             location.lattitude = p[0];
             location.longitude = p[1];
