@@ -6,6 +6,9 @@ open Microsoft.Extensions.DependencyInjection
 open System
 open System.Text.Json
 
+let serializerOptions = JsonSerializerOptions()
+serializerOptions.IgnoreNullValues <- true
+
 let getRoutes = 
     fun next httpContext ->
     task {
@@ -15,7 +18,7 @@ let getRoutes =
         |> Result.bind DomainMappers.dbRoutesToRoutes  
     
     match result with
-    | Ok s -> return! text (JsonSerializer.Serialize(s)) next httpContext
+    | Ok s -> return! text (JsonSerializer.Serialize(s, serializerOptions)) next httpContext
     | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
 }
     
@@ -28,12 +31,12 @@ let getStations =
         stations
         |> Result.bind DomainMappers.dbStationsToStations    
     match result with
-    | Ok s -> return! text (JsonSerializer.Serialize(s)) next httpContext
+    | Ok s -> return! text (JsonSerializer.Serialize(s, serializerOptions)) next httpContext
     | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
 }
 
 let fromJson<'a> (json : string) =
-  JsonSerializer.Deserialize<'a>(json)
+  JsonSerializer.Deserialize<'a>(json, serializerOptions)
 
 let submitRoute = 
     fun next (httpContext : Microsoft.AspNetCore.Http.HttpContext) ->
