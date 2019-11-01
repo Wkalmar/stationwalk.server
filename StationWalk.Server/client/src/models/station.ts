@@ -6,6 +6,8 @@ export class Station {
     branch: Branch
 }
 
-export class Branch {
-    Case: string
+export enum Branch {
+    Red = "Red",
+    Blue = "Blue",
+    Green = "Green"
 }

@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
@@ -29,14 +29,17 @@
     <Content Include="Client\styles\navbar.css" />
     <Content Include="Client\styles\submitModal.css" />
     <Content Include="Client\tsconfig.json" />
+    <Content Include="packages.lock.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Client\karma.unit.js" />
     <None Include="Client\README.md" />
+    <None Include="Client\src\applicationContext.ts" />
     <None Include="Client\src\business-logic\routeDrawer.ts" />
     <None Include="Client\src\business-logic\routeToCheckpointsMapper.ts" />
     <None Include="Client\src\business-logic\stationsContainer.ts" />
     <None Include="Client\src\business-logic\stationToMarkerMapper.ts" />
+    <None Include="Client\src\controllersEngine.ts" />
     <None Include="Client\src\controllers\homeController.ts" />
     <None Include="Client\src\controllers\icontroller.ts" />
     <None Include="Client\src\controllers\submitController.ts" />
@@ -51,13 +54,14 @@
     <None Include="Client\webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Giraffe" Version="3.6.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.1" />
+    <PackageReference Include="FSharp.SystemTextJson" Version="0.6.2" />
+    <PackageReference Include="Giraffe" Version="4.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.2.0" />
     <PackageReference Include="MongoDB.Driver" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="MongoDB.Driver" Version="2.8.0" />
+    <PackageReference Update="MongoDB.Driver" Version="2.9.2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Client\dist\styles\" />
