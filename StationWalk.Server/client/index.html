@@ -9,21 +9,19 @@
           integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
           crossorigin="" />
     <link rel="stylesheet" href="styles/submitModal.css">
+    <link rel="stylesheet" href="styles/navbar.css">    
     <script defer src="bundle.js"></script>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li>
-                <a href="#" data-path="home">Watch routes</a>
-            </li>
-            <li>
-                <a href="#" data-path="submit">Submit my route</a>
-            </li>
-        </ul>
-    </nav>
-    <div id="mapid" style="height: 1000px;"></div>
-    <div id="controller-template-container"></div>
-
+    <header>
+        <nav class="fixed-top">
+            <a href="#" data-path="home">Watch routes</a>
+            <a href="#" data-path="submit">Submit my route</a>
+        </nav>
+    </header>
+    <main>        
+        <div id="mapid" style="height: 1000px;"></div>
+        <div id="controller-template-container"></div>  
+    </main> 
 </body>
 </html>
