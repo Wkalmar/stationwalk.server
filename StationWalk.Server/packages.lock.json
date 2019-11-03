@@ -7,7 +7,15 @@
         "requested": "[4.7.0, )",
         "resolved": "4.7.0",
         "contentHash": "6Bf2qzSCaJoP6tTfO+a5muUS7QbyJANqSut73zQvwQ9It5P0ITz9VKseeia2ofco30c55EQ0jA2wf2+A2gpGnw=="
-
+      },
+      "FSharp.Data": {
+        "type": "Direct",
+        "requested": "[3.3.2, )",
+        "resolved": "3.3.2",
+        "contentHash": "+jagOGlhAXR78o0V+bR5SxvvScxt6nAVGuoWcr1x9BxQsQvQks8wY860N9Kxt1qviGx87eW7OEIgVg+UHX88kQ==",
+        "dependencies": {
+          "FSharp.Core": "4.3.4"
+        }
       },
       "FSharp.SystemTextJson": {
         "type": "Direct",

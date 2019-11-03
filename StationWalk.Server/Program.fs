@@ -1,10 +1,13 @@
 ﻿open Giraffe
 open FSharp.Control.Tasks.V2.ContextInsensitive
+open FSharp.Data
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.DependencyInjection
 open System
 open System.Text.Json
+
+let authEndpoint = "<your auth endpoint>"
 
 let serializerOptions = JsonSerializerOptions()
 serializerOptions.IgnoreNullValues <- true
@@ -49,7 +52,16 @@ let submitRoute =
     | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
 }
 
-    
+let login = 
+    fun next (httpContext : Microsoft.AspNetCore.Http.HttpContext) ->
+    task {    
+    let! body = httpContext.ReadBodyFromRequestAsync()
+    let response = Http.Request(authEndpoint, httpMethod = "POST", body = TextRequest body)
+    match response.StatusCode, response.Body with
+    | 200, Text t -> return! text t next httpContext
+    | _, _ -> return! RequestErrors.FORBIDDEN "" next httpContext
+}
+
 let app : HttpHandler =
     choose [
         OPTIONS >=> Successful.OK ""
@@ -60,7 +72,8 @@ let app : HttpHandler =
         ]        
         POST >=> choose [
             route "/route" >=> submitRoute 
-        ]
+            route "/auth" >=> login
+        ] 
     ]
 
 let configureApp (appBuilder : IApplicationBuilder) =
