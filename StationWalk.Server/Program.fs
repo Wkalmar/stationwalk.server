@@ -6,6 +6,7 @@ open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.DependencyInjection
 open System
 open System.Text.Json
+open Microsoft.AspNetCore.Http
 
 let authEndpoint = "<your auth endpoint>"
 
@@ -42,7 +43,7 @@ let fromJson<'a> (json : string) =
   JsonSerializer.Deserialize<'a>(json, serializerOptions)
 
 let submitRoute = 
-    fun next (httpContext : Microsoft.AspNetCore.Http.HttpContext) ->
+    fun next (httpContext : HttpContext) ->
     task {    
     let! body = httpContext.ReadBodyFromRequestAsync()
     let route = fromJson<Route> body
@@ -53,7 +54,7 @@ let submitRoute =
 }
 
 let login = 
-    fun next (httpContext : Microsoft.AspNetCore.Http.HttpContext) ->
+    fun next (httpContext : HttpContext) ->
     task {    
     let! body = httpContext.ReadBodyFromRequestAsync()
     let response = Http.Request(authEndpoint, httpMethod = "POST", body = TextRequest body)
@@ -61,6 +62,25 @@ let login =
     | 200, Text t -> return! text t next httpContext
     | _, _ -> return! RequestErrors.FORBIDDEN "" next httpContext
 }
+
+let authorize (httpContext : HttpContext) =    
+    let authorizationHeader = httpContext.GetRequestHeader "Authorization"
+    let authorizationResult = 
+        authorizationHeader
+        |> Result.bind JwtValidator.validateToken
+    authorizationResult
+
+let deleteRoute (id: string) =
+    fun (next: HttpFunc) (httpContext : HttpContext) ->
+    let authorizeResult = 
+        authorize httpContext
+    match authorizeResult with
+        | Ok _ -> let result = DAL.deleteRoute id
+                  match result with
+                    | Ok _ -> text "" next httpContext
+                    | Error "ItemNotFound" -> RequestErrors.BAD_REQUEST "" next httpContext
+                    | Error _ -> ServerErrors.INTERNAL_ERROR "" next httpContext
+        | Error _ -> RequestErrors.FORBIDDEN "" next httpContext
 
 let app : HttpHandler =
     choose [
@@ -73,7 +93,10 @@ let app : HttpHandler =
         POST >=> choose [
             route "/route" >=> submitRoute 
             route "/auth" >=> login
-        ] 
+        ]
+        DELETE >=> choose [
+            routef "/route/%s" deleteRoute
+        ]
     ]
 
 let configureApp (appBuilder : IApplicationBuilder) =
