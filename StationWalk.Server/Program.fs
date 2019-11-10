@@ -72,15 +72,15 @@ let authorize (httpContext : HttpContext) =
 
 let deleteRoute (id: string) =
     fun (next: HttpFunc) (httpContext : HttpContext) ->
-    let authorizeResult = 
+    let result = 
         authorize httpContext
-    match authorizeResult with
-        | Ok _ -> let result = DAL.deleteRoute id
-                  match result with
-                    | Ok _ -> text "" next httpContext
-                    | Error "ItemNotFound" -> RequestErrors.BAD_REQUEST "" next httpContext
-                    | Error _ -> ServerErrors.INTERNAL_ERROR "" next httpContext
-        | Error _ -> RequestErrors.FORBIDDEN "" next httpContext
+        |> Result.bindArg DAL.deleteRoute id
+    match result with
+    | Ok _ -> text "" next httpContext
+    | Error "ItemNotFound" -> RequestErrors.BAD_REQUEST "" next httpContext
+    | Error "Forbidden" -> RequestErrors.FORBIDDEN "" next httpContext
+    | Error _ -> ServerErrors.INTERNAL_ERROR "" next httpContext
+        
 
 let app : HttpHandler =
     choose [

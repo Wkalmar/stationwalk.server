@@ -24,4 +24,4 @@ let validateToken (token: string) =
         |> ignore
         Result.Ok()
     with
-    | _ -> Result.Error ""
+    | _ -> Result.Error "Forbidden"
