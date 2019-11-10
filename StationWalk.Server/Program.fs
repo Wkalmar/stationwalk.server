@@ -1,10 +1,14 @@
 ﻿open Giraffe
 open FSharp.Control.Tasks.V2.ContextInsensitive
+open FSharp.Data
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.DependencyInjection
 open System
 open System.Text.Json
+open Microsoft.AspNetCore.Http
+
+let authEndpoint = "<your auth endpoint>"
 
 let serializerOptions = JsonSerializerOptions()
 serializerOptions.IgnoreNullValues <- true
@@ -39,7 +43,7 @@ let fromJson<'a> (json : string) =
   JsonSerializer.Deserialize<'a>(json, serializerOptions)
 
 let submitRoute = 
-    fun next (httpContext : Microsoft.AspNetCore.Http.HttpContext) ->
+    fun next (httpContext : HttpContext) ->
     task {    
     let! body = httpContext.ReadBodyFromRequestAsync()
     let route = fromJson<Route> body
@@ -49,7 +53,35 @@ let submitRoute =
     | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
 }
 
-    
+let login = 
+    fun next (httpContext : HttpContext) ->
+    task {    
+    let! body = httpContext.ReadBodyFromRequestAsync()
+    let response = Http.Request(authEndpoint, httpMethod = "POST", body = TextRequest body)
+    match response.StatusCode, response.Body with
+    | 200, Text t -> return! text t next httpContext
+    | _, _ -> return! RequestErrors.FORBIDDEN "" next httpContext
+}
+
+let authorize (httpContext : HttpContext) =    
+    let authorizationHeader = httpContext.GetRequestHeader "Authorization"
+    let authorizationResult = 
+        authorizationHeader
+        |> Result.bind JwtValidator.validateToken
+    authorizationResult
+
+let deleteRoute (id: string) =
+    fun (next: HttpFunc) (httpContext : HttpContext) ->
+    let result = 
+        authorize httpContext
+        |> Result.bindArg DAL.deleteRoute id
+    match result with
+    | Ok _ -> text "" next httpContext
+    | Error "ItemNotFound" -> RequestErrors.BAD_REQUEST "" next httpContext
+    | Error "Forbidden" -> RequestErrors.FORBIDDEN "" next httpContext
+    | Error _ -> ServerErrors.INTERNAL_ERROR "" next httpContext
+        
+
 let app : HttpHandler =
     choose [
         OPTIONS >=> Successful.OK ""
@@ -60,6 +92,10 @@ let app : HttpHandler =
         ]        
         POST >=> choose [
             route "/route" >=> submitRoute 
+            route "/auth" >=> login
+        ]
+        DELETE >=> choose [
+            routef "/route/%s" deleteRoute
         ]
     ]
 

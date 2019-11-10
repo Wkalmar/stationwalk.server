@@ -1,6 +1,7 @@
 ﻿module DAL
 
 open MongoDB.Driver
+open MongoDB.Bson
 
 let private connectionString = "<Your connection string>"
 let private client = new MongoClient(connectionString)
@@ -30,6 +31,15 @@ let submitRoute (route : Route) = async {
     with
     | ex -> return Error ex.Message 
 }
+
+let deleteRoute (id:string) = 
+    try
+        let result = routes.DeleteOne(fun i -> i._id = BsonObjectId(ObjectId(id)) )
+        if result.DeletedCount = int64(1) then
+            Ok()
+        else Error "ItemNotFound"
+    with
+    | ex -> Error ex.Message
 
 let getAllStations() = async {
     try
