@@ -8,7 +8,6 @@
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Result.fs" />
     <Compile Include="Domain.fs" />
     <Compile Include="DomainMappers.fs" />
     <Compile Include="DAL.fs" />

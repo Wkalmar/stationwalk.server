@@ -74,7 +74,7 @@ let deleteRoute (id: string) =
     fun (next: HttpFunc) (httpContext : HttpContext) ->
     let result = 
         authorize httpContext
-        |> Result.bindArg DAL.deleteRoute id
+        |> Result.bind (fun _ -> DAL.deleteRoute id)
     match result with
     | Ok _ -> text "" next httpContext
     | Error "ItemNotFound" -> RequestErrors.BAD_REQUEST "" next httpContext
