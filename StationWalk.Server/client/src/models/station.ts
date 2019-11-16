@@ -6,7 +6,7 @@ export class Station {
     branch: Branch
 }
 
-export enum Branch {
+export const enum Branch {
     Red = "Red",
     Blue = "Blue",
     Green = "Green"
