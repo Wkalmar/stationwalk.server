@@ -8,14 +8,18 @@
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Domain.fs" />
-    <Compile Include="MongoModels.fs" />
-    <Compile Include="ElasticModels.fs" />
-    <Compile Include="DomainMappers.fs" />
-    <Compile Include="DAL.fs" />
-    <Compile Include="ElasticAdapter.fs" />
-    <Compile Include="SeedStations.fs" />
-    <Compile Include="JwtValidator.fs" />
+    <Compile Include="Db\Domain.fs" />
+    <Compile Include="Db\ElasticModels.fs" />
+    <Compile Include="Db\MongoModels.fs" />
+    <Compile Include="Db\DomainMappers.fs" />
+    <Compile Include="Db\ElasticAdapter.fs" />
+    <Compile Include="Db\DAL.fs" />
+    <Compile Include="Db\SeedStations.fs" />
+    <Compile Include="Api\Common.fs" />
+    <Compile Include="Api\Auth\JwtValidator.fs" />
+    <Compile Include="Api\Auth\AuthApi.fs" />
+    <Compile Include="Api\Route\RouteApi.fs" />
+    <Compile Include="Api\Station\StationApi.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
