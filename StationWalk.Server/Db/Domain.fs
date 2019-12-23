@@ -1,8 +1,8 @@
 ﻿[<AutoOpen>]
 module Domain
 
-open MongoDB.Bson
 open System.Text.Json.Serialization
+open Nest
 
 [<JsonFSharpConverter>]
 type Location = {
@@ -17,7 +17,9 @@ type Branch =
     | Green
 
 type LocalizableString = {
+    [<SearchAsYouType>]
     en: string
+    [<SearchAsYouType>]
     ua: string
 }
 

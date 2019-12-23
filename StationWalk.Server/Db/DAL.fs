@@ -3,9 +3,9 @@
 open MongoDB.Driver
 open MongoDB.Bson
 
-let private connectionString = "<Your connection string>"
-let private client = new MongoClient(connectionString)
-let private db = client.GetDatabase("<your db>")
+let private connectionString = "mongodb+srv://KyivStationWalk:4JUaihKxxbGOxp9Q@kyivstationwalk-7vi2h.mongodb.net/test" 
+let private client = new MongoClient(connectionString) 
+let private db = client.GetDatabase("KyivStationWalk")
 
 let private routes = db.GetCollection<MongoModels.Route> "Routes"
 let private stations = db.GetCollection<MongoModels.Station> "Stations"

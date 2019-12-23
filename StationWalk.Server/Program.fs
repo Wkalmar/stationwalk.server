@@ -10,6 +10,7 @@ let app : HttpHandler =
         GET >=> choose [
             route "/routes" >=> RouteApi.getAll
             route "/stations" >=> StationApi.getAll
+            routef "/station/%s" StationApi.searchStation
             route "/" >=> htmlFile "client/dist/index.html"
         ]        
         POST >=> choose [

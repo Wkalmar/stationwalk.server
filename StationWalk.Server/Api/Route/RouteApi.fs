@@ -8,26 +8,26 @@ open Microsoft.AspNetCore.Http
 let getAll = 
     fun next httpContext ->
     task {
-    let! routes = DAL.getAllRoutes()
-    let result = 
-        routes
-        |> Result.bind DomainMappers.dbRoutesToRoutes  
+        let! routes = DAL.getAllRoutes()
+        let result = 
+            routes
+            |> Result.bind DomainMappers.dbRoutesToRoutes  
     
-    match result with
-    | Ok s -> return! text (JsonSerializer.Serialize(s, Common.serializerOptions)) next httpContext
-    | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
-}
+        match result with
+        | Ok s -> return! text (JsonSerializer.Serialize(s, Common.serializerOptions)) next httpContext
+        | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
+    }
 
 let submit = 
     fun next (httpContext : HttpContext) ->
     task {    
-    let! body = httpContext.ReadBodyFromRequestAsync()
-    let route = Common.fromJson<Route> body
-    let! result = DAL.submitRoute route
-    match result with
-    | Ok _ -> return! text "" next httpContext
-    | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
-}
+        let! body = httpContext.ReadBodyFromRequestAsync()
+        let route = Common.fromJson<Route> body
+        let! result = DAL.submitRoute route
+        match result with
+        | Ok _ -> return! text "" next httpContext
+        | Error f -> return! ServerErrors.INTERNAL_ERROR (f) next httpContext
+    }
 
 let delete (id: string) =
     fun (next: HttpFunc) (httpContext : HttpContext) ->
