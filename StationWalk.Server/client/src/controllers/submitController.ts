@@ -3,13 +3,19 @@ import { IController } from "./icontroller";
 import { RouteDrawer } from "../business-logic/routeDrawer";
 import { ControllersEngine } from '../controllersEngine';
 import { ApplicationContext } from '../applicationContext';
+import { Station } from '../models/station';
+import { Debounce } from '../utils/debounce';
 
 export class SubmitController implements IController {
     constructor() {}
 
     path = "submit";
 
-    private submitModalId : string = "submit-modal";
+    private startStationSelectorId: string = "station-start-select";
+    private startStationInputId: string = "station-start-input";
+    private startStationAutoCompleteContainerId: string = "station-start-autocomplete-container";
+
+    private submitModalId: string = "submit-modal";
     private submitModalFormId : string = "submit-modal-form";
     private routeNameInputId : string = "route-name";
     private submitButtonId : string = "route-submit-button";
@@ -19,9 +25,19 @@ export class SubmitController implements IController {
     private routeToSubmit : Route;
 
     private controllerTemplate : string =
-    `<div id="${this.submitModalId}" class="submit-modal">
+    `
+    <div id="${this.startStationSelectorId}" class="modal" style="display: block;">
+        <div class="modal-content">
+            <div>
+                <label for="${this.startStationInputId}">Start station</label>
+                <input type="text" id="${this.startStationInputId}" placeholder="Enter start station...">
+                <div id="${this.startStationAutoCompleteContainerId}"></div>
+            </div>
+        </div>
+    </div>
+    <div id="${this.submitModalId}" class="modal">
         <div id="${this.submitModalFormId}">
-            <div class="submit-modal-content">
+            <div class="modal-content">
                 <div>
                     <label for="${this.routeNameInputId}">Name</label>
                     <input type="text" id="${this.routeNameInputId}" placeholder="Enter route name...">
@@ -29,7 +45,7 @@ export class SubmitController implements IController {
                 <button id="${this.submitButtonId}">Submit</button>
             </div>
         </div>
-        <div id="${this.submitSuccessNotificationContainerId}" style="display: none;">
+        <div id="${this.submitSuccessNotificationContainerId}" class="modal-content" style="display: none;">
             Your route submitted successfully
             <button id="${this.gotoHomeButtonId}">Go to home page</button>
         </div>
@@ -64,13 +80,13 @@ export class SubmitController implements IController {
     private addHypotheticalPoint = (e: L.LeafletEvent) => {
         const mouseEvent = e as L.LeafletMouseEvent;
         const routeDrawer = RouteDrawer.drawer;
-        routeDrawer.addHypotheticalPoint(mouseEvent.latlng);
+        routeDrawer.addHypotheticalPoint(mouseEvent.latlng.lat, mouseEvent.latlng.lng);
     }
 
     private addPoint = (e: L.LeafletEvent) => {
         const mouseEvent = e as L.LeafletMouseEvent;
         const routeDrawer = RouteDrawer.drawer;
-        routeDrawer.addPoint(mouseEvent.latlng);
+        routeDrawer.addPoint(mouseEvent.latlng.lat, mouseEvent.latlng.lng);
     }
 
     private addMapEventListeners() {
@@ -78,11 +94,89 @@ export class SubmitController implements IController {
         ApplicationContext.map.addEventListener('click', this.addPoint);
     }
 
+    private addStationStartFormEventListeners() {
+        const startStationInput = document.getElementById(this.startStationInputId);
+        if (!startStationInput)
+            throw new Error("Invalid markup. Missing start station input");
+        startStationInput.addEventListener('keyup', Debounce.do(this.searchStation, 500, this));
+    }
+
+    private setStartStation = (e: MouseEvent) => {
+        const emitter = e.target as HTMLElement;
+        if (emitter == null) {
+            throw new Error("Invalid markup. Missing start station input");
+        }
+        let lat = Number(emitter.getAttribute("data-lat"));
+        let lng = Number(emitter.getAttribute("data-lng"));
+        const routeDrawer = RouteDrawer.drawer;
+        routeDrawer.addPoint(lat, lng);
+
+        let autoCompleteContainer = document.getElementById(this.startStationAutoCompleteContainerId);
+        if (!autoCompleteContainer) {
+            throw new Error("Invalid markup. Missing start station autocomplete container");
+        }
+
+        autoCompleteContainer.innerHTML = '';
+
+        let modal = document.getElementById(this.startStationSelectorId);
+        if (!modal) {
+            throw new Error("Invalid markup. Missing start station modal");
+        }
+        modal.style.display = 'none';
+    }
+
+    private displayStartStationAutoComplete = (stations: Station[]) => {
+        let autoCompleteContainer = document.getElementById(this.startStationAutoCompleteContainerId);
+        if (!autoCompleteContainer) {
+            throw new Error("Invalid markup. Missing start station autocomplete container");
+        }
+
+        autoCompleteContainer.innerHTML = '';
+
+        let ul = document.createElement("ul");
+        stations.map(s => {
+            let li = document.createElement("li");
+            li.textContent = s.name;
+
+            const latAttribute = document.createAttribute("data-lat");
+            latAttribute.value = s.location.lattitude.toString();
+            li.attributes.setNamedItem(latAttribute);
+
+            const lngAttribute = document.createAttribute("data-lng");
+            lngAttribute.value = s.location.longitude.toString();
+            li.attributes.setNamedItem(lngAttribute);
+
+            li.addEventListener('click', this.setStartStation);
+            ul.appendChild(li);
+        });
+
+        autoCompleteContainer.appendChild(ul);
+    }
+
+    private searchStation = (e: KeyboardEvent) => {
+        var target = e.target as HTMLTextAreaElement;
+        if (!target)
+            throw new Error("Invalid markup. Missing start station input");
+        fetch(`http://localhost:5000/station/${target.value}`)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();                        
+                } else {
+                    throw new Error();
+                }
+            })
+            .then(this.displayStartStationAutoComplete)
+            .catch((error) => {
+                console.error(error)
+            });
+    }
+
     go(): void {
         this.addControllerTemplate();
         this.addMapEventListeners();
         this.addDrawingSubmittedEventListener();
         this.addSubmitFormEventListeners();
+        this.addStationStartFormEventListeners();
     }
     private addControllerTemplate() {
         let controllerTemplateContainer = document.getElementById('controller-template-container');

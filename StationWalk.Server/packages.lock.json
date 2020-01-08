@@ -72,6 +72,15 @@
           "System.Linq.Queryable": "4.0.1"
         }
       },
+      "NEST": {
+        "type": "Direct",
+        "requested": "[7.3.1, )",
+        "resolved": "7.3.1",
+        "contentHash": "eD7xaqPQOtces3V2T4SW68DLdYdQzJafee6SlX6vwDjPzy/Xba08NswM8UEPsLE9+xORukb784DCRHBQFBIjDQ==",
+        "dependencies": {
+          "Elasticsearch.Net": "[7.3.1, 8.0.0)"
+        }
+      },
       "System.IdentityModel.Tokens.Jwt": {
         "type": "Direct",
         "requested": "[5.6.0, )",
@@ -89,6 +98,17 @@
         "contentHash": "P34wUkeqU4FoQiOMV8OjpdeDZKs4d3r+VlHuKJ6eO5feiZgna3+9MF5orHRUn3DAv1g/HPE5hlkGucmxmsFfBw==",
         "dependencies": {
           "System.Buffers": "4.4.0"
+        }
+      },
+      "Elasticsearch.Net": {
+        "type": "Transitive",
+        "resolved": "7.3.1",
+        "contentHash": "v+ljImBPnO3WwZ1Ci1psnurpUDra1wi3j1FGpTmFcqltuSpmysQfgLGlTzf6G1tvgOg5CmC+zIV3OTAdi2x7ig==",
+        "dependencies": {
+          "System.Buffers": "4.5.0",
+          "System.Diagnostics.DiagnosticSource": "4.5.1",
+          "System.Reflection.Emit": "4.3.0",
+          "System.Reflection.Emit.Lightweight": "4.3.0"
         }
       },
       "Microsoft.AspNetCore.Antiforgery": {
@@ -1225,8 +1245,8 @@
       },
       "System.Diagnostics.DiagnosticSource": {
         "type": "Transitive",
-        "resolved": "4.5.0",
-        "contentHash": "eIHRELiYDQvsMToML81QFkXEEYXUSUT2F28t1SGrevWqP+epFdw80SyAXIKTXOHrIEXReFOEnEr7XlGiC2GgOg=="
+        "resolved": "4.5.1",
+        "contentHash": "zCno/m44ymWhgLFh7tELDG9587q0l/EynPM0m4KgLaWQbz/TEKvNRX2YT5ip2qXW/uayifQ2ZqbnErsKJ4lYrQ=="
       },
       "System.Diagnostics.FileVersionInfo": {
         "type": "Transitive",

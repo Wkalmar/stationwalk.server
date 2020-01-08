@@ -5,7 +5,7 @@ open System.Text
 open System.IdentityModel.Tokens.Jwt
 open System
 
-let key = "1ihoqVGfTld2hza4eOtF"
+let key = "<salt>"
 
 let createValidationParameters =
     let validationParameters = TokenValidationParameters()

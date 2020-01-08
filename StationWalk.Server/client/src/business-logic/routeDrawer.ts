@@ -14,14 +14,15 @@ export class RouteDrawer {
     private isDrawingInProgress : boolean = false;
     private points: [number, number][] = [];
     private hypotheticalRoute: L.Polyline = L.polyline([]);
-    private initDrawingIfNeeded = (map : L.Map, point: [number, number]) => {
+
+    private initDrawingIfNeeded = (map: L.Map, point: [number, number]) => {
         if (!this.isDrawingInProgress) {
             this.isDrawingInProgress = true;
             map.setView(point, 15);
         }
     }
-    private mapLatLngToExpression = (point : L.LatLng) : [number, number] => {
-        return [point.lat, point.lng];
+    private mapLatLngToExpression = (lat: number, lng: number) : [number, number] => {
+        return [lat, lng];
     }
 
     private submitDrawingIfNeeded = (point : [number, number]) => {
@@ -36,19 +37,15 @@ export class RouteDrawer {
         return StationsContainer.stations.sort((a,b) => {
             const distanceA = new Distance([a.location.lattitude, a.location.longitude], latLngPoint).euclidean();
             const distanceB = new Distance([b.location.lattitude, b.location.longitude], latLngPoint).euclidean();
-            if (distanceA < distanceB)
-                return -1;
-            if (distanceA > distanceB)
-                return 1;
-            return 0;
+            return distanceA - distanceB;
         })[0];
     }
 
     private transformStateToRoute = () : Route => {
         let route = new Route()
-        route.stationStart = this.startStation;
-        route.stationEnd = this.endStation;
-        route.checkpoints = this.points.slice(1, this.points.length - 1).map(p => {
+        route.stationStartId = this.startStation.id;
+        route.stationEndId = this.endStation.id;
+        route.checkpoints = this.points.map(p => {
             let location = new Location();
             location.lattitude = p[0];
             location.longitude = p[1];
@@ -61,31 +58,31 @@ export class RouteDrawer {
         if (this.isDrawingInProgress) {
             if (this.points.length === 0) {
                 this.startStation = this.getClosestStation(latLngPoint);
-                latLngPoint = [this.startStation.location.lattitude, this.startStation.location.longitude];
             }
-        } else {
-            this.endStation = this.getClosestStation(latLngPoint);
-            latLngPoint = [this.endStation.location.lattitude, this.endStation.location.longitude];
-            document.dispatchEvent(new CustomEvent('drawingSubmitted', {
-                detail: this.transformStateToRoute()
-            }));
+            this.points.push(latLngPoint);
+            L.polyline(this.points).addTo(map);
+            return;
         }
-        this.points.push(latLngPoint);
-        L.polyline(this.points).addTo(map);
+        this.endStation = this.getClosestStation(latLngPoint);
+        latLngPoint = [this.endStation.location.lattitude, this.endStation.location.longitude];
+        document.dispatchEvent(new CustomEvent('drawingSubmitted', {
+            detail: this.transformStateToRoute()
+        }));
+        this.points = [];
     }
 
-    addPoint = (point : L.LatLng) => {
-        let latLngPoint = this.mapLatLngToExpression(point);
+    addPoint = (lat: number, lng: number) => {
+        let latLngPoint = this.mapLatLngToExpression(lat, lng);
         this.initDrawingIfNeeded(ApplicationContext.map, latLngPoint);
         this.submitDrawingIfNeeded(latLngPoint);
         this.drawPointIfNeeded(ApplicationContext.map, latLngPoint);
         this.hypotheticalRoute.removeFrom(ApplicationContext.map);
     }
 
-    addHypotheticalPoint = (point : L.LatLng) => {
+    addHypotheticalPoint = (lat: number, lng: number) => {
         if (this.isDrawingInProgress) {
             let head = this.points[this.points.length - 1];
-            let tail = this.mapLatLngToExpression(point);
+            let tail = this.mapLatLngToExpression(lat, lng);
             this.hypotheticalRoute.removeFrom(ApplicationContext.map);
             this.hypotheticalRoute = L.polyline([head, tail], {color: 'red'});
             this.hypotheticalRoute.addTo(ApplicationContext.map);
