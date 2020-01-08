@@ -21,8 +21,8 @@ let private dbStationToStation (dbStation : MongoModels.Station) (elasticStation
     station
 
 let dbStationsToStations (dbStations, elasticStations : ElasticModels.Station seq) = 
-    dbStations     
-    |> Array.map(fun i -> dbStationToStation i (Seq.find(fun j -> j.id = i._id.ToString()) elasticStations))
+    elasticStations     
+    |> Seq.map(fun i -> dbStationToStation (Array.find(fun j -> j._id.ToString() = i.id) dbStations) i )
     |> Ok    
 
 let private dbRouteToRoute (dbRoute : MongoModels.Route) : Route =

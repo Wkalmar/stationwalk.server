@@ -35,7 +35,7 @@
     <Content Include="Client\package-lock.json" />
     <Content Include="Client\package.json" />
     <Content Include="Client\styles\navbar.css" />
-    <Content Include="Client\styles\submitModal.css" />
+    <Content Include="Client\styles\modal.css" />
     <Content Include="Client\tsconfig.json" />
     <Content Include="packages.lock.json" />
   </ItemGroup>
@@ -55,6 +55,7 @@
     <None Include="Client\src\models\location.ts" />
     <None Include="Client\src\models\route.ts" />
     <None Include="Client\src\models\station.ts" />
+    <None Include="Client\src\utils\debounce.ts" />
     <None Include="Client\src\utils\distance.ts" />
     <None Include="Client\test\routeDrawer.spec.ts" />
     <None Include="Client\test\routeToCheckPointsMapper.spec.ts" />
