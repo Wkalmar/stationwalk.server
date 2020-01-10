@@ -1,8 +1,6 @@
 ﻿module DomainMappers
 
-open MongoDB.Bson
-open System.Collections.Generic
-
+open System
 
 let private branchFromString s =
     match s with
@@ -11,45 +9,53 @@ let private branchFromString s =
     | "Green" -> Green
     | _ -> failwith "Failed to parse branch value from string"
 
-let private dbStationToStation (dbStation : MongoModels.Station) (elasticStation : ElasticModels.Station) : Station = 
+let private dbStationToStation (elasticStation : ElasticModels.Station) : Station = 
     let station = {
-        id = dbStation._id.ToString()
+        id = elasticStation.id.ToString()
         name = elasticStation.name.ua
-        branch = branchFromString dbStation.branch
-        location = dbStation.location
+        branch = branchFromString elasticStation.branch
+        location = {
+            lattitude = elasticStation.location.lat
+            longitude = elasticStation.location.lon
+        }
     }
     station
 
-let dbStationsToStations (dbStations, elasticStations : ElasticModels.Station seq) = 
-    elasticStations     
-    |> Seq.map(fun i -> dbStationToStation (Array.find(fun j -> j._id.ToString() = i.id) dbStations) i )
-    |> Ok    
+let dbStationsToStations elasticStations = 
+    Seq.map (fun i -> dbStationToStation i) elasticStations   
+    |> Array.ofSeq
 
-let private dbRouteToRoute (dbRoute : MongoModels.Route) : Route =
+let private dbRouteToRoute (dbRoute : ElasticModels.Route) : Route =
     let route = {
-        id = dbRoute._id.ToString();
+        id = dbRoute.id;
         name = dbRoute.name.ua;
         stationStartId =  dbRoute.stationStartId.ToString();
         stationEndId = dbRoute.stationEndId.ToString();
-        checkpoints = dbRoute.checkpoints
+        checkpoints = Seq.map (fun (i : ElasticModels.Location) -> {
+            lattitude = i.lat
+            longitude = i.lon
+        }) dbRoute.checkpoints
     }
     route
 
 let dbRoutesToRoutes dbRoutes = 
     dbRoutes
-    |> Array.map (fun i -> dbRouteToRoute i)
-    |> Ok
+    |> Seq.map (fun i -> dbRouteToRoute i)
+    |> Array.ofSeq
     
-let routeToDbRoute (route : Route) : MongoModels.Route =
-    let dbRoute : MongoModels.Route = {
-        _id = BsonObjectId(ObjectId.GenerateNewId())
+let routeToDbRoute (route : Route) : ElasticModels.Route =
+    let dbRoute : ElasticModels.Route = {
+        id = Guid.NewGuid().ToString("N")
         name = {
             ua = route.name
             en = route.name
         }
-        stationStartId = BsonObjectId(ObjectId(route.stationStartId)) 
-        stationEndId = BsonObjectId(ObjectId(route.stationEndId)) 
-        checkpoints = route.checkpoints
+        stationStartId = route.stationStartId 
+        stationEndId = route.stationEndId 
+        checkpoints = Seq.map (fun (i : Location) -> {
+            lat = i.lattitude
+            lon = i.longitude
+        }) route.checkpoints
     }
     dbRoute
 

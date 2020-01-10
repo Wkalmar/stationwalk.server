@@ -3,18 +3,18 @@
 open Nest
 open System
 
-let createClient =
+let createClient indexName =
     let settings = new ConnectionSettings(Uri("http://localhost:9200"))
-    settings.DefaultIndex("stations") |> ignore
+    settings.DefaultIndex(indexName) |> ignore
     ElasticClient(settings)
    
 let seedStations (seedStations : ElasticModels.Station array) =
-    let client = createClient
+    let client = createClient "stations"
     client.IndexMany(seedStations)
 
 let getAllStations = 
     try
-        let client = createClient
+        let client = createClient "stations"
         let response = client
                         .Search<ElasticModels.Station>
                             (fun (s: SearchDescriptor<ElasticModels.Station>) 
@@ -28,7 +28,7 @@ let getAllStations =
 
 let searchStation queryString =
     try
-        let client = createClient
+        let client = createClient "stations"
         let response = client                        
                         .Search<ElasticModels.Station>
                             (fun (s: SearchDescriptor<ElasticModels.Station>) 
@@ -51,3 +51,38 @@ let searchStation queryString =
         |> Seq.cast<ElasticModels.Station>
         |> Ok
     with ex -> Error ex.Message
+
+let getAllRoutes = 
+    try
+        let client = createClient "routes"
+        let response = client
+                        .Search<ElasticModels.Route>
+                            (fun (s: SearchDescriptor<ElasticModels.Route>) 
+                                    -> s.From(Nullable(0))
+                                        .Size(Nullable(1000))
+                                        .MatchAll() :> ISearchRequest)
+        response.Documents
+        |> Seq.cast<ElasticModels.Route>
+        |> Ok
+    with ex -> Error ex.Message
+
+let submitRoute (route : ElasticModels.Route) =
+    try
+        let client = createClient "routes"
+        let req = IndexRequest()
+        req.Document <- route
+        let response = client.Index(req)
+        match response.Result with
+        | Result.Error -> Error response.ServerError.Error.StackTrace 
+        | _ -> Ok()
+    with ex -> Error ex.Message    
+
+let deleteRoute (id : string) =
+    try
+        let client = createClient "routes"
+        let req = DeleteRequest(IndexName.From("routes"), Id(id))
+        let response = client.Delete(req)
+        match response.Result with
+        | Result.Error -> Error response.ServerError.Error.StackTrace 
+        | _ -> Ok()
+    with ex -> Error ex.Message    

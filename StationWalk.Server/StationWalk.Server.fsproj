@@ -10,10 +10,8 @@
   <ItemGroup>
     <Compile Include="Db\Domain.fs" />
     <Compile Include="Db\ElasticModels.fs" />
-    <Compile Include="Db\MongoModels.fs" />
     <Compile Include="Db\DomainMappers.fs" />
     <Compile Include="Db\ElasticAdapter.fs" />
-    <Compile Include="Db\DAL.fs" />
     <Compile Include="Db\SeedStations.fs" />
     <Compile Include="Api\Common.fs" />
     <Compile Include="Api\Auth\JwtValidator.fs" />
