@@ -51,7 +51,7 @@ export class SubmitController implements IController {
         </div>
     </div>`
 
-    private addSubmitFormEventListeners() {
+    private addSubmitFormEventListeners = () => {
         let submitButton = document.getElementById(this.submitButtonId);
         if (submitButton != null)
             submitButton.addEventListener('click', this.submit);
@@ -73,7 +73,7 @@ export class SubmitController implements IController {
         ControllersEngine.go('home');
     }
 
-    private addDrawingSubmittedEventListener() {
+    private addDrawingSubmittedEventListener = () => {
         document.addEventListener('drawingSubmitted', this.showSubmitModal);
     }
 
@@ -89,12 +89,12 @@ export class SubmitController implements IController {
         routeDrawer.addPoint(mouseEvent.latlng.lat, mouseEvent.latlng.lng);
     }
 
-    private addMapEventListeners() {
+    private addMapEventListeners = () => {
         ApplicationContext.map.addEventListener('mousemove', this.addHypotheticalPoint);
         ApplicationContext.map.addEventListener('click', this.addPoint);
     }
 
-    private addStationStartFormEventListeners() {
+    private addStationStartFormEventListeners = () => {
         const startStationInput = document.getElementById(this.startStationInputId);
         if (!startStationInput)
             throw new Error("Invalid markup. Missing start station input");
@@ -171,14 +171,14 @@ export class SubmitController implements IController {
             });
     }
 
-    go(): void {
+    go = () => {
         this.addControllerTemplate();
         this.addMapEventListeners();
         this.addDrawingSubmittedEventListener();
         this.addSubmitFormEventListeners();
         this.addStationStartFormEventListeners();
     }
-    private addControllerTemplate() {
+    private addControllerTemplate = () => {
         let controllerTemplateContainer = document.getElementById('controller-template-container');
         if (controllerTemplateContainer == null) {
             throw new Error('Invalid html. Page should contain element with id controller-template-container');
@@ -187,7 +187,7 @@ export class SubmitController implements IController {
         container.insertAdjacentHTML('beforebegin', this.controllerTemplate);
     }
 
-    private removeControllerTemplate() {
+    private removeControllerTemplate = () => {
         let controllerTemplateContainer = document.getElementById(this.submitModalId);
         if (controllerTemplateContainer != null) {
             var container = controllerTemplateContainer as HTMLElement;
@@ -195,7 +195,7 @@ export class SubmitController implements IController {
         }
     }
 
-    private removeSubmitFormEventListeners() {
+    private removeSubmitFormEventListeners = () => {
         let submitButton = document.getElementById(this.submitButtonId);
         if (submitButton != null)
             submitButton.removeEventListener('click', this.submit);
@@ -205,16 +205,16 @@ export class SubmitController implements IController {
             goToHomeButton.addEventListener('click', this.goToHome);
     }
 
-    private removeMapEventListeners() {
+    private removeMapEventListeners = () => {
         ApplicationContext.map.removeEventListener('mousemove', this.addHypotheticalPoint);
         ApplicationContext.map.removeEventListener('click', this.addPoint);
     }
 
-    private removeDrawingSubmittedeventListener() {
+    private removeDrawingSubmittedeventListener = () => {
         document.removeEventListener('click', this.showSubmitModal);
     }
 
-    clear(): void {
+    clear = () => {
         this.removeMapEventListeners();
         this.removeSubmitFormEventListeners();
         this.removeDrawingSubmittedeventListener();

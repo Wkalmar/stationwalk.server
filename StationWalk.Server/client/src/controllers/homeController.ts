@@ -19,7 +19,7 @@ import { ApplicationContext } from '../applicationContext';
             })
         }
 
-        go(): void {
+        go = () => {
             fetch('http://localhost:5000/routes')
             .then((response) => {
                 if (response.ok) {
@@ -35,7 +35,7 @@ import { ApplicationContext } from '../applicationContext';
             });
         }
 
-        clear(): void {
+        clear = () => {
             this.checkPointsCollection.map(p => p.removeFrom(ApplicationContext.map));
             this.checkPointsCollection = [];
         }
