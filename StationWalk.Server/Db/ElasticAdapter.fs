@@ -6,7 +6,7 @@ open System
 let createClient indexName =
     let settings = new ConnectionSettings(Uri("http://localhost:9200"))
     settings.DefaultIndex(indexName) |> ignore
-    ElasticClient(settings)
+    new ElasticClient(settings)
    
 let seedStations (seedStations : ElasticModels.Station array) =
     let client = createClient "stations"

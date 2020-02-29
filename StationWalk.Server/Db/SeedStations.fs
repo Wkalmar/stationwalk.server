@@ -670,4 +670,4 @@ let elacticStations : ElasticModels.Station array =
     |]
 
 let seed = 
-    ElasticAdapter.seedStations elacticStations
+    ElasticAdapter.seedStations elacticStations    
