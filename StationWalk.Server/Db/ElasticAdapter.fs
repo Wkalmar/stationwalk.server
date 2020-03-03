@@ -10,79 +10,72 @@ let createClient indexName =
    
 let seedStations (seedStations : ElasticModels.Station array) =
     let client = createClient "stations"
-    client.IndexMany(seedStations)
+    let response = client.IndexMany(seedStations)
+    if response.OriginalException <> null then
+        raise response.OriginalException
 
 let getAllStations = 
-    try
-        let client = createClient "stations"
-        let response = client
-                        .Search<ElasticModels.Station>
-                            (fun (s: SearchDescriptor<ElasticModels.Station>) 
-                                    -> s.From(Nullable(0))
-                                        .Size(Nullable(100))
-                                        .MatchAll() :> ISearchRequest)
-        response.Documents
-        |> Seq.cast<ElasticModels.Station>
-        |> Ok
-    with ex -> Error ex.Message
+    let client = createClient "stations"
+    let response = client
+                    .Search<ElasticModels.Station>
+                        (fun (s: SearchDescriptor<ElasticModels.Station>) 
+                                -> s.From(Nullable(0))
+                                    .Size(Nullable(100))
+                                    .MatchAll() :> ISearchRequest)
+    if response.OriginalException <> null then
+        raise response.OriginalException
+    response.Documents
+    |> Seq.cast<ElasticModels.Station>    
 
 let searchStation queryString =
-    try
-        let client = createClient "stations"
-        let response = client                        
-                        .Search<ElasticModels.Station>
-                            (fun (s: SearchDescriptor<ElasticModels.Station>) 
-                                    -> s.From(Nullable(0))
-                                        .Size(Nullable(3))                                        
-                                        .Query(fun q -> 
-                                            q.MultiMatch(fun mm -> 
-                                                mm.Query(queryString)
-                                                    .Type(Nullable(TextQueryType.BoolPrefix))
-                                                    .Fields(fun f -> 
-                                                        f.Field(fun ff -> ff.name.en)
-                                                            .Field(fun ff -> ff.name.en.Suffix("_2gram"))
-                                                            .Field(fun ff -> ff.name.en.Suffix("_3gram"))
-                                                            .Field(fun ff -> ff.name.ua)
-                                                            .Field(fun ff -> ff.name.ua.Suffix("_2gram"))                                                            
-                                                            .Field(fun ff -> ff.name.ua.Suffix("_3gram")) :> IPromise<Fields>) 
-                                                :> IMultiMatchQuery))                                      
-                                        :> ISearchRequest)
-        response.Documents
-        |> Seq.cast<ElasticModels.Station>
-        |> Ok
-    with ex -> Error ex.Message
+    let client = createClient "stations"
+    let response = client
+                    .Search<ElasticModels.Station>
+                        (fun (s: SearchDescriptor<ElasticModels.Station>) 
+                                -> s.From(Nullable(0))
+                                    .Size(Nullable(3))
+                                    .Query(fun q -> 
+                                        q.MultiMatch(fun mm -> 
+                                            mm.Query(queryString)
+                                                .Type(Nullable(TextQueryType.BoolPrefix))
+                                                .Fields(fun f -> 
+                                                    f.Field(fun ff -> ff.name.en)
+                                                        .Field(fun ff -> ff.name.en.Suffix("_2gram"))
+                                                        .Field(fun ff -> ff.name.en.Suffix("_3gram"))
+                                                        .Field(fun ff -> ff.name.ua)
+                                                        .Field(fun ff -> ff.name.ua.Suffix("_2gram"))
+                                                        .Field(fun ff -> ff.name.ua.Suffix("_3gram")) :> IPromise<Fields>) 
+                                            :> IMultiMatchQuery))
+                                    :> ISearchRequest)
+    if response.OriginalException <> null then
+        raise response.OriginalException
+    response.Documents
+    |> Seq.cast<ElasticModels.Station>
 
 let getAllRoutes = 
-    try
-        let client = createClient "routes"
-        let response = client
-                        .Search<ElasticModels.Route>
-                            (fun (s: SearchDescriptor<ElasticModels.Route>) 
-                                    -> s.From(Nullable(0))
-                                        .Size(Nullable(1000))
-                                        .MatchAll() :> ISearchRequest)
-        response.Documents
-        |> Seq.cast<ElasticModels.Route>
-        |> Ok
-    with ex -> Error ex.Message
+    let client = createClient "routes"
+    let response = client
+                    .Search<ElasticModels.Route>
+                        (fun (s: SearchDescriptor<ElasticModels.Route>) 
+                                -> s.From(Nullable(0))
+                                    .Size(Nullable(1000))
+                                    .MatchAll() :> ISearchRequest)
+    if response.OriginalException <> null then
+        raise response.OriginalException
+    response.Documents
+    |> Seq.cast<ElasticModels.Route>
 
 let submitRoute (route : ElasticModels.Route) =
-    try
-        let client = createClient "routes"
-        let req = IndexRequest()
-        req.Document <- route
-        let response = client.Index(req)
-        match response.Result with
-        | Result.Error -> Error response.ServerError.Error.StackTrace 
-        | _ -> Ok()
-    with ex -> Error ex.Message    
+    let client = createClient "routes"
+    let req = IndexRequest()
+    req.Document <- route
+    let response = client.Index(req)
+    if response.OriginalException <> null then
+        raise response.OriginalException
 
 let deleteRoute (id : string) =
-    try
-        let client = createClient "routes"
-        let req = DeleteRequest(IndexName.From("routes"), Id(id))
-        let response = client.Delete(req)
-        match response.Result with
-        | Result.Error -> Error response.ServerError.Error.StackTrace 
-        | _ -> Ok()
-    with ex -> Error ex.Message    
+    let client = createClient "routes"
+    let req = DeleteRequest(IndexName.From("routes"), Id(id))
+    let response = client.Delete(req)
+    if response.OriginalException <> null then
+        raise response.OriginalException

@@ -22,6 +22,6 @@ let validateToken (token: string) =
         let mutable resToken : SecurityToken = null  
         tokenHandler.ValidateToken(token, validationParameters, &resToken)
         |> ignore
-        Result.Ok()
+        Ok()
     with
-    | _ -> Result.Error "Forbidden"
+    | _ -> Error "Forbidden"
