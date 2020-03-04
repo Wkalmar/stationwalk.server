@@ -35,10 +35,13 @@ let configureServices (services : IServiceCollection) =
 [<EntryPoint>]
 let main argv = 
     //SeedStations.seed |> ignore
-    WebHostBuilder()
-        .UseKestrel()
-        .Configure(Action<IApplicationBuilder> configureApp)
-        .ConfigureServices(configureServices)
-        .Build()
-        .Run()
+    try
+        WebHostBuilder()
+            .UseKestrel()
+            .Configure(Action<IApplicationBuilder> configureApp)
+            .ConfigureServices(configureServices)
+            .Build()
+            .Run()
+    with 
+    | e -> Log.Error(e)
     0

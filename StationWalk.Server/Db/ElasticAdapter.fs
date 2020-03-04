@@ -12,7 +12,7 @@ let seedStations (seedStations : ElasticModels.Station array) =
     let client = createClient "stations"
     let response = client.IndexMany(seedStations)
     if response.OriginalException <> null then
-        raise response.OriginalException
+        Log.Error response.OriginalException
 
 let getAllStations = 
     let client = createClient "stations"
@@ -23,7 +23,7 @@ let getAllStations =
                                     .Size(Nullable(100))
                                     .MatchAll() :> ISearchRequest)
     if response.OriginalException <> null then
-        raise response.OriginalException
+        Log.Error response.OriginalException
     response.Documents
     |> Seq.cast<ElasticModels.Station>    
 
@@ -48,7 +48,7 @@ let searchStation queryString =
                                             :> IMultiMatchQuery))
                                     :> ISearchRequest)
     if response.OriginalException <> null then
-        raise response.OriginalException
+        Log.Error response.OriginalException
     response.Documents
     |> Seq.cast<ElasticModels.Station>
 
@@ -61,7 +61,7 @@ let getAllRoutes =
                                     .Size(Nullable(1000))
                                     .MatchAll() :> ISearchRequest)
     if response.OriginalException <> null then
-        raise response.OriginalException
+        Log.Error response.OriginalException
     response.Documents
     |> Seq.cast<ElasticModels.Route>
 
@@ -71,11 +71,11 @@ let submitRoute (route : ElasticModels.Route) =
     req.Document <- route
     let response = client.Index(req)
     if response.OriginalException <> null then
-        raise response.OriginalException
+        Log.Error response.OriginalException
 
 let deleteRoute (id : string) =
     let client = createClient "routes"
     let req = DeleteRequest(IndexName.From("routes"), Id(id))
     let response = client.Delete(req)
     if response.OriginalException <> null then
-        raise response.OriginalException
+        Log.Error response.OriginalException
