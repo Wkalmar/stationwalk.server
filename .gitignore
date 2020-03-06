@@ -8,7 +8,8 @@ packages/*
 \.vscode/
 
 StationWalk\.Server/client/dist/
-StationWalk.Server/Client/*
 *.user
 .ionide/*
 .vs/*
+*/node_modules/*
+*/Client/node_modules/*
