@@ -33,6 +33,7 @@
     <Content Include="Client\index.html" />
     <Content Include="Client\package-lock.json" />
     <Content Include="Client\package.json" />
+    <Content Include="Client\styles\welcome.css" />
     <Content Include="Client\styles\navbar.css" />
     <Content Include="Client\styles\modal.css" />
     <Content Include="Client\tsconfig.json" />
@@ -41,6 +42,7 @@
   <ItemGroup>
     <None Include="Client\karma.unit.js" />
     <None Include="Client\README.md" />
+    <None Include="Client\src\controls\welcomeControl.ts" />
     <None Include="Client\src\controls\startStationControl.ts" />
     <None Include="Client\src\applicationContext.ts" />
     <None Include="Client\src\business-logic\routeDrawer.ts" />

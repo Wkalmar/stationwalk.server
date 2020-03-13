@@ -5,10 +5,23 @@ import { ControllersEngine } from '../controllersEngine';
 import { ApplicationContext } from '../applicationContext';
 import { StartStationControl } from '../controls/startStationControl';
 
-export class SubmitController implements IController {
+export class SubmitController extends IController {
     constructor() {
-        this.startStationControl = new StartStationControl()
-        this.controllerTemplate = 
+        super();
+    }    
+
+    path = "submit";
+
+    private startStationControl: StartStationControl = new StartStationControl();
+    
+    private submitModalId: string = "submit-modal";
+    private submitModalFormId : string = "submit-modal-form";
+    private routeNameInputId : string = "route-name";
+    private submitButtonId : string = "route-submit-button";
+    private submitSuccessNotificationContainerId : string = "submit-modal-success";
+    private gotoHomeButtonId : string = "route-submit-goto-home";
+
+    template =
         `${this.startStationControl.template}
         <div id="${this.submitModalId}" class="modal">
             <div id="${this.submitModalFormId}">
@@ -25,22 +38,9 @@ export class SubmitController implements IController {
                 <button id="${this.gotoHomeButtonId}">Go to home page</button>
             </div>
         </div>`
-    }
 
-    path = "submit";
-
-    private startStationControl: StartStationControl;
-    
-    private submitModalId: string = "submit-modal";
-    private submitModalFormId : string = "submit-modal-form";
-    private routeNameInputId : string = "route-name";
-    private submitButtonId : string = "route-submit-button";
-    private submitSuccessNotificationContainerId : string = "submit-modal-success";
-    private gotoHomeButtonId : string = "route-submit-goto-home";
-
-    private routeToSubmit : Route;
-    private controllerTemplate: string;
-    
+    private routeToSubmit: Route;
+  
 
     private addSubmitFormEventListeners = () => {
         let submitButton = document.getElementById(this.submitButtonId);
@@ -91,17 +91,9 @@ export class SubmitController implements IController {
         this.addDrawingSubmittedEventListener();
         this.addSubmitFormEventListeners();
         this.startStationControl.addEventListeners();
-    }
-    private addControllerTemplate = () => {
-        let controllerTemplateContainer = document.getElementById('controller-template-container');
-        if (controllerTemplateContainer == null) {
-            throw new Error('Invalid html. Page should contain element with id controller-template-container');
-        }
-        let container = controllerTemplateContainer as HTMLElement;
-        container.insertAdjacentHTML('beforebegin', this.controllerTemplate);
-    }
+    }    
 
-    private removeControllerTemplate = () => {
+    removeControllerTemplate = () => {
         let controllerTemplateContainer = document.getElementById(this.submitModalId);
         if (controllerTemplateContainer != null) {
             var container = controllerTemplateContainer as HTMLElement;
