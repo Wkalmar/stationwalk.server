@@ -9,15 +9,16 @@ export class WelcomeControl {
         `<div class="welcome" id="${this.welcomeScreenId}">
             <div class="modal-content" style="display: block;">
                 <p>The goal is to find as many interesting routes which start and end at a subway station as possible. If you know an interesting or scenic route to share do not hesitate!</p>
-                <intput id="${this.hideButtonId}" type="checkbox">Do not show this message again</>
-            </div>
-            <div>
-                <button id="${this.closeButtonId}">Got it</button>
-            </div>
+                <input id="${this.hideButtonId}" type="checkbox"/>
+                <label for="${this.hideButtonId}">Do not show this message again</label>
+                <div>
+                    <button id="${this.closeButtonId}">Got it</button>
+                </div>                
+            </div>            
         </div>`;
 
     public render = (): string => {
-        if (ApplicationContext.displayWelcomeScreen) {
+        if (ApplicationContext.displayWelcomeScreen && !ApplicationContext.alwaysHideWelcomeScreen) {
             return this.template
         }
         return "";
@@ -29,22 +30,40 @@ export class WelcomeControl {
             var container = templateContainer as HTMLElement;
             container.remove();
         }
+        ApplicationContext.displayWelcomeScreen = false;
     }
 
     public addEventListeners = () => {
         var closeButton = document.getElementById(this.closeButtonId);
         if (!closeButton) {
-            throw new Error("Invalid markup. Close button should be present");
+            return;
         }
         closeButton.addEventListener('click', this.close);
     }
 
     private close = () => {
+        this.hideControl();
+        this.saveUserPreferences();
+    }
+
+    private hideControl = () => {
         const templateContainer = document.getElementById(this.welcomeScreenId);
         if (templateContainer == null) {
-            throw new Error("Invalid markup. Container should not be empty");
+            return;
         }
         templateContainer.style.display = 'none';
         ApplicationContext.displayWelcomeScreen = false;
     }
+
+    private saveUserPreferences = () => {
+        const preferencesCheckBox = document.getElementById(this.hideButtonId) as HTMLInputElement;
+        if (preferencesCheckBox == null) {
+            return;
+        }
+        ApplicationContext.alwaysHideWelcomeScreen = preferencesCheckBox.checked;
+        window.sessionStorage.setItem(WelcomeControl.hideWelcomeScreensetting,
+            ApplicationContext.alwaysHideWelcomeScreen.toString())
+    }
+
+    public static hideWelcomeScreensetting: string = 'alwaysHideWelcomeScreen';
 }

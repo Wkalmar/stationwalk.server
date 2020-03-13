@@ -47,6 +47,7 @@ export class HomeController extends IController {
     clear = () => {
         this.checkPointsCollection.map(p => p.removeFrom(ApplicationContext.map));
         this.checkPointsCollection = [];
+        this.removeControllerTemplate();
     }
 
     removeControllerTemplate = () => {
