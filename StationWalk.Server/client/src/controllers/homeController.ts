@@ -26,22 +26,21 @@ export class HomeController extends IController {
         })
     }
 
-    go = () => {
+    go = async () => {
         this.addControllerTemplate();
         this.welcomeControl.addEventListeners();
-        fetch('http://localhost:5000/routes')
-        .then((response) => {
+        var response = await fetch('http://localhost:5000/routes')
+        try {
             if (response.ok) {
                 ApplicationContext.map.setView([50.425, 30.521], 12);
-                return response.json();
+                this.routesRequestResolver(await response.json());
             } else {
                 throw new Error();
             }
-        })
-        .then(this.routesRequestResolver)
-        .catch((error) => {
+        }
+        catch(error) {
             console.error(error)
-        });
+        };
     }
 
     clear = () => {

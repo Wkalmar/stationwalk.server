@@ -141,7 +141,7 @@ export class SubmitController extends IController {
         (submitSuccessNotificationContrainer as HTMLElement).style.display = 'block';
     }
 
-    private submit = () : void => {
+    private submit = async () => {
         let nameInput = document.getElementById(this.routeNameInputId) as HTMLInputElement;
         let inputText = nameInput && nameInput.value;
         if (!inputText) {
@@ -149,7 +149,7 @@ export class SubmitController extends IController {
             return;
         }
         this.routeToSubmit.name = inputText as string;
-        fetch('http://localhost:5000/route', {
+        await fetch('http://localhost:5000/route', {
             method: 'POST',
             headers: {
             'Accept': 'application/json',
@@ -157,8 +157,6 @@ export class SubmitController extends IController {
             },
             body: JSON.stringify(this.routeToSubmit)
         })
-        .then(() => {
-            this.showSuccessNotification();
-        });
+        this.showSuccessNotification();
     }
 }

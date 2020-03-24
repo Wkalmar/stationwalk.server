@@ -41,22 +41,21 @@ export class StartStationControl {
         }
     } 
 
-    private searchStation = (e: KeyboardEvent) => {
+    private searchStation = async (e: KeyboardEvent) => {
         var target = e.target as HTMLTextAreaElement;
         if (!target)
             throw new Error("Invalid markup. Missing start station input");
-        fetch(`http://localhost:5000/station/${target.value}`)
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error();
-                }
-            })
-            .then(this.displayStartStationAutoComplete)
-            .catch((error) => {
-                console.error(error)
-            });
+        var response = await fetch(`http://localhost:5000/station/${target.value}`)
+        try {
+            if (response.ok) {
+                return this.displayStartStationAutoComplete(await response.json());
+            } else {
+                throw new Error();
+            }
+        }
+        catch(error) {
+            console.error(error)
+        };
     }
 
     private displayStartStationAutoComplete = (stations: Station[]) => {

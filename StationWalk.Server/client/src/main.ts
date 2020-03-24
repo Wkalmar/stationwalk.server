@@ -6,7 +6,7 @@ import { ControllersEngine } from "./controllersEngine";
 import { ApplicationContext } from "./applicationContext";
 import { WelcomeControl } from "./controls/welcomeControl";
 
-(function() {
+(async function() {
     const mapboxAccesToken = '<your key here>>';
     const mapUrl = `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${mapboxAccesToken}`;
     const mapCopyright = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>';
@@ -29,18 +29,17 @@ import { WelcomeControl } from "./controls/welcomeControl";
         })
     }
 
-    fetch('http://localhost:5000/stations')
-    .then((response) => {
+    var response = await fetch('http://localhost:5000/stations')
+    try {
         if (response.ok) {
-            return response.json();
+            stationsRequestResolver(await response.json());
         } else {
             throw new Error();
         }
-    })
-    .then(stationsRequestResolver)
-    .catch((error) => {
+    }    
+    catch(error) {
         console.error(error)
-    });
+    };
 
     const hideWelcomeScreen = window.sessionStorage.getItem(WelcomeControl.hideWelcomeScreensetting);
     if (hideWelcomeScreen) {
