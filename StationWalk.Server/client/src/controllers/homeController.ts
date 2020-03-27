@@ -32,7 +32,6 @@ export class HomeController extends IController {
         var response = await fetch('http://localhost:5000/routes')
         try {
             if (response.ok) {
-                ApplicationContext.map.setView([50.425, 30.521], 12);
                 this.routesRequestResolver(await response.json());
             } else {
                 throw new Error();

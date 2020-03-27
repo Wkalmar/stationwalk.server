@@ -1,32 +1,35 @@
 import * as L from "leaflet";
-import { StationToMarkerMapper } from "./business-logic/stationToMarkerMapper";
 import { Station } from "./models/station";
 import { StationsContainer } from "./business-logic/stationsContainer";
 import { ControllersEngine } from "./controllersEngine";
 import { ApplicationContext } from "./applicationContext";
 import { WelcomeControl } from "./controls/welcomeControl";
+import { StationMarkerDrawer } from "./business-logic/stationMarkerDrawer";
 
 (async function() {
     const mapboxAccesToken = '<your key here>>';
     const mapUrl = `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${mapboxAccesToken}`;
     const mapCopyright = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>';
 
-    const mymap = L.map('mapid');
+    const mymap = L.map('mapid', {
+        minZoom: 11,
+        maxZoom: 18,        
+        zoomControl: false
+    });
     L.tileLayer(mapUrl, {
         attribution: mapCopyright,
-        maxZoom: 18,
+        
         id: 'mapbox.streets',
         accessToken: mapboxAccesToken
+    }).addTo(mymap);    
+    L.control.zoom({
+        position: 'bottomright'
     }).addTo(mymap);
     ApplicationContext.map = mymap;
 
     const stationsRequestResolver = (stations: Station[]) => {
         StationsContainer.stations = stations;
-        stations.map((station: Station) => {
-            const mapper = new StationToMarkerMapper(station);
-            mapper.map()
-                .addTo(mymap);
-        })
+        new StationMarkerDrawer().draw();
     }
 
     var response = await fetch('http://localhost:5000/stations')

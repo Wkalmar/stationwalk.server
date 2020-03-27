@@ -30,9 +30,14 @@
     <EmbeddedResource Remove="Client\node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Client\assets\blue.png" />
+    <Content Include="Client\assets\green.png" />
+    <Content Include="Client\assets\red.png" />
     <Content Include="Client\index.html" />
     <Content Include="Client\package-lock.json" />
     <Content Include="Client\package.json" />
+    <Content Include="Client\styles\common.css" />
+    <Content Include="Client\styles\main.css" />
     <Content Include="Client\styles\welcome.css" />
     <Content Include="Client\styles\navbar.css" />
     <Content Include="Client\styles\modal.css" />
@@ -48,7 +53,7 @@
     <None Include="Client\src\business-logic\routeDrawer.ts" />
     <None Include="Client\src\business-logic\routeToCheckpointsMapper.ts" />
     <None Include="Client\src\business-logic\stationsContainer.ts" />
-    <None Include="Client\src\business-logic\stationToMarkerMapper.ts" />
+    <None Include="Client\src\business-logic\stationMarkerDrawer.ts" />
     <None Include="Client\src\controllersEngine.ts" />
     <None Include="Client\src\controllers\homeController.ts" />
     <None Include="Client\src\controllers\icontroller.ts" />

@@ -10,7 +10,10 @@ module.exports = {
     }]),
     new CopyWebpackPlugin([{
       from: './styles/*'
-    }])
+    }]),
+      new CopyWebpackPlugin([{
+          from: './assets/*'
+      }])
   ],
   module: {
     rules: [

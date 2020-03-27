@@ -15,8 +15,8 @@
     "webpack-cli": "2.1.2"
   },
   "dependencies": {
-    "@types/leaflet": "1.5.1",
-    "leaflet": "1.5.1"
+    "@types/leaflet": "1.5.12",
+    "leaflet": "1.6.0"
   },
   "scripts": {
     "serve": "webpack --watch & http-server ./dist",

@@ -35,7 +35,7 @@ export class SubmitController extends IController {
             </div>
             <div id="${this.submitSuccessNotificationContainerId}" class="modal-content" style="display: none;">
                 Your route submitted successfully
-                <button id="${this.gotoHomeButtonId}">Go to home page</button>
+                <button id="${this.gotoHomeButtonId}" class="button-ok">Go to home page</button>
             </div>
         </div>`
 

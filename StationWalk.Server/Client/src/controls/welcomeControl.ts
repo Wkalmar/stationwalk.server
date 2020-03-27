@@ -6,13 +6,14 @@ export class WelcomeControl {
     private closeButtonId = "welcome-screen-close";
 
     private template: string =
-        `<div class="welcome" id="${this.welcomeScreenId}">
+        `<link rel="stylesheet" href="styles/welcome.css">
+         <div class="welcome" id="${this.welcomeScreenId}">
             <div class="modal-content" style="display: block;">
                 <p>The goal is to find as many interesting routes which start and end at a subway station as possible. If you know an interesting or scenic route to share do not hesitate!</p>
                 <input id="${this.hideButtonId}" type="checkbox"/>
                 <label for="${this.hideButtonId}">Do not show this message again</label>
                 <div>
-                    <button id="${this.closeButtonId}">Got it</button>
+                    <button id="${this.closeButtonId}" class="button-ok">Got it</button>
                 </div>                
             </div>            
         </div>`;
