@@ -15,14 +15,15 @@ export class HomeController extends IController {
 
     template = `${this.welcomeControl.render()}`
 
-    private checkPointsCollection: L.Polyline[] = [];
-
     routesRequestResolver = (routesResponse: Route[]) => {
-        routesResponse.map((route: Route) => {
+        routesResponse.map(async (route: Route) => {
             const mapper = new RouteToCheckPointsMapper(route);
-            let checkpoints = mapper.map();
-            checkpoints.addTo(ApplicationContext.map);
-            this.checkPointsCollection.push(checkpoints);
+            let checkpoints = await mapper.map();
+            ApplicationContext.routingLayer.addData({
+                type: "Feature",
+                geometry: checkpoints,
+                properties: null
+            } as GeoJSON.GeoJsonObject);
         })
     }
 
@@ -43,8 +44,7 @@ export class HomeController extends IController {
     }
 
     clear = () => {
-        this.checkPointsCollection.map(p => p.removeFrom(ApplicationContext.map));
-        this.checkPointsCollection = [];
+        ApplicationContext.routingLayer.clearLayers();
         this.removeControllerTemplate();
     }
 

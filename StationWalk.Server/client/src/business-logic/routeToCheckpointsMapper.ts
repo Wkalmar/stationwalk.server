@@ -1,22 +1,26 @@
-import * as L from "leaflet";
 import { Route } from "../models/route";
+
+declare const window: any;
 
 export class RouteToCheckPointsMapper {
     constructor(private route : Route) {}
 
-    private mapCheckpoints = (transformedCheckpoints: L.LatLngExpression[]) => {
-        this.route.checkpoints.map(checkpoint => {
-            transformedCheckpoints.push([
-                checkpoint.lattitude,
-                checkpoint.longitude
-            ]);
-        });
-    }
+    public static host: string = "https://graphhopper.com/api/1";
 
-    map = () : L.Polyline => {
-        let transformedCheckpoints : L.LatLngExpression[] = []
-        this.mapCheckpoints(transformedCheckpoints);
-        return L.polyline(transformedCheckpoints);
+    public static defaultKey: string = "<graphopper key>";
+    public static ghRouting = new window.GraphHopper.Routing({
+        key: RouteToCheckPointsMapper.defaultKey,
+        host: RouteToCheckPointsMapper.host,
+        vehicle: "foot",
+        elevation: false
+    });
+
+    map = async () => {
+        this.route.checkpoints.forEach(p =>
+            RouteToCheckPointsMapper.ghRouting.addPoint(new window.GraphHopper.Input(p.lattitude, p.longitude)));
+        var json = await RouteToCheckPointsMapper.ghRouting.doRequest();
+        var path = json.paths[0];
+        return path.points;
     }
 }
 

@@ -8,24 +8,28 @@ import { StationMarkerDrawer } from "./business-logic/stationMarkerDrawer";
 
 (async function() {
     const mapboxAccesToken = '<your key here>>';
-    const mapUrl = `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${mapboxAccesToken}`;
+    const mapUrl = `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}`;
     const mapCopyright = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>';
 
     const mymap = L.map('mapid', {
         minZoom: 11,
-        maxZoom: 18,        
+        maxZoom: 18,
         zoomControl: false
     });
     L.tileLayer(mapUrl, {
         attribution: mapCopyright,
-        
-        id: 'mapbox.streets',
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
         accessToken: mapboxAccesToken
-    }).addTo(mymap);    
+    }).addTo(mymap);
     L.control.zoom({
         position: 'bottomright'
     }).addTo(mymap);
+    const routingLayer = L.geoJSON().addTo(mymap);
+
     ApplicationContext.map = mymap;
+    ApplicationContext.routingLayer = routingLayer;
 
     const stationsRequestResolver = (stations: Station[]) => {
         StationsContainer.stations = stations;
@@ -39,7 +43,7 @@ import { StationMarkerDrawer } from "./business-logic/stationMarkerDrawer";
         } else {
             throw new Error();
         }
-    }    
+    }
     catch(error) {
         console.error(error)
     };
