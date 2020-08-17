@@ -4,8 +4,8 @@ open Nest
 
 [<GeoPoint>]
 type Location = {
-    lat: float
-    lon: float
+    lat: decimal
+    lon: decimal
 }
 
 type Station = {
@@ -20,5 +20,5 @@ type Route = {
     name: LocalizableString
     stationStartId: string
     stationEndId: string
-    checkpoints: Location seq
+    checkpoints: Location[]
 }
