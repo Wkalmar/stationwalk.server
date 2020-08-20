@@ -34,3 +34,11 @@ module RemoveRedundantCheckpointsTests =
     [<Property>]
     let lastItem x =
         ``result contains last point from input`` x removeRedundantCheckpoints
+
+    let ``result contains only points from input`` input mapFn =
+        let res = mapFn input
+        Array.length (Array.except input res) = 0
+
+    [<Property>]
+    let onlyInput x =
+        ``result contains only points from input`` x removeRedundantCheckpoints
