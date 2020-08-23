@@ -1,7 +1,5 @@
 ﻿module SeedStations
 
-open MongoDB.Bson
-
 let elacticStations : ElasticModels.Station array =
     [|
        {
