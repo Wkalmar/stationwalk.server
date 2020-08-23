@@ -8,10 +8,10 @@
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Domain\Domain.fs" />
+    <Compile Include="Domain\ElasticModels.fs" />
+    <Compile Include="Domain\DomainMappers.fs" />
     <Compile Include="Log.fs" />
-    <Compile Include="Db\Domain.fs" />
-    <Compile Include="Db\ElasticModels.fs" />
-    <Compile Include="Db\DomainMappers.fs" />
     <Compile Include="Db\ElasticAdapter.fs" />
     <Compile Include="Db\SeedStations.fs" />
     <Compile Include="Api\Common.fs" />

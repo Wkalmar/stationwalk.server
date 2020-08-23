@@ -6,8 +6,8 @@ open Nest
 
 [<JsonFSharpConverter>]
 type Location = {
-     lattitude: float
-     longitude: float
+     lattitude: decimal
+     longitude: decimal
 }
 
 [<JsonFSharpConverter(JsonUnionEncoding.BareFieldlessTags)>]
@@ -35,7 +35,7 @@ type Station = {
 type Route = {
     id: string
     name: string
-    stationStartId: string 
+    stationStartId: string
     stationEndId: string
-    checkpoints: Location seq
+    checkpoints: Location[]
 }
