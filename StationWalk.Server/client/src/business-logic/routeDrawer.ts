@@ -3,9 +3,10 @@ import { Station } from './../models/station';
 import { Location } from './../models/location';
 import { StationsContainer } from './stationsContainer';
 import { Distance } from "../utils/distance";
-import * as L from "leaflet";
 import { ApplicationContext } from '../applicationContext';
 
+declare const window: any;
+const L = window.L;
 export class RouteDrawer {
     private neglectibleDistance: number = 0.0003;
     private startStation : Station;

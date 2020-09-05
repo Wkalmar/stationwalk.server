@@ -1,6 +1,8 @@
 import { StationsContainer } from './../src/business-logic/stationsContainer';
 import { RouteDrawer } from './../src/business-logic/routeDrawer';
-import * as L from "leaflet";
+
+declare const window: any;
+const L = window.L;
 
 describe("RouteDrawer", () => {
     it("should add hypothetical point if drawing is in progress", () => {
