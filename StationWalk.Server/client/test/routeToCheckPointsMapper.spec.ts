@@ -1,5 +1,7 @@
 import { RouteToCheckPointsMapper } from './../src/business-logic/routeToCheckpointsMapper';
-import * as L from "leaflet";
+
+declare const window: any;
+const L = window.L;
 
 describe("RouteToCheckPointsMapper", () => {
     it("Should map DTO to polyline as expected", () => {

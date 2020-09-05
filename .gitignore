@@ -13,3 +13,4 @@ StationWalk\.Server/client/dist/
 .vs/*
 */node_modules/*
 */Client/node_modules/*
+StationWalk.Server/Client/stats.json

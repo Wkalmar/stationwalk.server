@@ -1,7 +1,9 @@
-import * as L from "leaflet";
 import { Station } from "../models/station";
 import { StationsContainer } from "./stationsContainer";
 import { ApplicationContext } from "../applicationContext";
+
+declare const window: any;
+const L = window.L;
 
 export class StationMarkerDrawer {
     draw = () => {
