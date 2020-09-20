@@ -1,19 +1,19 @@
-import { Route } from './../models/route';
-import { IController } from "./icontroller";
-import { RouteDrawer } from "../business-logic/routeDrawer";
-import { ControllersEngine } from '../controllersEngine';
-import { ApplicationContext } from '../applicationContext';
-import { StartStationControl } from '../controls/startStationControl';
+import { Route } from '../../models/route';
+import { IController } from "../../icontroller";
+import { RouteDrawer } from "../../business-logic/routeDrawer";
+import { ControllersEngine } from '../../controllersEngine';
+import { ApplicationContext } from '../../applicationContext';
+import { StartStationControl } from './startStationControl';
 
 export class SubmitController extends IController {
     constructor() {
         super();
-    }    
+    }
 
     path = "submit";
 
     private startStationControl: StartStationControl = new StartStationControl();
-    
+
     private submitModalId: string = "submit-modal";
     private submitModalFormId : string = "submit-modal-form";
     private routeNameInputId : string = "route-name";
@@ -40,7 +40,7 @@ export class SubmitController extends IController {
         </div>`
 
     private routeToSubmit: Route;
-  
+
 
     private addSubmitFormEventListeners = () => {
         let submitButton = document.getElementById(this.submitButtonId);
@@ -83,7 +83,7 @@ export class SubmitController extends IController {
     private addMapEventListeners = () => {
         ApplicationContext.map.addEventListener('mousemove', this.addHypotheticalPoint);
         ApplicationContext.map.addEventListener('click', this.addPoint);
-    }   
+    }
 
     go = () => {
         this.addControllerTemplate();
@@ -91,7 +91,7 @@ export class SubmitController extends IController {
         this.addDrawingSubmittedEventListener();
         this.addSubmitFormEventListeners();
         this.startStationControl.addEventListeners();
-    }    
+    }
 
     removeControllerTemplate = () => {
         let controllerTemplateContainer = document.getElementById(this.submitModalId);

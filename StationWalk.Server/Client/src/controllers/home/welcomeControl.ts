@@ -1,4 +1,4 @@
-﻿import { ApplicationContext } from "../applicationContext";
+﻿import { ApplicationContext } from "../../applicationContext";
 
 export class WelcomeControl {
     private welcomeScreenId = "welcome-screen";
@@ -14,8 +14,8 @@ export class WelcomeControl {
                 <label for="${this.hideButtonId}">Do not show this message again</label>
                 <div>
                     <button id="${this.closeButtonId}" class="button-ok">Got it</button>
-                </div>                
-            </div>            
+                </div>
+            </div>
         </div>`;
 
     public render = (): string => {

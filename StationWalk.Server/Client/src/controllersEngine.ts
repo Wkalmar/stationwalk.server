@@ -1,6 +1,6 @@
-import { IController } from "./controllers/icontroller";
-import { HomeController } from "./controllers/homeController";
-import { SubmitController } from "./controllers/submitController";
+import { IController } from "./icontroller";
+import { HomeController } from "./controllers/home/homeController";
+import { SubmitController } from "./controllers/submit/submitController";
 
 export class ControllersEngine {
     private static currentController : IController
