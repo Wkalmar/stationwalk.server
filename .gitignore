@@ -14,3 +14,4 @@ StationWalk\.Server/client/dist/
 */node_modules/*
 */Client/node_modules/*
 StationWalk.Server/Client/stats.json
+StationWalk.Server/.ionide/*

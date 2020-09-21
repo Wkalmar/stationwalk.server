@@ -1,4 +1,5 @@
 ﻿import { ApplicationContext } from "../../applicationContext";
+import "./welcome.css"
 
 export class WelcomeControl {
     private welcomeScreenId = "welcome-screen";
@@ -6,8 +7,7 @@ export class WelcomeControl {
     private closeButtonId = "welcome-screen-close";
 
     private template: string =
-        `<link rel="stylesheet" href="styles/welcome.css">
-         <div class="welcome" id="${this.welcomeScreenId}">
+        `<div class="welcome" id="${this.welcomeScreenId}">
             <div class="modal-content" style="display: block;">
                 <p>The goal is to find as many interesting routes which start and end at a subway station as possible. If you know an interesting or scenic route to share do not hesitate!</p>
                 <input id="${this.hideButtonId}" type="checkbox"/>
