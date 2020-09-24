@@ -1,8 +1,8 @@
-import { IController } from "./icontroller";
-import { Route } from "../models/route";
-import { RouteToCheckPointsMapper } from "../business-logic/routeToCheckpointsMapper";
-import { ApplicationContext } from '../applicationContext';
-import { WelcomeControl } from "../controls/welcomeControl";
+import { IController } from "../../icontroller";
+import { Route } from "../../models/route";
+import { RouteToCheckPointsMapper } from "../../business-logic/routeToCheckpointsMapper";
+import { ApplicationContext } from '../../applicationContext';
+import { WelcomeControl } from "./welcomeControl";
 
 export class HomeController extends IController {
     constructor() {

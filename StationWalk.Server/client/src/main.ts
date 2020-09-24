@@ -2,7 +2,7 @@ import { Station } from "./models/station";
 import { StationsContainer } from "./business-logic/stationsContainer";
 import { ControllersEngine } from "./controllersEngine";
 import { ApplicationContext } from "./applicationContext";
-import { WelcomeControl } from "./controls/welcomeControl";
+import { WelcomeControl } from "./controllers/home/welcomeControl";
 import { StationMarkerDrawer } from "./business-logic/stationMarkerDrawer";
 
 declare const window: any;

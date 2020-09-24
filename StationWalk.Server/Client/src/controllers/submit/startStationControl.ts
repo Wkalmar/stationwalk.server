@@ -1,6 +1,6 @@
-import { Debounce } from '../utils/debounce';
-import { Station } from '../models/station';
-import { RouteDrawer } from "../business-logic/routeDrawer";
+import { Debounce } from '../../utils/debounce';
+import { Station } from '../../models/station';
+import { RouteDrawer } from "../../business-logic/routeDrawer";
 
 export class StartStationControl {
     private startStationSelectorId: string = "station-start-select";
@@ -39,7 +39,7 @@ export class StartStationControl {
             var container = templateContainer as HTMLElement;
             container.remove();
         }
-    } 
+    }
 
     private searchStation = async (e: KeyboardEvent) => {
         var target = e.target as HTMLTextAreaElement;
