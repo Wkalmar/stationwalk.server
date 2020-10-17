@@ -24,7 +24,7 @@ let private dbStationToStation (elasticStation : ElasticModels.Station) =
     station
 
 let dbStationsToStations elasticStations =
-    Seq.map (fun i -> dbStationToStation i) elasticStations
+    Seq.map (dbStationToStation) elasticStations
     |> Array.ofSeq
 
 let private dbRouteToRoute (dbRoute : ElasticModels.Route) =
