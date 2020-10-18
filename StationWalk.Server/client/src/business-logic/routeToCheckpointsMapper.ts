@@ -8,14 +8,15 @@ export class RouteToCheckPointsMapper {
     public static host: string = "https://graphhopper.com/api/1";
 
     public static defaultKey: string = "d71f3005-4353-4685-8b67-308ae19d6ecb";
-    public static ghRouting = new window.GraphHopper.Routing({
-        key: RouteToCheckPointsMapper.defaultKey,
-        host: RouteToCheckPointsMapper.host,
-        vehicle: "foot",
-        elevation: false
-    });
+    public static ghRouting: any;
 
     map = async () => {
+        RouteToCheckPointsMapper.ghRouting = new window.GraphHopper.Routing({
+            key: RouteToCheckPointsMapper.defaultKey,
+            host: RouteToCheckPointsMapper.host,
+            vehicle: "foot",
+            elevation: false
+        })
         this.route.checkpoints.forEach(p =>
             RouteToCheckPointsMapper.ghRouting.addPoint(new window.GraphHopper.Input(p.lattitude, p.longitude)));
         var json = await RouteToCheckPointsMapper.ghRouting.doRequest();
