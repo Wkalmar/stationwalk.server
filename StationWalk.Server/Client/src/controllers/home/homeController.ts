@@ -22,7 +22,9 @@ export class HomeController extends IController {
             ApplicationContext.routingLayer.addData({
                 type: "Feature",
                 geometry: checkpoints,
-                properties: null
+                properties: {
+                    id: route.id,
+                }
             } as GeoJSON.GeoJsonObject);
         })
     }

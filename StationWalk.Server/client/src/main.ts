@@ -13,6 +13,12 @@ declare const window: any;
     const mapCopyright = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>';
     const L = window.L;
 
+    const onEachFeature = (feature: any, layer : any) => {
+        layer.on('click', function (e : any) {
+            alert(feature.properties.id);
+        });
+    }
+
     const mymap = L.map('mapid', {
         minZoom: 11,
         maxZoom: 18,
@@ -28,7 +34,9 @@ declare const window: any;
     L.control.zoom({
         position: 'bottomright'
     }).addTo(mymap);
-    const routingLayer = L.geoJSON().addTo(mymap);
+    const routingLayer = L.geoJSON(null, {
+        onEachFeature: onEachFeature
+    }).addTo(mymap);
 
     ApplicationContext.map = mymap;
     ApplicationContext.routingLayer = routingLayer;
