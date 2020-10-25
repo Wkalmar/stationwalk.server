@@ -2,6 +2,16 @@
 
 open Nest
 open System
+open Elasticsearch.Net
+open Newtonsoft.Json
+
+type GetByIdResponse<'a> = {
+    _source: 'a
+}
+
+let connectionPool = new SniffingConnectionPool([| Uri("http://localhost:9200") |])
+let config = new ConnectionConfiguration(connectionPool)
+let lowLevelClient = ElasticLowLevelClient(config)
 
 let createClient indexName =
     let settings = new ConnectionSettings(Uri("http://localhost:9200"))
@@ -65,13 +75,15 @@ let getAllRoutes =
     response.Documents
     |> Seq.cast<ElasticModels.Route>
 
+let getRoute (id: string) =
+    let path = String.Format("routes/_doc/{0}", id)
+    let response = lowLevelClient.DoRequest<StringResponse>(HttpMethod.GET, path, null, null)
+    JsonConvert.DeserializeObject<GetByIdResponse<ElasticModels.Route>>(response.Body)._source
+
 let submitRoute (route : ElasticModels.Route) =
-    let client = createClient "routes"
-    let req = IndexRequest()
-    req.Document <- route
-    let response = client.Index(req)
-    if not (isNull response.OriginalException) then
-        Log.Error response.OriginalException
+    let path = String.Format("routes/_doc/{0}", route.id)
+    let body = PostData.op_Implicit(JsonConvert.SerializeObject(route))
+    lowLevelClient.DoRequest<StringResponse>(HttpMethod.PUT, path, body, null)
 
 let deleteRoute (id : string) =
     let client = createClient "routes"
