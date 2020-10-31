@@ -78,12 +78,15 @@ let getAllRoutes =
 let getRoute (id: string) =
     let path = String.Format("routes/_doc/{0}", id)
     let response = lowLevelClient.DoRequest<StringResponse>(HttpMethod.GET, path, null, null)
+    //todo parse response
     JsonConvert.DeserializeObject<GetByIdResponse<ElasticModels.Route>>(response.Body)._source
 
 let submitRoute (route : ElasticModels.Route) =
     let path = String.Format("routes/_doc/{0}", route.id)
     let body = PostData.op_Implicit(JsonConvert.SerializeObject(route))
-    lowLevelClient.DoRequest<StringResponse>(HttpMethod.PUT, path, body, null)
+    let resp = lowLevelClient.DoRequest<StringResponse>(HttpMethod.PUT, path, body, null)
+    //todo parse response
+    resp
 
 let deleteRoute (id : string) =
     let client = createClient "routes"
