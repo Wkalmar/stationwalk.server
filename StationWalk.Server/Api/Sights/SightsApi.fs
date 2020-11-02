@@ -12,6 +12,7 @@ let successCode = 0
 
 type SightDto = {
     name: string
+    localizedName: string
     links: string array
     imageLink: string
 }
@@ -65,7 +66,7 @@ let getSights id =
         let resp = JsonConvert.DeserializeObject<SightSafariResponse>(dto)
         if resp.code = successCode
         then
-            return! text (JsonConvert.SerializeObject resp) next httpContext
+            return! text (JsonConvert.SerializeObject resp.body.sightAreas) next httpContext
         else
             return! RequestErrors.BAD_REQUEST "" next httpContext
     }

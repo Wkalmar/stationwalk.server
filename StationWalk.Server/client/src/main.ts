@@ -4,6 +4,8 @@ import { ControllersEngine } from "./controllersEngine";
 import { ApplicationContext } from "./applicationContext";
 import { WelcomeControl } from "./controllers/home/welcomeControl";
 import { StationMarkerDrawer } from "./business-logic/stationMarkerDrawer";
+import { Sight } from "./models/sight";
+import { SightsDrawer } from './business-logic/sightsDrawer';
 
 declare const window: any;
 
@@ -13,9 +15,29 @@ declare const window: any;
     const mapCopyright = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>';
     const L = window.L;
 
+    const sightsDrawer = (sights: Sight[]) => {
+        var sightsHtml = SightsDrawer.drawer.draw(sights);
+        let sightsContainer = document.getElementById('sights-container');
+        if (sightsContainer == null) {
+            throw new Error('Invalid html. Page should contain element with id sights-container');
+        }
+        let container = sightsContainer as HTMLElement;
+        container.insertAdjacentHTML('beforebegin', sightsHtml);
+    }
+
     const onEachFeature = (feature: any, layer : any) => {
-        layer.on('click', function (e : any) {
-            alert(feature.properties.id);
+        layer.on('click', async (e : any) => {
+            var response = await fetch(`http://localhost:5000/sights/${feature.properties.id}`);
+            try {
+                if (response.ok) {
+                    sightsDrawer(await response.json());
+                } else {
+                    throw new Error();
+                }
+            }
+            catch(error) {
+                console.error(error)
+            };
         });
     }
 
