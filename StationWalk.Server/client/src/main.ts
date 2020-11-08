@@ -16,13 +16,7 @@ declare const window: any;
     const L = window.L;
 
     const sightsDrawer = (sights: Sight[]) => {
-        var sightsHtml = SightsDrawer.drawer.draw(sights);
-        let sightsContainer = document.getElementById('sights-container');
-        if (sightsContainer == null) {
-            throw new Error('Invalid html. Page should contain element with id sights-container');
-        }
-        let container = sightsContainer as HTMLElement;
-        container.insertAdjacentHTML('beforebegin', sightsHtml);
+        SightsDrawer.drawer.draw(sights);
     }
 
     const onEachFeature = (feature: any, layer : any) => {
