@@ -12,6 +12,7 @@
     <Compile Include="Common.fs" />
     <Compile Include="Domain\Domain.fs" />
     <Compile Include="Domain\ElasticModels.fs" />
+    <Compile Include="Domain\Sights.fs" />
     <Compile Include="Domain\DomainMappers.fs" />
     <Compile Include="Db\ElasticAdapter.fs" />
     <Compile Include="Db\SeedStations.fs" />
