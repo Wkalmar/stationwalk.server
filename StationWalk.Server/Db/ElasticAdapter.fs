@@ -5,6 +5,8 @@ open System
 open Elasticsearch.Net
 open Newtonsoft.Json
 
+type ElasticError = ElasticError of string
+
 type GetByIdResponse<'a> = {
     _source: 'a
 }
@@ -22,7 +24,7 @@ let seedStations (seedStations : ElasticModels.Station array) =
     let client = createClient "stations"
     let response = client.IndexMany(seedStations)
     if not (isNull response.OriginalException) then
-        Log.Error response.OriginalException
+        Log.Exception response.OriginalException
 
 let getAllStations =
     let client = createClient "stations"
@@ -33,7 +35,7 @@ let getAllStations =
                                     .Size(Nullable(100))
                                     .MatchAll() :> ISearchRequest)
     if not (isNull response.OriginalException) then
-        Log.Error response.OriginalException
+        Log.Exception response.OriginalException
     response.Documents
     |> Seq.cast<ElasticModels.Station>
 
@@ -58,7 +60,7 @@ let searchStation queryString =
                                             :> IMultiMatchQuery))
                                     :> ISearchRequest)
     if not (isNull response.OriginalException) then
-        Log.Error response.OriginalException
+        Log.Exception response.OriginalException
     response.Documents
     |> Seq.cast<ElasticModels.Station>
 
@@ -71,26 +73,34 @@ let getAllRoutes =
                                     .Size(Nullable(1000))
                                     .MatchAll() :> ISearchRequest)
     if not (isNull response.OriginalException) then
-        Log.Error response.OriginalException
+        Log.Exception response.OriginalException
     response.Documents
     |> Seq.cast<ElasticModels.Route>
 
 let getRoute (id: string) =
     let path = String.Format("routes/_doc/{0}", id)
     let response = lowLevelClient.DoRequest<StringResponse>(HttpMethod.GET, path, null, null)
-    //todo parse response
-    JsonConvert.DeserializeObject<GetByIdResponse<ElasticModels.Route>>(response.Body)._source
+    if response.Success
+    then
+        Result.Ok(JsonConvert.DeserializeObject<GetByIdResponse<ElasticModels.Route>>(response.Body)._source)
+    else
+        Log.Error response.Body
+        Microsoft.FSharp.Core.Result.Error(ElasticError "")
 
 let submitRoute (route : ElasticModels.Route) =
     let path = String.Format("routes/_doc/{0}", route.id)
     let body = PostData.op_Implicit(JsonConvert.SerializeObject(route))
-    let resp = lowLevelClient.DoRequest<StringResponse>(HttpMethod.PUT, path, body, null)
-    //todo parse response
-    resp
+    let response = lowLevelClient.DoRequest<StringResponse>(HttpMethod.PUT, path, body, null)
+    if response.Success
+    then
+        Result.Ok()
+    else
+        Log.Error response.Body
+        Microsoft.FSharp.Core.Result.Error(ElasticError "")
 
 let deleteRoute (id : string) =
     let client = createClient "routes"
     let req = DeleteRequest(IndexName.From("routes"), Id(id))
     let response = client.Delete(req)
     if not (isNull response.OriginalException) then
-        Log.Error response.OriginalException
+        Log.Exception response.OriginalException

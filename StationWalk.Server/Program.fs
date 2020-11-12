@@ -44,5 +44,5 @@ let main argv =
             .Build()
             .Run()
     with
-    | e -> Log.Error(e)
+    | e -> Log.Exception(e)
     0
