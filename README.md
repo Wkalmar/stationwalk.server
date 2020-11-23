@@ -17,6 +17,8 @@ Authorization is performed via AWS-Lambda that is defined [here](https://github.
 
 Regarding admin portal I haven't gotten to it yet, but it can be build as a separate micro-frontend as it doesn't need to possess all those architectural constraints that main UI part has.
 
+Another thing I've decided to try is SightSafari API which would recommend some nice places along the suggested route.
+
 ## Setting up the project
 ### Environment
 In order to be able to start the project you'll need:
@@ -40,6 +42,8 @@ There is plenty of stuff to do. The 3 main points I'll highlight are:
 - Improve interaction with Elasticsearch by switching to the low-level client since Nest library is a complete mess IMO.
 - The UI is rather sketchy. The project needs real UI.
 - Some sort of admin portal.
+- Put Redis cache in front of SightSafari API.
+- Add localization.
 
 ## Contributing
 Feel free to submit bugs/feature requests or PRs I'll do my best to answer.

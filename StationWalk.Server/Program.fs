@@ -11,10 +11,11 @@ let app : HttpHandler =
             route "/routes" >=> RouteApi.getAll
             route "/stations" >=> StationApi.getAll
             routef "/station/%s" StationApi.searchStation
+            routef "/sights/%s" SightsApi.getSights
             route "/" >=> htmlFile "client/dist/index.html"
-        ]        
+        ]
         POST >=> choose [
-            route "/route" >=> RouteApi.submit 
+            route "/route" >=> RouteApi.submit
             route "/auth" >=> AuthApi.login
         ]
         DELETE >=> choose [
@@ -28,12 +29,12 @@ let configureApp (appBuilder : IApplicationBuilder) =
     appBuilder.UseSpaStaticFiles()
     appBuilder.UseSpa(fun spa -> spa.Options.SourcePath <- "client/dist")
 
-let configureServices (services : IServiceCollection) =     
+let configureServices (services : IServiceCollection) =
     services.AddGiraffe() |> ignore
     services.AddSpaStaticFiles(fun configuration -> configuration.RootPath <- "client/dist")
 
 [<EntryPoint>]
-let main argv = 
+let main argv =
     //SeedStations.seed |> ignore
     try
         WebHostBuilder()
@@ -42,6 +43,6 @@ let main argv =
             .ConfigureServices(configureServices)
             .Build()
             .Run()
-    with 
-    | e -> Log.Error(e)
+    with
+    | e -> Log.Exception(e)
     0

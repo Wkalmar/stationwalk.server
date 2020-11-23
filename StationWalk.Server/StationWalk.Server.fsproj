@@ -8,17 +8,19 @@
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Log.fs" />
+    <Compile Include="Common.fs" />
     <Compile Include="Domain\Domain.fs" />
     <Compile Include="Domain\ElasticModels.fs" />
+    <Compile Include="Domain\Sights.fs" />
     <Compile Include="Domain\DomainMappers.fs" />
-    <Compile Include="Log.fs" />
     <Compile Include="Db\ElasticAdapter.fs" />
     <Compile Include="Db\SeedStations.fs" />
-    <Compile Include="Api\Common.fs" />
     <Compile Include="Api\Auth\JwtValidator.fs" />
     <Compile Include="Api\Auth\AuthApi.fs" />
     <Compile Include="Api\Route\RouteApi.fs" />
     <Compile Include="Api\Station\StationApi.fs" />
+    <Compile Include="Api\Sights\SightsApi.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
