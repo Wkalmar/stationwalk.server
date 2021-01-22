@@ -24,7 +24,7 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="client\dist\**">
+    <Content Include="Client\dist\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -74,7 +74,7 @@
     <PackageReference Include="FSharp.Data" Version="3.3.2" />
     <PackageReference Include="FSharp.SystemTextJson" Version="0.6.2" />
     <PackageReference Include="Giraffe" Version="4.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0" />    
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0" />
     <PackageReference Include="Serilog" Version="2.9.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.Literate" Version="3.0.0" />
@@ -86,7 +86,7 @@
     <Folder Include="Client\dist\styles\" />
   </ItemGroup>
   <Target Name="BuildClient" AfterTargets="Build">
-    <Exec Command="npm install" WorkingDirectory="client" />
-    <Exec Command="npm run build" WorkingDirectory="client" />
+    <Exec Command="npm install" WorkingDirectory="Client" />
+    <Exec Command="npm run build" WorkingDirectory="Client" />
   </Target>
 </Project>
