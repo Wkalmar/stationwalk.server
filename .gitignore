@@ -7,8 +7,8 @@ packages/*
 
 \.vscode/
 
-StationWalk\.Server/client/dist/
-StationWalk\.Server/client/node_modules/*
+StationWalk\.Server/Client/dist/
+StationWalk\.Server/Client/node_modules/*
 *.user
 .ionide/*
 .vs/*
