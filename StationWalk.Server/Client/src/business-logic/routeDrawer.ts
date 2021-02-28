@@ -1,6 +1,6 @@
-import { Route } from './../models/route';
-import { Station } from './../models/station';
-import { Location } from './../models/location';
+import { Route } from '../models/route';
+import { Station } from '../models/station';
+import { Location } from '../models/location';
 import { StationsContainer } from './stationsContainer';
 import { Distance } from "../utils/distance";
 import { ApplicationContext } from '../applicationContext';

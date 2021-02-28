@@ -7,11 +7,10 @@ packages/*
 
 \.vscode/
 
-StationWalk\.Server/client/dist/
+StationWalk\.Server/Client/dist/
+StationWalk\.Server/Client/node_modules/*
 *.user
 .ionide/*
 .vs/*
-*/node_modules/*
-*/Client/node_modules/*
 StationWalk.Server/Client/stats.json
 StationWalk.Server/.ionide/*
