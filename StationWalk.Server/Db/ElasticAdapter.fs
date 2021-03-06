@@ -11,6 +11,8 @@ type GetByIdResponse<'a> = {
     _source: 'a
 }
 
+let maxItemsPerQuery = 10000
+
 let connectionPool = new SniffingConnectionPool([| Uri("http://localhost:9200") |])
 let config = new ConnectionConfiguration(connectionPool)
 let lowLevelClient = ElasticLowLevelClient(config)
@@ -32,7 +34,7 @@ let getAllStations =
                     .Search<ElasticModels.Station>
                         (fun (s: SearchDescriptor<ElasticModels.Station>)
                                 -> s.From(Nullable(0))
-                                    .Size(Nullable(100))
+                                    .Size(Nullable(maxItemsPerQuery))
                                     .MatchAll() :> ISearchRequest)
     if not (isNull response.OriginalException) then
         Log.Exception response.OriginalException
@@ -70,7 +72,7 @@ let getAllRoutes =
                     .Search<ElasticModels.Route>
                         (fun (s: SearchDescriptor<ElasticModels.Route>)
                                 -> s.From(Nullable(0))
-                                    .Size(Nullable(1000))
+                                    .Size(Nullable(maxItemsPerQuery))
                                     .MatchAll() :> ISearchRequest)
     if not (isNull response.OriginalException) then
         Log.Exception response.OriginalException
@@ -82,18 +84,16 @@ let getRoute (id: string) =
     let response = lowLevelClient.DoRequest<StringResponse>(HttpMethod.GET, path, null, null)
     if response.Success
     then
-        Result.Ok(JsonConvert.DeserializeObject<GetByIdResponse<ElasticModels.Route>>(response.Body)._source)
+        Ok(JsonConvert.DeserializeObject<GetByIdResponse<ElasticModels.Route>>(response.Body)._source)
     else
         Log.Error response.Body
         Microsoft.FSharp.Core.Result.Error(ElasticError "")
 
 let submitRoute (route : ElasticModels.Route) =
-    let path = String.Format("routes/_doc/{0}", route.id)
-    let body = PostData.op_Implicit(JsonConvert.SerializeObject(route))
-    let response = lowLevelClient.DoRequest<StringResponse>(HttpMethod.PUT, path, body, null)
+    let response = lowLevelClient.Index<StringResponse>("routes", route.id, PostData.Serializable(route))
     if response.Success
     then
-        Result.Ok()
+        Ok()
     else
         Log.Error response.Body
         Microsoft.FSharp.Core.Result.Error(ElasticError "")
