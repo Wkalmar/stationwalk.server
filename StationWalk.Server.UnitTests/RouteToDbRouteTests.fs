@@ -40,7 +40,7 @@ let sussessPath() =
         |]
     }
     let res = routeToDbRoute input
-    Assert.Equal("kke", res.name.en)
+    Assert.Equal("Sagaydachnogo pedestrian walk2", res.name.en)
     Assert.Equal("Sagaydachnogo pedestrian walk", res.name.ua)
     Assert.Equal("5c2e1d0c867a6335386700ef", res.stationStartId)
     Assert.Equal("5c2e1d0c867a6335386700ee", res.stationEndId)
