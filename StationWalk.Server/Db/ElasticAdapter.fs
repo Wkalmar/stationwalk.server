@@ -13,12 +13,12 @@ type GetByIdResponse<'a> = {
 
 let maxItemsPerQuery = 10000
 
-let connectionPool = new SniffingConnectionPool([| Uri("http://localhost:9200") |])
+let connectionPool = new SniffingConnectionPool([| Uri(Config.elasticUrl) |])
 let config = new ConnectionConfiguration(connectionPool)
 let lowLevelClient = ElasticLowLevelClient(config)
 
 let createClient indexName =
-    let settings = new ConnectionSettings(Uri("http://localhost:9200"))
+    let settings = new ConnectionSettings(Uri(Config.elasticUrl))
     settings.DefaultIndex(indexName) |> ignore
     ElasticClient(settings)
 
