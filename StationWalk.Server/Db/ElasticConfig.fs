@@ -1,4 +1,4 @@
-module Config
+module ElasticConfig
 
 open dotenv.net.Utilities
 
