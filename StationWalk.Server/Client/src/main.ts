@@ -8,9 +8,10 @@ import { Sight } from "./models/sight";
 import { SightsDrawer } from './business-logic/sightsDrawer';
 
 declare const window: any;
+declare const process: any;
 
 (async function() {
-    const mapboxAccesToken = '<your key here>>';
+    const mapboxAccesToken = process.env.STATIONWALK_MAPBOX_TOKEN;
     const mapUrl = `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}`;
     const mapCopyright = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>';
     const L = window.L;

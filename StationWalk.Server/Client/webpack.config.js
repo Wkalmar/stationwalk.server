@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/main.ts',
@@ -11,9 +12,12 @@ module.exports = {
     new CopyWebpackPlugin([{
       from: './styles/*'
     }]),
-      new CopyWebpackPlugin([{
-          from: './assets/*'
-      }])
+    new CopyWebpackPlugin([{
+      from: './assets/*'
+    }]),
+    new Dotenv({
+      path:"../.env"
+    })
   ],
   module: {
     rules: [

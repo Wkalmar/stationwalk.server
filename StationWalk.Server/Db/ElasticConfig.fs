@@ -4,4 +4,4 @@ open dotenv.net.Utilities
 
 let private envReader = EnvReader()
 
-let elasticUrl = envReader.GetStringValue("STATIONWALK.ELASTIC.URL")
+let elasticUrl = envReader.GetStringValue("STATIONWALK_ELASTIC_URL")
