@@ -5,14 +5,12 @@ open System.Text
 open System.IdentityModel.Tokens.Jwt
 open System
 
-let key = "<salt>"
-
 let createValidationParameters =
     let validationParameters = TokenValidationParameters()
     validationParameters.ValidateAudience <- false
     validationParameters.ValidateLifetime <- true
     validationParameters.ValidateIssuer <- false
-    validationParameters.IssuerSigningKey <- SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+    validationParameters.IssuerSigningKey <- SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtConfig.salt))
     validationParameters
 
 let validateToken (token: string) = 
