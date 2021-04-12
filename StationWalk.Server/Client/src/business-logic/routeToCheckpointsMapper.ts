@@ -1,13 +1,14 @@
 import { Route } from "../models/route";
 
 declare const window: any;
+declare const process: any;
 
 export class RouteToCheckPointsMapper {
     constructor(private route : Route) {}
 
-    public static host: string = "https://graphhopper.com/api/1";
+    public static host: string = process.env.STATIONWALK_GRAPHHOPPER_HOST;
 
-    public static defaultKey: string = "d71f3005-4353-4685-8b67-308ae19d6ecb";
+    public static defaultKey: string = process.env.STATIONWALK_GRAPHHOPPER_KEY;
     public static ghRouting: any;
 
     map = async () => {
