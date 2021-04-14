@@ -22,7 +22,7 @@ declare const process: any;
 
     const onEachFeature = (feature: any, layer : any) => {
         layer.on('click', async (e : any) => {
-            var response = await fetch(`http://localhost:5000/sights/${feature.properties.id}`);
+            var response = await fetch(`${process.env.STATIONWALK_BACKEND_API}/sights/${feature.properties.id}`);
             try {
                 if (response.ok) {
                     sightsDrawer(await response.json());
@@ -63,7 +63,7 @@ declare const process: any;
         new StationMarkerDrawer().draw();
     }
 
-    var response = await fetch('http://localhost:5000/stations')
+    var response = await fetch(`${process.env.STATIONWALK_BACKEND_API}/stations`)
     try {
         if (response.ok) {
             stationsRequestResolver(await response.json());

@@ -2,6 +2,8 @@ import { Debounce } from '../../utils/debounce';
 import { Station } from '../../models/station';
 import { RouteDrawer } from "../../business-logic/routeDrawer";
 
+declare const process: any;
+
 export class StartStationControl {
     private startStationSelectorId: string = "station-start-select";
     private startStationInputId: string = "station-start-input";
@@ -45,7 +47,7 @@ export class StartStationControl {
         var target = e.target as HTMLTextAreaElement;
         if (!target)
             throw new Error("Invalid markup. Missing start station input");
-        var response = await fetch(`http://localhost:5000/station/${target.value}`)
+        var response = await fetch(`${process.env.STATIONWALK_BACKEND_API}/station/${target.value}`)
         try {
             if (response.ok) {
                 return this.displayStartStationAutoComplete(await response.json());
