@@ -21,8 +21,9 @@ type SightSafariResponse = {
     body: SightSafariResponseBody
 }
 
-let prepareSightSafariUrl (result : ElasticModels.Route) =
-    let mutable sb = StringBuilder("https://sightsafari.city/api/v1/routes/direct?")
+let prepareSightSafariUrl (result : ElasticModels.Route) (apiUrl : string) =
+    let mutable sb = StringBuilder(apiUrl)
+    sb <- sb.Append("/routes/direct?")
     let nfi = NumberFormatInfo();
     nfi.NumberDecimalSeparator <- ".";
     sb <- sb.AppendFormat("&from={0},{1}",
