@@ -22,16 +22,11 @@ Another thing I've decided to try is SightSafari API which would recommend some 
 ## Setting up the project
 ### Environment
 In order to be able to start the project you'll need:
-- .Net Core 3.1 for the backend
-- Elasticsearch for the storage
+- .Net 5 for the backend
+- Elasticsearch for the storage. Alternatively you can run one from docker-compose supplied in the project.
 - Node js in order to be able to run `npm i` in order to restore front-end packages
 ### Configuration
-There are several configuration strings scattered all over the project. Looks like a complete mess, but I hope one day I'll be able to fix it.
-These strings are:
-- Elasticsearch connection string in `ElasticAdapter` module.
-- JWT salt in `JwtValidator` module.
-- Access token for Mapbox account in `main.ts`.
-- Graphhopper access key in `routeToCheckpointsMaper.ts`
+Configuration is done via .env file. This file exhibits environment properties both for back and front end. To run project successfully you need mapbox and graphhopper accounts and supply obtained api keys into respective variables.
 ### Running the project
 Both front-end and back-end are running in a single Visual Studio solution so if you using Visual Studio you should just run it and you're golden.
 ### Seeding stations
