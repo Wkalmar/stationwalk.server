@@ -1,4 +1,5 @@
-﻿open Giraffe
+﻿open dotenv.net
+open Giraffe
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.DependencyInjection
@@ -37,6 +38,7 @@ let configureServices (services : IServiceCollection) =
 let main argv =
     //SeedStations.seed |> ignore
     try
+        DotEnv.Config(true)
         WebHostBuilder()
             .UseKestrel()
             .Configure(Action<IApplicationBuilder> configureApp)

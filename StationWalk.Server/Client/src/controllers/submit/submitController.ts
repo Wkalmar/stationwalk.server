@@ -5,6 +5,8 @@ import { ControllersEngine } from '../../controllersEngine';
 import { ApplicationContext } from '../../applicationContext';
 import { StartStationControl } from './startStationControl';
 
+declare const process: any;
+
 export class SubmitController extends IController {
     constructor() {
         super();
@@ -149,7 +151,7 @@ export class SubmitController extends IController {
             return;
         }
         this.routeToSubmit.name = inputText as string;
-        await fetch('http://localhost:5000/route', {
+        await fetch(`${process.env.STATIONWALK_BACKEND_API}/route`, {
             method: 'POST',
             headers: {
             'Accept': 'application/json',

@@ -4,6 +4,8 @@ import { RouteToCheckPointsMapper } from "../../business-logic/routeToCheckpoint
 import { ApplicationContext } from '../../applicationContext';
 import { WelcomeControl } from "./welcomeControl";
 
+declare const process: any;
+
 export class HomeController extends IController {
     constructor() {
         super()
@@ -32,7 +34,7 @@ export class HomeController extends IController {
     go = async () => {
         this.addControllerTemplate();
         this.welcomeControl.addEventListeners();
-        var response = await fetch('http://localhost:5000/routes')
+        var response = await fetch(`${process.env.STATIONWALK_BACKEND_API}/routes`)
         try {
             if (response.ok) {
                 this.routesRequestResolver(await response.json());

@@ -21,7 +21,7 @@ let getSights id =
         let queryResult = ElasticAdapter.getRoute id
         match queryResult with
         | Ok result ->
-            let url = prepareSightSafariUrl result
+            let url = prepareSightSafariUrl result SightsConfig.url
             use httpClient = new HttpClient()
             let! dto = getAsync httpClient url |> Async.StartAsTask
             let resp = JsonConvert.DeserializeObject<SightSafariResponse>(dto)
