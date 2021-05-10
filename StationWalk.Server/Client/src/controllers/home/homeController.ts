@@ -20,7 +20,7 @@ export class HomeController extends IController {
     routesRequestResolver = (routesResponse: Route[]) => {
         routesResponse.map(async (route: Route) => {
             const mapper = new RouteToCheckPointsMapper(route);
-            let checkpoints = await mapper.map();
+            const checkpoints = await mapper.map();
             ApplicationContext.routingLayer.addData({
                 type: "Feature",
                 geometry: checkpoints,
@@ -34,7 +34,7 @@ export class HomeController extends IController {
     go = async () => {
         this.addControllerTemplate();
         this.welcomeControl.addEventListeners();
-        var response = await fetch(`${process.env.STATIONWALK_BACKEND_API}/routes`)
+        const response = await fetch(`${process.env.STATIONWALK_BACKEND_API}/routes`)
         try {
             if (response.ok) {
                 this.routesRequestResolver(await response.json());
@@ -44,7 +44,7 @@ export class HomeController extends IController {
         }
         catch(error) {
             console.error(error)
-        };
+        }
     }
 
     clear = () => {

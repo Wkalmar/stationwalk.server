@@ -7,7 +7,7 @@ const L = window.L;
 
 export class StationMarkerDrawer {
     draw = () => {
-        let markers: L.LatLngExpression[] = [];
+        const markers: L.LatLngExpression[] = [];
         StationsContainer.stations.forEach((station: Station) => {
             const latLngExpression: L.LatLngExpression = [station.location.lattitude, station.location.longitude]
             new L.Marker(latLngExpression, {
@@ -18,7 +18,7 @@ export class StationMarkerDrawer {
             }).addTo(ApplicationContext.map);
             markers.push(latLngExpression);
         })
-        var bounds = L.latLngBounds(markers);
+        const bounds = L.latLngBounds(markers);
         ApplicationContext.map.fitBounds(bounds)
     }
 }

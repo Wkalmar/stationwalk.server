@@ -45,17 +45,17 @@ export class SubmitController extends IController {
 
 
     private addSubmitFormEventListeners = () => {
-        let submitButton = document.getElementById(this.submitButtonId);
+        const submitButton = document.getElementById(this.submitButtonId);
         if (submitButton != null)
             submitButton.addEventListener('click', this.submit);
 
-        let goToHomeButton  = document.getElementById(this.gotoHomeButtonId);
+        const goToHomeButton  = document.getElementById(this.gotoHomeButtonId);
         if (goToHomeButton != null)
             goToHomeButton.addEventListener('click', this.goToHome);
     }
 
     private showSubmitModal = (e: CustomEvent) => {
-        let modal = document.getElementById(this.submitModalId);
+        const modal = document.getElementById(this.submitModalId);
         if (modal) {
             modal.style.display = 'block';
             this.routeToSubmit = e.detail;
@@ -96,20 +96,20 @@ export class SubmitController extends IController {
     }
 
     removeControllerTemplate = () => {
-        let controllerTemplateContainer = document.getElementById(this.submitModalId);
+        const controllerTemplateContainer = document.getElementById(this.submitModalId);
         if (controllerTemplateContainer != null) {
-            var container = controllerTemplateContainer as HTMLElement;
+            const container = controllerTemplateContainer as HTMLElement;
             container.remove();
         }
         this.startStationControl.removeTemplate();
     }
 
     private removeSubmitFormEventListeners = () => {
-        let submitButton = document.getElementById(this.submitButtonId);
+        const submitButton = document.getElementById(this.submitButtonId);
         if (submitButton != null)
             submitButton.removeEventListener('click', this.submit);
 
-        let goToHomeButton  = document.getElementById(this.gotoHomeButtonId);
+        const goToHomeButton  = document.getElementById(this.gotoHomeButtonId);
         if (goToHomeButton != null)
             goToHomeButton.addEventListener('click', this.goToHome);
     }
@@ -132,8 +132,8 @@ export class SubmitController extends IController {
     }
 
     private showSuccessNotification = () => {
-        let submitSuccessNotificationContrainer = document.getElementById(this.submitSuccessNotificationContainerId);
-        let submitFormContainer = document.getElementById(this.submitModalFormId);
+        const submitSuccessNotificationContrainer = document.getElementById(this.submitSuccessNotificationContainerId);
+        const submitFormContainer = document.getElementById(this.submitModalFormId);
 
         if (!submitFormContainer || !submitSuccessNotificationContrainer) {
             throw new Error("Invalid markup. Expected to have form container and successfull notification container");
@@ -144,8 +144,8 @@ export class SubmitController extends IController {
     }
 
     private submit = async () => {
-        let nameInput = document.getElementById(this.routeNameInputId) as HTMLInputElement;
-        let inputText = nameInput && nameInput.value;
+        const nameInput = document.getElementById(this.routeNameInputId) as HTMLInputElement;
+        const inputText = nameInput && nameInput.value;
         if (!inputText) {
             alert('enter route name');
             return;

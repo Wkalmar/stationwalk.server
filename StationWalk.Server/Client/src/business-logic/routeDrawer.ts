@@ -28,7 +28,7 @@ export class RouteDrawer {
 
     private submitDrawingIfNeeded = (point : [number, number]) => {
         if (this.points.length > 0) {
-            let head = this.points[this.points.length - 1];
+            const head = this.points[this.points.length - 1];
             this.isDrawingInProgress =
                 new Distance(point, head).euclidean() > this.neglectibleDistance;
         }
@@ -43,11 +43,11 @@ export class RouteDrawer {
     }
 
     private transformStateToRoute = () : Route => {
-        let route = new Route()
+        const route = new Route()
         route.stationStartId = this.startStation.id;
         route.stationEndId = this.endStation.id;
         route.checkpoints = this.points.map(p => {
-            let location = new Location();
+            const location = new Location();
             location.lattitude = p[0];
             location.longitude = p[1];
             return location;
@@ -73,7 +73,7 @@ export class RouteDrawer {
     }
 
     addPoint = (lat: number, lng: number) => {
-        let latLngPoint = this.mapLatLngToExpression(lat, lng);
+        const latLngPoint = this.mapLatLngToExpression(lat, lng);
         this.initDrawingIfNeeded(ApplicationContext.map, latLngPoint);
         this.submitDrawingIfNeeded(latLngPoint);
         this.drawPointIfNeeded(ApplicationContext.map, latLngPoint);
@@ -82,8 +82,8 @@ export class RouteDrawer {
 
     addHypotheticalPoint = (lat: number, lng: number) => {
         if (this.isDrawingInProgress) {
-            let head = this.points[this.points.length - 1];
-            let tail = this.mapLatLngToExpression(lat, lng);
+            const head = this.points[this.points.length - 1];
+            const tail = this.mapLatLngToExpression(lat, lng);
             this.hypotheticalRoute.removeFrom(ApplicationContext.map);
             this.hypotheticalRoute = L.polyline([head, tail], {color: 'red'});
             this.hypotheticalRoute.addTo(ApplicationContext.map);

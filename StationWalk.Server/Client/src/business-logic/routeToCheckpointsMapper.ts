@@ -20,8 +20,8 @@ export class RouteToCheckPointsMapper {
         })
         this.route.checkpoints.forEach(p =>
             RouteToCheckPointsMapper.ghRouting.addPoint(new window.GraphHopper.Input(p.lattitude, p.longitude)));
-        var json = await RouteToCheckPointsMapper.ghRouting.doRequest();
-        var path = json.paths[0];
+        const json = await RouteToCheckPointsMapper.ghRouting.doRequest();
+        const path = json.paths[0];
         return path.points;
     }
 }
