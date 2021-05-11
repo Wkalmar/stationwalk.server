@@ -18,4 +18,4 @@ jobs:
     - name: restore
       run: cd StationWalk.Server/Client && npm ci
     - name: eslint
-      run: npm run lint
+      run: cd StationWalk.Server/Client && npm run lint
