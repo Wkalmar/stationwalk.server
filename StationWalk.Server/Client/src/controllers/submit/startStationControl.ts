@@ -38,16 +38,16 @@ export class StartStationControl {
     public removeTemplate = () => {
         const templateContainer = document.getElementById(this.startStationSelectorId);
         if (templateContainer != null) {
-            var container = templateContainer as HTMLElement;
+            const container = templateContainer as HTMLElement;
             container.remove();
         }
     }
 
     private searchStation = async (e: KeyboardEvent) => {
-        var target = e.target as HTMLTextAreaElement;
+        const target = e.target as HTMLTextAreaElement;
         if (!target)
             throw new Error("Invalid markup. Missing start station input");
-        var response = await fetch(`${process.env.STATIONWALK_BACKEND_API}/station/${target.value}`)
+        const response = await fetch(`${process.env.STATIONWALK_BACKEND_API}/station/${target.value}`)
         try {
             if (response.ok) {
                 return this.displayStartStationAutoComplete(await response.json());
@@ -57,20 +57,20 @@ export class StartStationControl {
         }
         catch(error) {
             console.error(error)
-        };
+        }
     }
 
     private displayStartStationAutoComplete = (stations: Station[]) => {
-        let autoCompleteContainer = document.getElementById(this.startStationAutoCompleteContainerId);
+        const autoCompleteContainer = document.getElementById(this.startStationAutoCompleteContainerId);
         if (!autoCompleteContainer) {
             throw new Error("Invalid markup. Missing start station autocomplete container");
         }
 
         autoCompleteContainer.innerHTML = '';
 
-        let ul = document.createElement("ul");
+        const ul = document.createElement("ul");
         stations.map(s => {
-            let li = document.createElement("li");
+            const li = document.createElement("li");
             li.textContent = s.name;
 
             const latAttribute = document.createAttribute("data-lat");
@@ -93,19 +93,19 @@ export class StartStationControl {
         if (emitter == null) {
             throw new Error("Invalid markup. Missing start station input");
         }
-        let lat = Number(emitter.getAttribute("data-lat"));
-        let lng = Number(emitter.getAttribute("data-lng"));
+        const lat = Number(emitter.getAttribute("data-lat"));
+        const lng = Number(emitter.getAttribute("data-lng"));
         const routeDrawer = RouteDrawer.drawer;
         routeDrawer.addPoint(lat, lng);
 
-        let autoCompleteContainer = document.getElementById(this.startStationAutoCompleteContainerId);
+        const autoCompleteContainer = document.getElementById(this.startStationAutoCompleteContainerId);
         if (!autoCompleteContainer) {
             throw new Error("Invalid markup. Missing start station autocomplete container");
         }
 
         autoCompleteContainer.innerHTML = '';
 
-        let modal = document.getElementById(this.startStationSelectorId);
+        const modal = document.getElementById(this.startStationSelectorId);
         if (!modal) {
             throw new Error("Invalid markup. Missing start station modal");
         }

@@ -28,14 +28,14 @@ export class WelcomeControl {
     public removeTemplate = () => {
         const templateContainer = document.getElementById(this.welcomeScreenId);
         if (templateContainer != null) {
-            var container = templateContainer as HTMLElement;
+            const container = templateContainer as HTMLElement;
             container.remove();
         }
         ApplicationContext.displayWelcomeScreen = false;
     }
 
     public addEventListeners = () => {
-        var closeButton = document.getElementById(this.closeButtonId);
+        const closeButton = document.getElementById(this.closeButtonId);
         if (!closeButton) {
             return;
         }

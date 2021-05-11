@@ -15,13 +15,13 @@ export class SightsDrawer {
     private clearTemplate = () => {
         const controlContainer = document.getElementById(this.sightsControlId);
         if (controlContainer != null) {
-            var container = controlContainer as HTMLElement;
+            const container = controlContainer as HTMLElement;
             container.remove();
         }
     }
 
     private addEventListeners = () => {
-        var closeButton = document.getElementById(this.closeButtonId);
+        const closeButton = document.getElementById(this.closeButtonId);
         if (!closeButton) {
             return;
         }
@@ -31,18 +31,18 @@ export class SightsDrawer {
     static drawer = new SightsDrawer();
 
     private drawSights(sightsHtml: string) {
-        let sightsContainer = document.getElementById(this.sightsContainerId);
+        const sightsContainer = document.getElementById(this.sightsContainerId);
         if (sightsContainer == null) {
             throw new Error('Invalid html. Page should contain element with id sights-container');
         }
-        let container = sightsContainer as HTMLElement;
+        const container = sightsContainer as HTMLElement;
         container.insertAdjacentHTML('beforebegin', sightsHtml);
     }
 
     private prepareSightsHtml(sights: Sight[]) {
         this.clearTemplate();
         this.addEventListeners();
-        let sightCards = sights.map(s => `<div>
+        const sightCards = sights.map(s => `<div>
                 <a href="${s.links[0]}">${s.name || s.localizedName}</a>
                 <img src="${s.imageLink}"/>
             </div>`);
@@ -50,7 +50,7 @@ export class SightsDrawer {
         startBlock += `<button id="${this.closeButtonId}" class="button-ok">x</button>`;
         let res = "";
         res += sightCards.reduce((acc, s) => acc += s, res);
-        let endBlock = "</div>";
+        const endBlock = "</div>";
         const sightsHtml = startBlock + res + endBlock;
         return sightsHtml;
     }
