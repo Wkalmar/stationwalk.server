@@ -2,6 +2,13 @@
 
 open Nest
 
+type LocalizableString = {
+    [<SearchAsYouType>]
+    en: string
+    [<SearchAsYouType>]
+    ua: string
+}
+
 [<GeoPoint>]
 type Location = {
     lat: decimal

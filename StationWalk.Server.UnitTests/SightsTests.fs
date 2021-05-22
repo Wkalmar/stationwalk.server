@@ -4,32 +4,29 @@ open Xunit
 
 [<Fact>]
 let prepateSightSafariUrl() =
-    let route : ElasticModels.Route = {
-        name = {
-            en = "obolo embarkment"
-            ua = "obolon embarkment"
-        }
+    let route : Route = {
+        name = "obolon embarkment"
         stationStartId = "5c2e1d0c867a6335386700eb"
         checkpoints = [|
             {
-                lon = 30.498056M
-                lat = 50.501111M
+                longitude = 30.498056M
+                lattitude = 50.501111M
             }
             {
-                lon = 30.503239631652836M
-                lat = 50.501122690981326M
+                longitude = 30.503239631652836M
+                lattitude = 50.501122690981326M
             }
             {
-                lon = 30.509419441223148M
-                lat = 50.506033012426734M
+                longitude = 30.509419441223148M
+                lattitude = 50.506033012426734M
             }
             {
-                lon = 30.526456832885746M
-                lat = 50.48873550116753M
+                longitude = 30.526456832885746M
+                lattitude = 50.48873550116753M
             }
             {
-                lon = 30.49813270568848M
-                lat = 50.48636137365777M
+                longitude = 30.49813270568848M
+                lattitude = 50.48636137365777M
             }
         |]
         stationEndId = "5c2e1d0c867a6335386700ec"

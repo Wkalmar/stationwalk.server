@@ -11,7 +11,7 @@ let private branchFromString s =
     | "Green" -> Green
     | _ -> failwith "Failed to parse branch value from string"
 
-let private dbStationToStation (elasticStation : ElasticModels.Station) =
+let dbStationToStation (elasticStation : ElasticModels.Station) =
     let station : Domain.Station = {
         id = elasticStation.id.ToString()
         name = elasticStation.name.ua
@@ -27,7 +27,7 @@ let dbStationsToStations elasticStations =
     Seq.map (dbStationToStation) elasticStations
     |> Array.ofSeq
 
-let private dbRouteToRoute (dbRoute : ElasticModels.Route) =
+let dbRouteToRoute (dbRoute : ElasticModels.Route) =
     let route : Domain.Route = {
         id = dbRoute.id;
         name = dbRoute.name.ua;
