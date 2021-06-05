@@ -29,10 +29,12 @@ let dbStationsToStations elasticStations =
 
 let dbRouteToRoute (dbRoute : ElasticModels.Route) =
     let route : Domain.Route = {
-        id = dbRoute.id;
-        name = dbRoute.name.ua;
-        stationStartId =  dbRoute.stationStartId.ToString();
-        stationEndId = dbRoute.stationEndId.ToString();
+        id = dbRoute.id
+        name = dbRoute.name.ua
+        stationStartId =  dbRoute.stationStartId.ToString()
+        stationEndId = dbRoute.stationEndId.ToString()
+        approved = dbRoute.approved
+        description = dbRoute.description.ua
         checkpoints = Array.map (fun (i) -> {
             lattitude = i.lat
             longitude = i.lon
@@ -95,4 +97,9 @@ let routeToDbRoute (route : Domain.Route) =
         stationStartId = route.stationStartId
         stationEndId = route.stationEndId
         checkpoints = mappedCheckpoints
+        approved = route.approved
+        description = {
+            ua = route.description
+            en = route.description
+        }
     }

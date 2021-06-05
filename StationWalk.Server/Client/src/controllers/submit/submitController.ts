@@ -19,6 +19,7 @@ export class SubmitController extends IController {
     private submitModalId: string = "submit-modal";
     private submitModalFormId : string = "submit-modal-form";
     private routeNameInputId : string = "route-name";
+    private routeDescriptionInputId : string = "route-description";
     private submitButtonId : string = "route-submit-button";
     private submitSuccessNotificationContainerId : string = "submit-modal-success";
     private gotoHomeButtonId : string = "route-submit-goto-home";
@@ -31,6 +32,10 @@ export class SubmitController extends IController {
                     <div>
                         <label for="${this.routeNameInputId}">Name</label>
                         <input type="text" id="${this.routeNameInputId}" placeholder="Enter route name...">
+                    </div>
+                    <div>
+                        <label for="${this.routeDescriptionInputId}">Name</label>
+                        <input type="text" id="${this.routeDescriptionInputId}" placeholder="Tell us why do you like this route">
                     </div>
                     <button id="${this.submitButtonId}">Submit</button>
                 </div>
@@ -150,7 +155,11 @@ export class SubmitController extends IController {
             alert('enter route name');
             return;
         }
+        let descriptionInput = document.getElementById(this.routeDescriptionInputId) as HTMLInputElement;
+        let descriptionText = descriptionInput && descriptionInput.value;
         this.routeToSubmit.name = inputText as string;
+        this.routeToSubmit.description = descriptionText || '';
+        this.routeToSubmit.approved = false;
         await fetch(`${process.env.STATIONWALK_BACKEND_API}/route`, {
             method: 'POST',
             headers: {

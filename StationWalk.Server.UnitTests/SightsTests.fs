@@ -7,6 +7,8 @@ let prepateSightSafariUrl() =
     let route : Route = {
         name = "obolon embarkment"
         stationStartId = "5c2e1d0c867a6335386700eb"
+        approved = false
+        description = "nice statues"
         checkpoints = [|
             {
                 longitude = 30.498056M

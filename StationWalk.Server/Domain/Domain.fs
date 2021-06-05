@@ -30,4 +30,6 @@ type Route = {
     stationStartId: string
     stationEndId: string
     checkpoints: Location[]
+    approved: bool
+    description: string
 }

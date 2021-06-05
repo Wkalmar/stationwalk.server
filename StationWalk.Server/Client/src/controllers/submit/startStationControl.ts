@@ -44,7 +44,7 @@ export class StartStationControl {
     }
 
     private searchStation = async (e: KeyboardEvent) => {
-        const target = e.target as HTMLTextAreaElement;
+        const target = e.target as HTMLInputElement;
         if (!target)
             throw new Error("Invalid markup. Missing start station input");
         const response = await fetch(`${process.env.STATIONWALK_BACKEND_API}/station/${target.value}`)
