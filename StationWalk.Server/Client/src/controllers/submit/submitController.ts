@@ -155,8 +155,8 @@ export class SubmitController extends IController {
             alert('enter route name');
             return;
         }
-        let descriptionInput = document.getElementById(this.routeDescriptionInputId) as HTMLInputElement;
-        let descriptionText = descriptionInput && descriptionInput.value;
+        const descriptionInput = document.getElementById(this.routeDescriptionInputId) as HTMLInputElement;
+        const descriptionText = descriptionInput && descriptionInput.value;
         this.routeToSubmit.name = inputText as string;
         this.routeToSubmit.description = descriptionText || '';
         this.routeToSubmit.approved = false;
