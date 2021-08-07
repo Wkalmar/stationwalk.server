@@ -2,7 +2,6 @@
 module Domain
 
 open System.Text.Json.Serialization
-open Nest
 
 [<JsonFSharpConverter>]
 type Location = {
@@ -15,13 +14,6 @@ type Branch =
     | Red
     | Blue
     | Green
-
-type LocalizableString = {
-    [<SearchAsYouType>]
-    en: string
-    [<SearchAsYouType>]
-    ua: string
-}
 
 [<JsonFSharpConverter>]
 type Station = {
@@ -38,4 +30,6 @@ type Route = {
     stationStartId: string
     stationEndId: string
     checkpoints: Location[]
+    approved: bool
+    description: string
 }

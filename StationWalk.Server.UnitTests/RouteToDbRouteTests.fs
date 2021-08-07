@@ -12,6 +12,8 @@ let sussessPath() =
         name = "Sagaydachnogo pedestrian walk"
         stationStartId = "5c2e1d0c867a6335386700ef"
         stationEndId = "5c2e1d0c867a6335386700ee"
+        approved = false
+        description = "Lots of restaraunts"
         checkpoints = [|
             {
                 lattitude = 50.465M

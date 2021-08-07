@@ -6,6 +6,8 @@ export class Route {
     stationEndId: string
     checkpoints: Location[]
     name: string
+    description: string
+    approved: boolean
 }
 
 

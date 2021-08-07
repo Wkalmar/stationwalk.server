@@ -21,26 +21,26 @@ type SightSafariResponse = {
     body: SightSafariResponseBody
 }
 
-let prepareSightSafariUrl (result : ElasticModels.Route) (apiUrl : string) =
+let prepareSightSafariUrl (result : Route) (apiUrl : string) =
     let mutable sb = StringBuilder(apiUrl)
     sb <- sb.Append("/routes/direct?")
     let nfi = NumberFormatInfo();
     nfi.NumberDecimalSeparator <- ".";
     sb <- sb.AppendFormat("&from={0},{1}",
-        result.checkpoints.[0].lat.ToString(nfi),
-        result.checkpoints.[0].lon.ToString(nfi))
+        result.checkpoints.[0].lattitude.ToString(nfi),
+        result.checkpoints.[0].longitude.ToString(nfi))
     let lastPoint = Array.last result.checkpoints
     sb <- sb.AppendFormat("&to={0},{1}",
-        lastPoint.lat.ToString(nfi),
-        lastPoint.lon.ToString(nfi))
+        lastPoint.lattitude.ToString(nfi),
+        lastPoint.longitude.ToString(nfi))
     sb <- sb.Append("&ratio=1&locale=en")
     let intermediatePoints =
         result.checkpoints
         |> Array.skip(1)
         |> Array.take(result.checkpoints.Length - 1)
     sb <- sb.Append("&intermediatePoints=")
-    Array.iter(fun (i: ElasticModels.Location) ->
+    Array.iter(fun (i: Location) ->
         sb <- sb.AppendFormat("{0},{1},",
-            i.lat.ToString(nfi),
-            i.lon.ToString(nfi))) intermediatePoints
+            i.lattitude.ToString(nfi),
+            i.longitude.ToString(nfi))) intermediatePoints
     sb.ToString()

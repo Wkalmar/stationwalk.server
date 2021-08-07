@@ -14,3 +14,6 @@ StationWalk\.Server/Client/node_modules/*
 .vs/*
 StationWalk.Server/Client/stats.json
 StationWalk.Server/.ionide/*
+
+.fake
+.ionide

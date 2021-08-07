@@ -2,6 +2,13 @@
 
 open Nest
 
+type LocalizableString = {
+    [<SearchAsYouType>]
+    en: string
+    [<SearchAsYouType>]
+    ua: string
+}
+
 [<GeoPoint>]
 type Location = {
     lat: decimal
@@ -21,4 +28,6 @@ type Route = {
     stationStartId: string
     stationEndId: string
     checkpoints: Location[]
+    approved: bool
+    description: LocalizableString
 }
