@@ -1,9 +1,11 @@
 ﻿module SeedStations
 
-let elacticStations : ElasticModels.Station array =
+open MongoDB.Bson
+
+let stations : DbModels.Station array =
     [|
        {
-           id = "5c2e1d0c867a6335386700d7"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700d7"))
            name = {
                ua = "Академмістечко"
                en = "Akademmistechko"
@@ -16,7 +18,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700d8"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700d8"))
            name = {
                ua = "Житомирська"
                en = "Zhytomyrska"
@@ -29,7 +31,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700d9"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700d9"))
            name = {
                ua = "Святошин"
                en = "Svyatoshyn"
@@ -42,7 +44,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700da"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700da"))
            name = {
                ua = "Нивки"
                en = "Nyvky"
@@ -55,7 +57,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700db"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700db"))
            name = {
                ua = "Берестейська"
                en = "Beresteyska"
@@ -68,7 +70,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700dc"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700dc"))
            name = {
                ua = "Шулявська"
                en = "Shulyavska"
@@ -81,7 +83,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700dd"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700dd"))
            name = {
                ua = "Політехнічний Інститут"
                en = "Polytechnical Institute"
@@ -94,7 +96,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700de"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700de"))
            name = {
                ua = "Вокзальна"
                en = "Vokzalna"
@@ -107,7 +109,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700df"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700df"))
            name = {
                ua = "Університет"
                en = "Universytet"
@@ -120,7 +122,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700e0"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e0"))
            name = {
                ua = "Театральна"
                en = "Teatralna"
@@ -133,7 +135,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700e1"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e1"))
            name = {
                ua = "Хрещатик"
                en = "Khreshatyk"
@@ -146,7 +148,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700e2"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e2"))
            name = {
                ua = "Арсенальна"
                en = "Arsenalna"
@@ -159,7 +161,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700e3"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e3"))
            name = {
                ua = "Дніпро"
                en = "Dnipro"
@@ -172,7 +174,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700e4"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e4"))
            name = {
                ua = "Гідропарк"
                en = "Hydropark"
@@ -185,7 +187,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700e5"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e5"))
            name = {
                ua = "Лівобережна"
                en = "Livoberezhna"
@@ -198,7 +200,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700e6"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e6"))
            name = {
                ua = "Дарниця"
                en = "Darnytsya"
@@ -211,7 +213,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700e7"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e7"))
            name = {
                ua = "Чернігівська"
                en = "Chernihivska"
@@ -224,7 +226,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700e8"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e8"))
            name = {
                ua = "Лісова"
                en = "Lisova"
@@ -237,7 +239,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700e9"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700e9"))
            name = {
                ua = "Героїв Дніпра"
                en = "Heroiv Dnipra"
@@ -250,7 +252,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700ea"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700ea"))
            name = {
                ua = "Мінська"
                en = "Minska"
@@ -263,7 +265,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700eb"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700eb"))
            name = {
                ua = "Оболонь"
                en = "Obolon"
@@ -276,7 +278,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700ec"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700ec"))
            name = {
                ua = "Почайна"
                en = "Pochayna"
@@ -289,7 +291,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700ed"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700ed"))
            name = {
                ua = "Тараса Шевченка"
                en = "Tarasa Shevchenka"
@@ -302,7 +304,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700ee"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700ee"))
            name = {
                ua = "Контрактова Площа"
                en = "Kontraktova square"
@@ -315,7 +317,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700ef"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700ef"))
            name = {
                ua = "Поштова Площа"
                en = "Poshtova square"
@@ -328,7 +330,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700f0"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f0"))
            name = {
                ua = "Майдан Незалежності"
                en = "Maydan Nezalezhnosti"
@@ -341,7 +343,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700f1"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f1"))
            name = {
                ua = "Площа Льва Толстого"
                en = "Lva Tolstoho square"
@@ -354,7 +356,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700f2"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f2"))
            name = {
                ua = "Олімпійська"
                en = "Olimpiyska"
@@ -367,7 +369,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700f3"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f3"))
            name = {
                ua = "Палац Україна"
                en = "Palats Ukraina"
@@ -380,7 +382,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700f4"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f4"))
            name = {
                ua = "Либідська"
                en = "Lybidska"
@@ -393,7 +395,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700f5"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f5"))
            name = {
                ua = "Деміївська"
                en = "Demiyvska"
@@ -406,7 +408,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700f6"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f6"))
            name = {
                ua = "Голосіївська"
                en = "Holosiivska"
@@ -419,7 +421,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700f7"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f7"))
            name = {
                ua = "Васильківська"
                en = "Vasylkivska"
@@ -432,7 +434,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700f8"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f8"))
            name = {
                ua = "Виставковий Центр"
                en = "Vystavkovyi Tsentr"
@@ -445,7 +447,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700f9"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700f9"))
            name = {
                ua = "Іподром"
                en = "Ipodrom"
@@ -458,7 +460,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700fa"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700fa"))
            name = {
                ua = "Теремки"
                en = "Teremky"
@@ -471,7 +473,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700fb"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700fb"))
            name = {
                ua = "Сирець"
                en = "Syrets"
@@ -484,7 +486,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700fc"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700fc"))
            name = {
                ua = "Дорогожичі"
                en = "Dorohozhychi"
@@ -497,7 +499,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700fd"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700fd"))
            name = {
                ua = "Лук'янівська"
                en = "Lukyanivska"
@@ -510,7 +512,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700fe"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700fe"))
            name = {
                ua = "Золоті Ворота"
                en = "Zoloti vorota"
@@ -523,7 +525,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a6335386700ff"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a6335386700ff"))
            name = {
                ua = "Палац Спорту"
                en = "Palats Sportu"
@@ -536,7 +538,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a633538670100"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a633538670100"))
            name = {
                ua = "Кловська"
                en = "Klovska"
@@ -549,7 +551,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a633538670101"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a633538670101"))
            name = {
                ua = "Печерська"
                en = "Pecherska"
@@ -562,7 +564,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a633538670102"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a633538670102"))
            name = {
                ua = "Дружби Народів"
                en = "Druzhby narodiv"
@@ -575,7 +577,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a633538670103"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a633538670103"))
            name = {
                ua = "Видубичі"
                en = "Vydubychi"
@@ -588,7 +590,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a633538670104"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a633538670104"))
            name = {
                ua = "Славутич"
                en = "Slavutych"
@@ -601,7 +603,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a633538670105"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a633538670105"))
            name = {
                ua = "Осокорки"
                en = "Osokorky"
@@ -614,7 +616,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a633538670106"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a633538670106"))
            name = {
                ua = "Позняки"
                en = "Poznyaky"
@@ -627,7 +629,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a633538670107"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a633538670107"))
            name = {
                ua = "Харківська"
                en = "Kharkivska"
@@ -640,7 +642,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a633538670108"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a633538670108"))
            name = {
                ua = "Вирлиця"
                en = "Vyrlytsya"
@@ -653,7 +655,7 @@ let elacticStations : ElasticModels.Station array =
            }
        }
        {
-           id = "5c2e1d0c867a633538670109"
+           id = BsonObjectId(ObjectId("5c2e1d0c867a633538670109"))
            name = {
                ua = "Червоний Хутір"
                en = "Chervoniy Khutir"
@@ -668,4 +670,4 @@ let elacticStations : ElasticModels.Station array =
     |]
 
 let seed =
-    ElasticAdapter.seedStations elacticStations
+    DbAdapter.seedStations stations

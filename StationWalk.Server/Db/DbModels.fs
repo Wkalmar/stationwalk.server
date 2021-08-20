@@ -1,29 +1,26 @@
-﻿module ElasticModels
+﻿module DbModels
 
-open Nest
+open MongoDB.Bson
 
 type LocalizableString = {
-    [<SearchAsYouType>]
     en: string
-    [<SearchAsYouType>]
     ua: string
 }
 
-[<GeoPoint>]
 type Location = {
     lat: decimal
     lon: decimal
 }
 
 type Station = {
-    id: string
+    id: BsonObjectId
     name: LocalizableString
     location: Location
     branch: string
 }
 
 type Route = {
-    id: string
+    id: BsonObjectId
     name: LocalizableString
     stationStartId: string
     stationEndId: string
