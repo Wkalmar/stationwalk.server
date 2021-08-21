@@ -1,8 +1,8 @@
 ﻿module RouteToDbRouteTests
 
-open DomainMappers
+open DbMappers
 open Domain
-open ElasticModels
+open DbModels
 open Xunit
 
 [<Fact>]
@@ -46,7 +46,7 @@ let sussessPath() =
     Assert.Equal("Sagaydachnogo pedestrian walk", res.name.ua)
     Assert.Equal("5c2e1d0c867a6335386700ef", res.stationStartId)
     Assert.Equal("5c2e1d0c867a6335386700ee", res.stationEndId)
-    Assert.Equal<ElasticModels.Location>([|
+    Assert.Equal<DbModels.Location>([|
         {
             lat = 50.465M
             lon = 30.516667M }
@@ -57,8 +57,17 @@ let sussessPath() =
             lat = 50.46292015790519M
             lon = 30.519118309021M }
         {
+            lat = 50.46166420126396M
+            lon = 30.520834922790527M }
+        {
             lat = 50.4610908186649M
             lon = 30.521693229675297M }
+        {
+            lat = 50.459479849401035M
+            lon = 30.524268150329593M }
+        {
+            lat = 50.45871530241579M
+            lon = 30.525426864624027M }
         {
             lat = 50.45896105100877M
             lon = 30.525684356689457M }
