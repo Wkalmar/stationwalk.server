@@ -35,9 +35,9 @@ let configureServices (services : IServiceCollection) =
 
 [<EntryPoint>]
 let main argv =
-    //SeedStations.seed |> ignore
     try
         DotEnv.Config(false)
+        SeedStations.seed |> ignore
         WebHostBuilder()
             .UseKestrel()
             .Configure(Action<IApplicationBuilder> configureApp)

@@ -25,7 +25,6 @@ let private dbStationToStation (dbStation : DbModels.Station) : Station =
 let dbStationsToStations dbStations =
     dbStations
     |> Array.map(fun i -> dbStationToStation i)
-    |> Ok
 
 let stationToDbStation (station : Station) : DbModels.Station =
     let dbStation : DbModels.Station = {
@@ -97,7 +96,6 @@ let dbRouteToRoute (dbRoute : DbModels.Route) : Route =
 let dbRoutesToRoutes dbRoutes =
     dbRoutes
     |> Array.map (fun i -> dbRouteToRoute i)
-    |> Ok
 
 let routeToDbRoute (route : Route) : DbModels.Route =
     let dbRoute : DbModels.Route = {
