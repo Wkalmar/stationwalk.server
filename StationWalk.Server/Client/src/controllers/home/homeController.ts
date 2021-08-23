@@ -34,7 +34,7 @@ export class HomeController extends IController {
     go = async () => {
         this.addControllerTemplate();
         this.welcomeControl.addEventListeners();
-        const response = await fetch(`${process.env.STATIONWALK_BACKEND_API}/routes`)
+        const response = await fetch('/routes')
         try {
             if (response.ok) {
                 this.routesRequestResolver(await response.json());

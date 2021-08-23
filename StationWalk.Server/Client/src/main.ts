@@ -4,8 +4,6 @@ import { ControllersEngine } from "./controllersEngine";
 import { ApplicationContext } from "./applicationContext";
 import { WelcomeControl } from "./controllers/home/welcomeControl";
 import { StationMarkerDrawer } from "./business-logic/stationMarkerDrawer";
-import { Sight } from "./models/sight";
-import { SightsDrawer } from './business-logic/sightsDrawer';
 
 declare const window: any;
 declare const process: any;
@@ -16,23 +14,9 @@ declare const process: any;
     const mapCopyright = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>';
     const L = window.L;
 
-    const sightsDrawer = (sights: Sight[]) => {
-        SightsDrawer.drawer.draw(sights);
-    }
-
     const onEachFeature = (feature: any, layer : any) => {
         layer.on('click', async (e : any) => {
-            const response = await fetch(`${process.env.STATIONWALK_BACKEND_API}/sights/${feature.properties.id}`);
-            try {
-                if (response.ok) {
-                    sightsDrawer(await response.json());
-                } else {
-                    throw new Error();
-                }
-            }
-            catch(error) {
-                console.error(error)
-            }
+            console.log(`${feature.properties.id}`);
         });
     }
 
@@ -63,7 +47,7 @@ declare const process: any;
         new StationMarkerDrawer().draw();
     }
 
-    const response = await fetch(`${process.env.STATIONWALK_BACKEND_API}/stations`)
+    const response = await fetch('/stations')
     try {
         if (response.ok) {
             stationsRequestResolver(await response.json());

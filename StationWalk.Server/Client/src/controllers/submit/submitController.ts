@@ -160,7 +160,7 @@ export class SubmitController extends IController {
         this.routeToSubmit.name = inputText as string;
         this.routeToSubmit.description = descriptionText || '';
         this.routeToSubmit.approved = false;
-        await fetch(`${process.env.STATIONWALK_BACKEND_API}/route`, {
+        await fetch('/route', {
             method: 'POST',
             headers: {
             'Accept': 'application/json',

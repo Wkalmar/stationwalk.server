@@ -7,22 +7,21 @@ export class RouteToCheckPointsMapper {
     constructor(private route : Route) {}
 
     public static host: string = process.env.STATIONWALK_GRAPHHOPPER_HOST;
-
     public static defaultKey: string = process.env.STATIONWALK_GRAPHHOPPER_KEY;
-    public static ghRouting: any;
 
     map = async () => {
-        RouteToCheckPointsMapper.ghRouting = new window.GraphHopper.Routing({
-            key: RouteToCheckPointsMapper.defaultKey,
-            host: RouteToCheckPointsMapper.host,
-            vehicle: "foot",
-            elevation: false
-        })
+        let url = `${RouteToCheckPointsMapper.host}/route?`;
         this.route.checkpoints.forEach(p =>
-            RouteToCheckPointsMapper.ghRouting.addPoint(new window.GraphHopper.Input(p.lattitude, p.longitude)));
-        const json = await RouteToCheckPointsMapper.ghRouting.doRequest();
-        const path = json.paths[0];
-        return path.points;
+            url += `point=${p.lattitude},${p.longitude}&`);
+        url += `vehicle=foot&debug=false&locale=en&points_encoded=false&instructions=true&elevation=false&optimize=false&key=${RouteToCheckPointsMapper.defaultKey}`
+        const resp = await fetch(url);
+        if (resp.ok) {
+            const json = await resp.json();
+            const path = json.paths[0];
+            return path.points;
+        } else {
+            throw new Error('failed to fetch from graphhopper');
+        }
     }
 }
 
