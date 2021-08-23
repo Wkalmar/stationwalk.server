@@ -1,7 +1,7 @@
 ﻿namespace StationWalk.Server.UnitTests
 
 open FsCheck.Xunit
-open DomainMappers
+open DbMappers
 
 module RemoveRedundantCheckpointsTests =
 
@@ -13,7 +13,7 @@ module RemoveRedundantCheckpointsTests =
     let maxLength x =
         ``result array contains no more than 5 items`` x removeRedundantCheckpoints
 
-    let ``result contains first point from input`` (input: ElasticModels.Location[]) (mapFn : ElasticModels.Location[] -> ElasticModels.Location[]) =
+    let ``result contains first point from input`` (input: Location[]) (mapFn : Location[] -> Location[]) =
         if Array.length input = 0 then
             true
         else
@@ -24,7 +24,7 @@ module RemoveRedundantCheckpointsTests =
     let firstItem x =
         ``result contains first point from input`` x removeRedundantCheckpoints
 
-    let ``result contains last point from input`` (input: ElasticModels.Location[]) (mapFn : ElasticModels.Location[] -> ElasticModels.Location[]) =
+    let ``result contains last point from input`` (input: Location[]) (mapFn : Location[] -> Location[]) =
         if Array.length input = 0 then
             true
         else

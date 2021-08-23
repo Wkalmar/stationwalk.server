@@ -11,8 +11,7 @@ let app : HttpHandler =
         GET >=> choose [
             route "/routes" >=> RouteApi.getAll
             route "/stations" >=> StationApi.getAll
-            routef "/station/%s" StationApi.searchStation
-            routef "/sights/%s" SightsApi.getSights
+            route "/health" >=> Successful.OK "healthy"
             route "/" >=> htmlFile "Client/dist/index.html"
         ]
         POST >=> choose [
@@ -36,9 +35,9 @@ let configureServices (services : IServiceCollection) =
 
 [<EntryPoint>]
 let main argv =
-    //SeedStations.seed |> ignore
     try
-        DotEnv.Config(true)
+        DotEnv.Config(false)
+        SeedStations.seed |> ignore
         WebHostBuilder()
             .UseKestrel()
             .Configure(Action<IApplicationBuilder> configureApp)

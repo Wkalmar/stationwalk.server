@@ -6,9 +6,9 @@
     <ProjectReference Include="..\StationWalk.Server\StationWalk.Server.fsproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbRouteToRouteTests.fs" />
     <Compile Include="RouteToDbRouteTests.fs" />
     <Compile Include="RemoveRedundantCheckpointsTests.fs" />
-    <Compile Include="SightsTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FsCheck" Version="2.14.3" />
