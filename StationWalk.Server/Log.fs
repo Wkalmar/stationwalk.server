@@ -7,6 +7,6 @@ let instance =
     LoggerConfiguration()
         .MinimumLevel.Debug()
         .WriteTo.LiterateConsole()
-        .WriteTo.RollingFile(JsonFormatter(), "log-{Date}.log")
+        .WriteTo.File(JsonFormatter(), "log/log.txt")
         .CreateLogger()
 
