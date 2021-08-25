@@ -8,26 +8,33 @@ open Microsoft.AspNetCore.Http
 let getAll =
     fun next httpContext ->
     task {
+        Log.instance.Debug("Making call to RouteApi.getAll")
         let! routes = DbAdapter.getAllRoutes |> Async.StartAsTask
         let result = DbMappers.dbRoutesToRoutes routes
-        return! text (JsonSerializer.Serialize(result, Common.serializerOptions)) next httpContext
+        let serialized = JsonSerializer.Serialize(result, Common.serializerOptions)
+        Log.instance.Debug("Call to RouteApi.delete ended. result {getAll}", serialized)
+        return! text serialized next httpContext
     }
 
 let submit =
     fun next (httpContext : HttpContext) ->
     task {
         let! body = httpContext.ReadBodyFromRequestAsync()
+        Log.instance.Debug("Making call to RouteApi.submit. body: {body}", body)
         let route = Common.fromJson<Route> body
         let dbRoute = DbMappers.routeToDbRoute route
         do! DbAdapter.submitRoute dbRoute |> Async.StartAsTask
+        Log.instance.Debug("Call to RouteApi.submit ended")
         return! text "" next httpContext
     }
 
 let delete (id: string) =
     fun (next: HttpFunc) (httpContext : HttpContext) ->
+    Log.instance.Debug("Making call to RouteApi.delete. id: {id}", id)
     let result =
         AuthApi.authorize httpContext
         |> Result.map (fun _ -> DbAdapter.deleteRoute id)
+    Log.instance.Debug("Call to RouteApi.delete ended. result {result}", result)
     match result with
     | Ok _ -> text "" next httpContext
     | Error "Forbidden" -> RequestErrors.FORBIDDEN "" next httpContext

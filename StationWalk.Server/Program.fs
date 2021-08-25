@@ -37,7 +37,7 @@ let configureServices (services : IServiceCollection) =
 let main argv =
     try
         DotEnv.Config(false)
-        SeedStations.seed |> ignore
+        //SeedStations.seed |> ignore
         WebHostBuilder()
             .UseKestrel()
             .Configure(Action<IApplicationBuilder> configureApp)
@@ -45,5 +45,5 @@ let main argv =
             .Build()
             .Run()
     with
-    | e -> Log.Exception(e)
+    | e -> Log.instance.Error("Exception occured. {e}", e)
     0
