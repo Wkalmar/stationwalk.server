@@ -12,7 +12,7 @@ export class StationMarkerDrawer {
             const latLngExpression: L.LatLngExpression = [station.location.lattitude, station.location.longitude]
             new L.Marker(latLngExpression, {
                 icon: L.icon({
-                    iconUrl: `../assets/${station.branch}.png`
+                    iconUrl: `../assets/${station.branch.toLowerCase()}.png`
                 }),
                 title: station.name
             }).addTo(ApplicationContext.map);
