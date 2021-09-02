@@ -1,12 +1,16 @@
 ﻿open dotenv.net
 open Giraffe
+open Giraffe.Swagger.Dsl
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.DependencyInjection
 open System
 
+let docsConfig c =
+    DocumentationConfig.Default
+
 let app : HttpHandler =
-    choose [
+    swaggerOf( choose [
         OPTIONS >=> Successful.OK ""
         GET >=> choose [
             route "/routes" >=> RouteApi.getAll
@@ -21,7 +25,8 @@ let app : HttpHandler =
         DELETE >=> choose [
             routef "/route/%s" RouteApi.delete
         ]
-    ]
+    ]) |> withConfig docsConfig 
+
 
 let configureApp (appBuilder : IApplicationBuilder) =
     appBuilder.UseGiraffe app

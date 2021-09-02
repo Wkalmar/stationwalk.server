@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "StationWalk.Server", "StationWalk.Server\StationWalk.Server.fsproj", "{28E0AFCA-5767-4AFE-85B7-EBF6A550F83F}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "StationWalk.Server.UnitTests", "StationWalk.Server.UnitTests\StationWalk.Server.UnitTests.fsproj", "{DAC0ECFF-11E3-4A6A-B663-B733F581037B}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "StationWalk.Server.UnitTests", "StationWalk.Server.UnitTests\StationWalk.Server.UnitTests.fsproj", "{DAC0ECFF-11E3-4A6A-B663-B733F581037B}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "StationWalk.Server.Swagger", "StationWalk.Server.Swagger\StationWalk.Server.Swagger.fsproj", "{38E71E61-D69E-4E83-B700-5063D7821A76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{DAC0ECFF-11E3-4A6A-B663-B733F581037B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAC0ECFF-11E3-4A6A-B663-B733F581037B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAC0ECFF-11E3-4A6A-B663-B733F581037B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38E71E61-D69E-4E83-B700-5063D7821A76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38E71E61-D69E-4E83-B700-5063D7821A76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38E71E61-D69E-4E83-B700-5063D7821A76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38E71E61-D69E-4E83-B700-5063D7821A76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -88,6 +88,9 @@
   <ItemGroup>
     <Folder Include="Client\dist\styles\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StationWalk.Server.Swagger\StationWalk.Server.Swagger.fsproj" />
+  </ItemGroup>
   <Target Name="BuildClient" AfterTargets="Build">
     <Exec Command="npm install" WorkingDirectory="Client" />
     <Exec Command="npm run build" WorkingDirectory="Client" />

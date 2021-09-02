@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1</TargetFrameworks>				
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>		
+	</PropertyGroup>
+		
+	<ItemGroup>
+		<Compile Include="Common.fs" />
+		<Compile Include="Analyzer.fs" />
+		<Compile Include="Generator.fs" />
+		<Compile Include="UI.fs" />
+		<Compile Include="Dsl.fs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FSharp.Quotations.Evaluator" Version="2.1.0" />		
+		<PackageReference Include="Giraffe" Version="4.0.0" />
+		<PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="swagger-ui.zip" />
+	</ItemGroup>
+</Project>
