@@ -6,9 +6,6 @@ open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.DependencyInjection
 open System
 
-let docsConfig c =
-    DocumentationConfig.Default
-
 let app : HttpHandler =
     swaggerOf( choose [
         OPTIONS >=> Successful.OK ""
@@ -24,7 +21,7 @@ let app : HttpHandler =
         DELETE >=> choose [
             routef "/route/%s" RouteApi.delete
         ]
-    ]) |> withConfig docsConfig 
+    ]) |> withConfig Documentation.docsConfig 
 
 
 let configureApp (appBuilder : IApplicationBuilder) =

@@ -23,6 +23,7 @@
     <Compile Include="Api\Auth\AuthApi.fs" />
     <Compile Include="Api\Route\RouteApi.fs" />
     <Compile Include="Api\Station\StationApi.fs" />
+    <Compile Include="Documentation.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
