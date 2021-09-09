@@ -62,9 +62,11 @@
     <None Include="Client\src\controllers\icontroller.ts" />
     <None Include="Client\src\controllers\submitController.ts" />
     <None Include="Client\src\main.ts" />
+    <None Include="Client\src\models\localizableString.ts" />
     <None Include="Client\src\models\location.ts" />
     <None Include="Client\src\models\route.ts" />
     <None Include="Client\src\models\station.ts" />
+    <None Include="Client\src\utils\property.ts" />
     <None Include="Client\src\utils\debounce.ts" />
     <None Include="Client\src\utils\distance.ts" />
     <None Include="Client\test\routeDrawer.spec.ts" />

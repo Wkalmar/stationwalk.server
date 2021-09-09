@@ -2,11 +2,6 @@
 
 open MongoDB.Bson
 
-type LocalizableString = {
-    en: string
-    ua: string
-}
-
 type Location = {
     lat: decimal
     lon: decimal

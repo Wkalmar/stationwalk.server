@@ -4,6 +4,7 @@ import { RouteDrawer } from "../../business-logic/routeDrawer";
 import { ControllersEngine } from '../../controllersEngine';
 import { ApplicationContext } from '../../applicationContext';
 import { StartStationControl } from './startStationControl';
+import { Property } from '../../utils/property';
 
 declare const process: any;
 
@@ -157,8 +158,8 @@ export class SubmitController extends IController {
         }
         const descriptionInput = document.getElementById(this.routeDescriptionInputId) as HTMLInputElement;
         const descriptionText = descriptionInput && descriptionInput.value;
-        this.routeToSubmit.name = inputText as string;
-        this.routeToSubmit.description = descriptionText || '';
+        this.routeToSubmit.name = Property.set(this.routeToSubmit.name, ApplicationContext.currentLang, inputText as string);
+        this.routeToSubmit.description = Property.set(this.routeToSubmit.description, ApplicationContext.currentLang, descriptionText || '');
         this.routeToSubmit.approved = false;
         await fetch('/route', {
             method: 'POST',

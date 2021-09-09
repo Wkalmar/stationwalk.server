@@ -1,8 +1,9 @@
 import { Location } from './location';
+import { LocalizableString } from './localizableString'
 
 export class Station {
     id: string
-    name: string
+    name: LocalizableString
     location: Location
     branch: Branch
 }

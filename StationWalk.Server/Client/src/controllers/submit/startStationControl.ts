@@ -2,6 +2,8 @@ import { Debounce } from '../../utils/debounce';
 import { Station } from '../../models/station';
 import { RouteDrawer } from "../../business-logic/routeDrawer";
 import { StationsContainer } from '../../business-logic/stationsContainer';
+import { ApplicationContext } from '../../applicationContext';
+import { Property } from '../../utils/property';
 
 declare const process: any;
 
@@ -50,7 +52,8 @@ export class StartStationControl {
             throw new Error("Invalid markup. Missing start station input");
 
         const searchResult = StationsContainer.stations
-            .filter(p => p.name.toLowerCase().startsWith(target.value.toLowerCase()));
+            .filter(p => p.name.en.toLowerCase().startsWith(target.value.toLowerCase())
+                || p.name.ua.toLowerCase().startsWith(target.value.toLowerCase()));
         return this.displayStartStationAutoComplete(searchResult);
     }
 
@@ -65,7 +68,7 @@ export class StartStationControl {
         const ul = document.createElement("ul");
         stations.map(s => {
             const li = document.createElement("li");
-            li.textContent = s.name;
+            li.textContent = Property.get(s.name, ApplicationContext.currentLang);
 
             const latAttribute = document.createAttribute("data-lat");
             latAttribute.value = s.location.lattitude.toString();
