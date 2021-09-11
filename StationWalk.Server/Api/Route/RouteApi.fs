@@ -8,24 +8,30 @@ open Microsoft.AspNetCore.Http
 let getAll =
     fun next httpContext ->
     task {
-        Log.instance.Debug("Making call to RouteApi.getAll")
-        let! routes = DbAdapter.getAllRoutes |> Async.StartAsTask
-        let result = DbMappers.dbRoutesToRoutes routes
-        let serialized = JsonSerializer.Serialize(result, Common.serializerOptions)
-        Log.instance.Debug("Call to RouteApi.delete ended. result {getAll}", serialized)
-        return! text serialized next httpContext
+        try 
+            Log.instance.Debug("Making call to RouteApi.getAll")
+            let! routes = DbAdapter.getAllRoutes |> Async.StartAsTask
+            let result = DbMappers.dbRoutesToRoutes routes
+            let serialized = JsonSerializer.Serialize(result, Common.serializerOptions)
+            Log.instance.Debug("Call to RouteApi.delete ended. result {getAll}", serialized)
+            return! text serialized next httpContext
+        with
+        | e -> return Common.logException e
     }
 
 let submit =
     fun next (httpContext : HttpContext) ->
     task {
-        let! body = httpContext.ReadBodyFromRequestAsync()
-        Log.instance.Debug("Making call to RouteApi.submit. body: {body}", body)
-        let route = Common.fromJson<Route> body
-        let dbRoute = DbMappers.routeToDbRoute route
-        do! DbAdapter.submitRoute dbRoute |> Async.StartAsTask
-        Log.instance.Debug("Call to RouteApi.submit ended")
-        return! text "" next httpContext
+        try
+            let! body = httpContext.ReadBodyFromRequestAsync()
+            Log.instance.Debug("Making call to RouteApi.submit. body: {body}", body)
+            let route = Common.fromJson<Route> body
+            let dbRoute = DbMappers.routeToDbRoute route
+            do! DbAdapter.submitRoute dbRoute |> Async.StartAsTask
+            Log.instance.Debug("Call to RouteApi.submit ended")
+            return! text "" next httpContext
+        with
+        | e -> return Common.logException e
     }
 
 let delete (id: string) =
