@@ -1,4 +1,4 @@
-module DbRouteToRouteTests
+﻿module DbRouteToRouteTests
 
 open DbMappers
 open Domain
@@ -13,7 +13,7 @@ let sussessPath() =
         id = BsonObjectId(ObjectId("4c2e1d0c867a6335386700ef"))
         name = {
             en = "Sagaydachnogo pedestrian walk"
-            ua = "Sagaydachnogo pedestrian walk"
+            ua = "Пішохідна вулиця Сагайдачного"
         }
         stationStartId = "5c2e1d0c867a6335386700ef"
         stationEndId = "5c2e1d0c867a6335386700ee"
@@ -51,7 +51,8 @@ let sussessPath() =
     }
     let res = dbRouteToRoute input
     Assert.Equal("4c2e1d0c867a6335386700ef", res.id)
-    Assert.Equal("Sagaydachnogo pedestrian walk", res.name)
+    Assert.Equal("Sagaydachnogo pedestrian walk", res.name.en)
+    Assert.Equal("Пішохідна вулиця Сагайдачного", res.name.ua)
     Assert.Equal("5c2e1d0c867a6335386700ef", res.stationStartId)
     Assert.Equal("5c2e1d0c867a6335386700ee", res.stationEndId)
     Assert.Equal<Domain.Location>([|

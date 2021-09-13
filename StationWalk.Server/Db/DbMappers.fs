@@ -13,7 +13,10 @@ let private branchFromString s =
 let private dbStationToStation (dbStation : DbModels.Station) : Station =
     let station = {
         id = dbStation.id.ToString()
-        name = dbStation.name.ua
+        name = {
+            ua = dbStation.name.ua
+            en = dbStation.name.en
+        } 
         branch = branchFromString dbStation.branch
         location = {
             lattitude = dbStation.location.lat
@@ -30,8 +33,8 @@ let stationToDbStation (station : Station) : DbModels.Station =
     let dbStation : DbModels.Station = {
         id = BsonObjectId(ObjectId.GenerateNewId())
         name = {
-            ua = station.name
-            en = ""
+            ua = station.name.ua
+            en = station.name.en
         }
         branch = station.branch.ToString()
         location = {
@@ -78,8 +81,14 @@ let removeRedundantCheckpoints (checkPoints : Location[]) =
 let dbRouteToRoute (dbRoute : DbModels.Route) : Route =
     let route = {
         id = dbRoute.id.ToString()
-        name = dbRoute.name.ua
-        description = dbRoute.description.ua
+        name = {
+            ua = dbRoute.name.ua
+            en = dbRoute.name.en
+        } 
+        description = {
+            ua = dbRoute.description.ua
+            en = dbRoute.description.en
+        } 
         stationStartId = dbRoute.stationStartId
         stationEndId = dbRoute.stationEndId
         checkpoints =
@@ -101,12 +110,12 @@ let routeToDbRoute (route : Route) : DbModels.Route =
     let dbRoute : DbModels.Route = {
         id = BsonObjectId(ObjectId.GenerateNewId())
         name = {
-            ua = route.name
-            en = route.name
+            ua = route.name.ua
+            en = route.name.en
         }
         description = {
-            ua = route.description
-            en = route.description
+            ua = route.description.ua
+            en = route.description.en
         }
         stationStartId = route.stationStartId
         stationEndId = route.stationEndId

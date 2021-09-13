@@ -13,14 +13,7 @@ let private db = client.GetDatabase(dbName)
 let private routes = db.GetCollection<DbModels.Route> "Routes"
 let private stations = db.GetCollection<DbModels.Station> "Stations"
 
-type Exception with
-    member this.Reraise () =
-        (ExceptionDispatchInfo.Capture this).Throw ()
-        Unchecked.defaultof<_>
 
-let logDbException (e: Exception) =
-    Log.instance.Error("DbAdapter. Error {e}", e)
-    e.Reraise()
 
 let getAllRoutes = async {
     try
@@ -30,7 +23,7 @@ let getAllRoutes = async {
             |> Async.AwaitTask
         return allDbRoutes.ToArray()
     with
-    | e -> return logDbException e
+    | e -> return Common.logException e
 }
 
 let submitRoute (route : DbModels.Route) = async {
@@ -40,7 +33,7 @@ let submitRoute (route : DbModels.Route) = async {
             |> Async.AwaitTask
         return insertResult
     with
-    | e -> return logDbException e
+    | e -> return Common.logException e
 }
 
 let deleteRoute (id:string) =
@@ -54,7 +47,7 @@ let getAllStations = async {
             |> Async.AwaitTask
         return allDbStations.ToArray()
     with
-    | e -> return logDbException e
+    | e -> return Common.logException e
 }
 
 let seedStations (seedStations : DbModels.Station array) =
@@ -65,4 +58,4 @@ let seedStations (seedStations : DbModels.Station array) =
             |> stations.InsertMany
             |> ignore
     with
-    | e -> logDbException e
+    | e -> Common.logException e

@@ -9,11 +9,18 @@ open Xunit
 let sussessPath() =
     let input : Domain.Route = {
         id = null
-        name = "Sagaydachnogo pedestrian walk"
+        name = {
+            en = "Sagaydachnogo pedestrian walk"
+            ua = "Пішохідна вулиця Сагайдачного"
+        } 
         stationStartId = "5c2e1d0c867a6335386700ef"
         stationEndId = "5c2e1d0c867a6335386700ee"
         approved = false
-        description = "Lots of restaraunts"
+        description = {
+            en = "Lots of restaraunts"
+            ua = "Багато ресторанів"            
+        }
+        
         checkpoints = [|
             {
                 lattitude = 50.465M
@@ -43,7 +50,7 @@ let sussessPath() =
     }
     let res = routeToDbRoute input
     Assert.Equal("Sagaydachnogo pedestrian walk", res.name.en)
-    Assert.Equal("Sagaydachnogo pedestrian walk", res.name.ua)
+    Assert.Equal("Пішохідна вулиця Сагайдачного", res.name.ua)
     Assert.Equal("5c2e1d0c867a6335386700ef", res.stationStartId)
     Assert.Equal("5c2e1d0c867a6335386700ee", res.stationEndId)
     Assert.Equal<DbModels.Location>([|

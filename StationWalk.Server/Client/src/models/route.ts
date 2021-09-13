@@ -1,12 +1,13 @@
 import { Location } from './location';
+import { LocalizableString } from './localizableString'
 
 export class Route {
     id: string
     stationStartId: string
     stationEndId: string
     checkpoints: Location[]
-    name: string
-    description: string
+    name: LocalizableString
+    description: LocalizableString
     approved: boolean
 }
 

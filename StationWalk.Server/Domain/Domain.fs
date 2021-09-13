@@ -3,6 +3,11 @@ module Domain
 
 open System.Text.Json.Serialization
 
+type LocalizableString = {
+    en: string
+    ua: string
+}
+
 [<JsonFSharpConverter>]
 type Location = {
      lattitude: decimal
@@ -18,7 +23,7 @@ type Branch =
 [<JsonFSharpConverter>]
 type Station = {
     id: string
-    name: string
+    name: LocalizableString
     branch: Branch
     location: Location
 }
@@ -26,10 +31,10 @@ type Station = {
 [<JsonFSharpConverter>]
 type Route = {
     id: string
-    name: string
+    name: LocalizableString
     stationStartId: string
     stationEndId: string
     checkpoints: Location[]
     approved: bool
-    description: string
+    description: LocalizableString
 }
