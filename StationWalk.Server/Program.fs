@@ -16,7 +16,6 @@ let app : HttpHandler =
         ]
         POST >=> choose [
             route "/route" >=> RouteApi.submit
-            route "/auth" >=> AuthApi.login
         ]
         DELETE >=> choose [
             routef "/route/%s" RouteApi.delete
