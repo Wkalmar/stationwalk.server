@@ -21,5 +21,5 @@ type Route = {
     stationEndId: string
     checkpoints: Location[]
     approved: bool
-    description: LocalizableString
+    description: LocalizableString    
 }

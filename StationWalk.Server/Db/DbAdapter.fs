@@ -15,11 +15,16 @@ let private stations = db.GetCollection<DbModels.Station> "Stations"
 
 
 
-let getAllRoutes = async {
+let getAllRoutes (skip:int) (take:int) = async {
     try
         let filter = FilterDefinition.Empty
         let! allDbRoutes =
-            routes.Find(filter).ToListAsync()
+            routes
+                .Find(filter)
+                .SortBy(fun p -> p.id :> obj)
+                .Skip(skip)
+                .Limit(take)
+                .ToListAsync()
             |> Async.AwaitTask
         return allDbRoutes.ToArray()
     with

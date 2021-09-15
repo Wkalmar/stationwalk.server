@@ -5,16 +5,20 @@ open Giraffe
 open System.Text.Json
 open Microsoft.AspNetCore.Http
 
-let getAll =
+let getAll page =
     fun next httpContext ->
     task {
-        try 
+        try             
+            let calculatePaging page =
+                let pageSize = 10
+                (page-1)*pageSize, pageSize
+            let (skip, take) = calculatePaging page
             Log.instance.Debug("Making call to RouteApi.getAll")
-            let! routes = DbAdapter.getAllRoutes |> Async.StartAsTask
+            let! routes = DbAdapter.getAllRoutes skip take |> Async.StartAsTask
             let result = DbMappers.dbRoutesToRoutes routes
             let serialized = JsonSerializer.Serialize(result, Common.serializerOptions)
             Log.instance.Debug("Call to RouteApi.delete ended. result {getAll}", serialized)
-            return! text serialized next httpContext
+            return! text serialized next httpContext            
         with
         | e -> return Common.logException e
     }
