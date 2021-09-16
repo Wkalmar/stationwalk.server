@@ -31,6 +31,18 @@ let getAllRoutes (skip:int) (take:int) = async {
     | e -> return Common.logException e
 }
 
+let getApprovedRoutes = async {
+    try
+        let! allDbRoutes =
+            routes
+                .Find(fun p -> p.approved)
+                .ToListAsync()
+            |> Async.AwaitTask
+        return allDbRoutes.ToArray()
+    with
+    | e -> return Common.logException e
+}
+
 let submitRoute (route : DbModels.Route) = async {
     try
         let! insertResult =

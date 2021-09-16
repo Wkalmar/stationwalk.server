@@ -23,6 +23,20 @@ let getAll page =
         | e -> return Common.logException e
     }
 
+let getApproved =
+    fun next httpContext ->
+    task {
+        try             
+            Log.instance.Debug("Making call to RouteApi.getApproved")
+            let! routes = DbAdapter.getApprovedRoutes |> Async.StartAsTask
+            let result = DbMappers.dbRoutesToRoutes routes
+            let serialized = JsonSerializer.Serialize(result, Common.serializerOptions)
+            Log.instance.Debug("Call to RouteApi.delete ended. result {getAll}", serialized)
+            return! text serialized next httpContext            
+        with
+        | e -> return Common.logException e
+    }
+
 let submit =
     fun next (httpContext : HttpContext) ->
     task {

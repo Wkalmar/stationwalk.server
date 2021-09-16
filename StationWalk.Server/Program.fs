@@ -10,6 +10,7 @@ let app : HttpHandler =
         OPTIONS >=> Successful.OK ""
         GET >=> choose [
             routef "/routes/%i" RouteApi.getAll
+            route "/approvedroutes" >=> RouteApi.getApproved
             route "/stations" >=> StationApi.getAll
             route "/health" >=> Successful.OK "healthy"
             route "/" >=> htmlFile "Client/dist/index.html"
