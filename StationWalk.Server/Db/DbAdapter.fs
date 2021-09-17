@@ -13,8 +13,6 @@ let private db = client.GetDatabase(dbName)
 let private routes = db.GetCollection<DbModels.Route> "Routes"
 let private stations = db.GetCollection<DbModels.Station> "Stations"
 
-
-
 let getAllRoutes (skip:int) (take:int) = async {
     try
         let filter = FilterDefinition.Empty
@@ -43,7 +41,7 @@ let getApprovedRoutes = async {
     | e -> return Common.logException e
 }
 
-let submitRoute (route : DbModels.Route) = async {
+let createRoute (route : DbModels.Route) = async {
     try
         let! insertResult =
             routes.InsertOneAsync(route)

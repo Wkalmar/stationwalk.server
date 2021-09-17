@@ -45,7 +45,7 @@ let submit =
             Log.instance.Debug("Making call to RouteApi.submit. body: {body}", body)
             let route = Common.fromJson<Route> body
             let dbRoute = DbMappers.routeToDbRoute route
-            do! DbAdapter.submitRoute dbRoute |> Async.StartAsTask
+            do! DbAdapter.createRoute dbRoute |> Async.StartAsTask
             Log.instance.Debug("Call to RouteApi.submit ended")
             return! text "" next httpContext
         with
