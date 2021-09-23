@@ -112,9 +112,9 @@ let generateId =
 let generateStringId =
     generateId.ToString()
 
-let routeToDbRoute (route : Route) : DbModels.Route =
+let routeToDbRoute (route : Route) (routeId : string) : DbModels.Route =
     let dbRoute : DbModels.Route = {
-        id = generateId
+        id = BsonObjectId(ObjectId.Parse(routeId))
         name = {
             ua = route.name.ua
             en = route.name.en

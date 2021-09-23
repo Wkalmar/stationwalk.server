@@ -51,6 +51,17 @@ let createRoute (route : DbModels.Route) = async {
     | e -> return Common.logException e
 }
 
+let updateRoute (route : DbModels.Route) = async {
+    try
+        let filterDefinition = Builders<DbModels.Route>.Filter.Eq((fun p -> p.id), route.id)        
+        let! updateResult =
+            routes.ReplaceOneAsync(filterDefinition, route)
+            |> Async.AwaitTask
+        return updateResult
+    with
+    | e -> return Common.logException e
+}
+
 let deleteRoute (id:string) =
     routes.DeleteOne(fun i -> i.id = BsonObjectId(ObjectId(id)) )
 

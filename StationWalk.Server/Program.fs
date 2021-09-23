@@ -18,6 +18,9 @@ let app : HttpHandler =
         POST >=> choose [
             route "/route" >=> RouteApi.submit
         ]
+        PUT >=> choose [
+            route "/route" >=> RouteApi.update
+        ]
         DELETE >=> choose [
             routef "/route/%s" RouteApi.delete
         ]
