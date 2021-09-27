@@ -11,6 +11,7 @@ let createValidationParameters =
     validationParameters.ValidateLifetime <- true
     validationParameters.ValidateIssuer <- false
     validationParameters.IssuerSigningKey <- SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtConfig.salt))
+    validationParameters.ClockSkew <- TimeSpan.Zero    
     validationParameters
 
 let validateToken (token: string) = 

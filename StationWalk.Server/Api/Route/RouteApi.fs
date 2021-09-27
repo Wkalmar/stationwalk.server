@@ -58,11 +58,18 @@ let update =
         try
             let! body = httpContext.ReadBodyFromRequestAsync()
             Log.instance.Debug("Making call to RouteApi.update. body: {body}", body)
-            let route = Common.fromJson<Route> body
-            let dbRoute = DbMappers.routeToDbRoute route route.id
-            let! _ = DbAdapter.updateRoute dbRoute |> Async.StartAsTask
-            Log.instance.Debug("Call to RouteApi.submit ended")
-            return! text "" next httpContext
+            let parseBodyAndUpdate b =
+                let route = Common.fromJson<Route> b
+                let dbRoute = DbMappers.routeToDbRoute route route.id
+                DbAdapter.updateRoute dbRoute |> Async.StartAsTask
+            let result =
+                AuthApi.authorize httpContext
+                |> Result.map (fun _ -> parseBodyAndUpdate body)
+            Log.instance.Debug("Call to RouteApi.update ended")
+            match result with
+            | Ok _ -> return! text "" next httpContext
+            | Error "Forbidden" -> return! RequestErrors.FORBIDDEN "" next httpContext
+            | Error _ -> return! ServerErrors.INTERNAL_ERROR "" next httpContext          
         with
         | e -> return Common.logException e
     }
