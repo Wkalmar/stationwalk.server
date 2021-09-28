@@ -28,7 +28,6 @@ type Station = {
     location: Location
 }
 
-[<JsonFSharpConverter>]
 type Route = {
     id: string
     name: LocalizableString

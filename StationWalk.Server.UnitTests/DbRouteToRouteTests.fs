@@ -66,8 +66,17 @@ let sussessPath() =
             lattitude = 50.46292015790519M
             longitude = 30.519118309021M }
         {
+            lattitude = 50.46166420126396M
+            longitude = 30.520834922790527M }
+        {
             lattitude = 50.4610908186649M
             longitude = 30.521693229675297M }
+        {
+            lattitude = 50.459479849401035M
+            longitude = 30.524268150329593M }
+        {
+            lattitude = 50.45871530241579M
+            longitude = 30.525426864624027M }
         {
             lattitude = 50.45896105100877M
             longitude = 30.525684356689457M }

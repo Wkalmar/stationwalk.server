@@ -21,6 +21,7 @@
     <Compile Include="Api\Auth\JwtConfig.fs" />
     <Compile Include="Api\Auth\JwtValidator.fs" />
     <Compile Include="Api\Auth\AuthApi.fs" />
+    <Compile Include="Api\Route\RouteModels.fs" />
     <Compile Include="Api\Route\RouteApi.fs" />
     <Compile Include="Api\Station\StationApi.fs" />
     <Compile Include="Program.fs" />

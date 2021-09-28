@@ -15,7 +15,8 @@ let getAll page =
             let (skip, take) = calculatePaging page
             Log.instance.Debug("Making call to RouteApi.getAll")
             let! routes = DbAdapter.getAllRoutes skip take |> Async.StartAsTask
-            let result = DbMappers.dbRoutesToRoutes routes
+            let domainRoutes = DbMappers.dbRoutesToRoutes routes
+            let result = RouteModels.toFullRoutes domainRoutes 
             let serialized = JsonSerializer.Serialize(result, Common.serializerOptions)
             Log.instance.Debug("Call to RouteApi.delete ended. result {getAll}", serialized)
             return! text serialized next httpContext            
@@ -29,7 +30,8 @@ let getApproved =
         try             
             Log.instance.Debug("Making call to RouteApi.getApproved")
             let! routes = DbAdapter.getApprovedRoutes |> Async.StartAsTask
-            let result = DbMappers.dbRoutesToRoutes routes
+            let domainRoutes = DbMappers.dbRoutesToRoutes routes
+            let result = RouteModels.toShortRoutes domainRoutes
             let serialized = JsonSerializer.Serialize(result, Common.serializerOptions)
             Log.instance.Debug("Call to RouteApi.delete ended. result {getAll}", serialized)
             return! text serialized next httpContext            
