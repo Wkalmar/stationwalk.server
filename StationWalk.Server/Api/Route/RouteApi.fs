@@ -45,8 +45,9 @@ let submit =
         try
             let! body = httpContext.ReadBodyFromRequestAsync()
             Log.instance.Debug("Making call to RouteApi.submit. body: {body}", body)
-            let route = Common.fromJson<Route> body
-            let dbRoute = DbMappers.routeToDbRoute route DbMappers.generateStringId
+            let apiRoute = Common.fromJson<RouteModels.ShortRoute> body
+            let route = RouteModels.fromShortRoute apiRoute
+            let dbRoute = DbMappers.routeToDbRoute route
             do! DbAdapter.createRoute dbRoute |> Async.StartAsTask
             Log.instance.Debug("Call to RouteApi.submit ended")
             return! text "" next httpContext
@@ -61,8 +62,9 @@ let update =
             let! body = httpContext.ReadBodyFromRequestAsync()
             Log.instance.Debug("Making call to RouteApi.update. body: {body}", body)
             let parseBodyAndUpdate b =
-                let route = Common.fromJson<Route> b
-                let dbRoute = DbMappers.routeToDbRoute route route.id
+                let apiRoute = Common.fromJson<RouteModels.FullRoute> b
+                let route = RouteModels.fromFullRoute apiRoute
+                let dbRoute = DbMappers.routeToDbRoute route
                 DbAdapter.updateRoute dbRoute |> Async.StartAsTask
             let result =
                 AuthApi.authorize httpContext

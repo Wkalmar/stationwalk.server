@@ -72,11 +72,25 @@ let toShortRoute (route: Domain.Route) : ShortRoute =
         stationEndId = route.stationEndId
         checkpoints =
             route.checkpoints
-            |> Array.map (fun (i : Domain.Location) -> {
-                lattitude = i.lattitude
-                longitude = i.longitude
-            })
             |> removeRedundantCheckpoints        
+    }
+    route
+
+let fromShortRoute (route: ShortRoute) : Domain.Route  = 
+    let route : Domain.Route = {
+        id = Common.generateStringId
+        name = {
+            ua = route.name.ua
+            en = route.name.en
+        } 
+        description = {
+            ua = route.description.ua
+            en = route.description.en
+        } 
+        stationStartId = route.stationStartId
+        stationEndId = route.stationEndId
+        checkpoints = route.checkpoints
+        approved = false
     }
     route
 
@@ -93,12 +107,25 @@ let toFullRoute (route: Domain.Route) : FullRoute =
         } 
         stationStartId = route.stationStartId
         stationEndId = route.stationEndId
-        checkpoints =
-            route.checkpoints
-            |> Array.map (fun (i : Domain.Location) -> {
-                lattitude = i.lattitude
-                longitude = i.longitude
-            })
+        checkpoints = route.checkpoints
+        approved = route.approved
+    }
+    route
+
+let fromFullRoute (route: FullRoute) : Domain.Route  = 
+    let route : Domain.Route = {
+        id = route.id.ToString()
+        name = {
+            ua = route.name.ua
+            en = route.name.en
+        } 
+        description = {
+            ua = route.description.ua
+            en = route.description.en
+        } 
+        stationStartId = route.stationStartId
+        stationEndId = route.stationEndId
+        checkpoints = route.checkpoints
         approved = route.approved
     }
     route

@@ -3,6 +3,7 @@
 open System
 open System.Text.Json
 open System.Runtime.ExceptionServices
+open MongoDB.Bson
 
 let serializerOptions = JsonSerializerOptions()
 serializerOptions.IgnoreNullValues <- true
@@ -18,3 +19,9 @@ type Exception with
 let logException (e: Exception) =
     Log.instance.Error("Error {e}", e)
     e.Reraise()
+
+let generateId =
+    BsonObjectId(ObjectId.GenerateNewId())
+
+let generateStringId =
+    generateId.ToString()

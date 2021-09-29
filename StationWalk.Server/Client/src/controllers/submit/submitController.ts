@@ -159,8 +159,7 @@ export class SubmitController extends IController {
         const descriptionInput = document.getElementById(this.routeDescriptionInputId) as HTMLInputElement;
         const descriptionText = descriptionInput && descriptionInput.value;
         this.routeToSubmit.name = Property.set(this.routeToSubmit.name, ApplicationContext.currentLang, inputText as string);
-        this.routeToSubmit.description = Property.set(this.routeToSubmit.description, ApplicationContext.currentLang, descriptionText || '');
-        this.routeToSubmit.approved = false;
+        this.routeToSubmit.description = Property.set(this.routeToSubmit.description, ApplicationContext.currentLang, descriptionText || '');        
         await fetch('/route', {
             method: 'POST',
             headers: {

@@ -70,15 +70,9 @@ let dbRoutesToRoutes dbRoutes =
     dbRoutes
     |> Array.map (fun i -> dbRouteToRoute i)
 
-let generateId =
-    BsonObjectId(ObjectId.GenerateNewId())
-
-let generateStringId =
-    generateId.ToString()
-
-let routeToDbRoute (route : Route) (routeId : string) : DbModels.Route =
+let routeToDbRoute (route : Route) : DbModels.Route =
     let dbRoute : DbModels.Route = {
-        id = BsonObjectId(ObjectId.Parse(routeId))
+        id = BsonObjectId(ObjectId.Parse(route.id))
         name = {
             ua = route.name.ua
             en = route.name.en
