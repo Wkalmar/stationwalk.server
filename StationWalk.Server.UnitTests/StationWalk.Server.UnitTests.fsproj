@@ -6,6 +6,7 @@
     <ProjectReference Include="..\StationWalk.Server\StationWalk.Server.fsproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RouteToApiRouteTests.fs" />
     <Compile Include="DbRouteToRouteTests.fs" />
     <Compile Include="RouteToDbRouteTests.fs" />
     <Compile Include="RemoveRedundantCheckpointsTests.fs" />

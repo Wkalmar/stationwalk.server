@@ -35,14 +35,14 @@ export class SubmitController extends IController {
                         <input type="text" id="${this.routeNameInputId}" placeholder="Enter route name...">
                     </div>
                     <div>
-                        <label for="${this.routeDescriptionInputId}">Name</label>
+                        <label for="${this.routeDescriptionInputId}">Desctiption</label>
                         <input type="text" id="${this.routeDescriptionInputId}" placeholder="Tell us why do you like this route">
                     </div>
                     <button id="${this.submitButtonId}">Submit</button>
                 </div>
             </div>
             <div id="${this.submitSuccessNotificationContainerId}" class="modal-content" style="display: none;">
-                Your route submitted successfully
+                Thank you for submitting your route. It will be published afrer being reviewed by members of our community.
                 <button id="${this.gotoHomeButtonId}" class="button-ok">Go to home page</button>
             </div>
         </div>`
@@ -159,8 +159,7 @@ export class SubmitController extends IController {
         const descriptionInput = document.getElementById(this.routeDescriptionInputId) as HTMLInputElement;
         const descriptionText = descriptionInput && descriptionInput.value;
         this.routeToSubmit.name = Property.set(this.routeToSubmit.name, ApplicationContext.currentLang, inputText as string);
-        this.routeToSubmit.description = Property.set(this.routeToSubmit.description, ApplicationContext.currentLang, descriptionText || '');
-        this.routeToSubmit.approved = false;
+        this.routeToSubmit.description = Property.set(this.routeToSubmit.description, ApplicationContext.currentLang, descriptionText || '');        
         await fetch('/route', {
             method: 'POST',
             headers: {

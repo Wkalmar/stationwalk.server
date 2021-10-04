@@ -13,25 +13,51 @@ let private db = client.GetDatabase(dbName)
 let private routes = db.GetCollection<DbModels.Route> "Routes"
 let private stations = db.GetCollection<DbModels.Station> "Stations"
 
-
-
-let getAllRoutes = async {
+let getAllRoutes (skip:int) (take:int) = async {
     try
         let filter = FilterDefinition.Empty
         let! allDbRoutes =
-            routes.Find(filter).ToListAsync()
+            routes
+                .Find(filter)
+                .SortBy(fun p -> p.id :> obj)
+                .Skip(skip)
+                .Limit(take)
+                .ToListAsync()
             |> Async.AwaitTask
         return allDbRoutes.ToArray()
     with
     | e -> return Common.logException e
 }
 
-let submitRoute (route : DbModels.Route) = async {
+let getApprovedRoutes = async {
+    try
+        let! allDbRoutes =
+            routes
+                .Find(fun p -> p.approved)
+                .ToListAsync()
+            |> Async.AwaitTask
+        return allDbRoutes.ToArray()
+    with
+    | e -> return Common.logException e
+}
+
+let createRoute (route : DbModels.Route) = async {
     try
         let! insertResult =
             routes.InsertOneAsync(route)
             |> Async.AwaitTask
         return insertResult
+    with
+    | e -> return Common.logException e
+}
+
+let updateRoute (route : DbModels.Route) = async {
+    try
+        let filterDefinition = Builders<DbModels.Route>.Filter.Eq((fun p -> p.id), route.id)        
+        let! updateResult =
+            routes.ReplaceOneAsync(filterDefinition, route)
+            |> Async.AwaitTask
+        return updateResult
     with
     | e -> return Common.logException e
 }

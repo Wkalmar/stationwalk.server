@@ -1,7 +1,7 @@
 ﻿namespace StationWalk.Server.UnitTests
 
 open FsCheck.Xunit
-open DbMappers
+open RouteModels
 
 module RemoveRedundantCheckpointsTests =
 

@@ -8,7 +8,6 @@ export class Route {
     checkpoints: Location[]
     name: LocalizableString
     description: LocalizableString
-    approved: boolean
 }
 
 

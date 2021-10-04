@@ -34,7 +34,7 @@ export class HomeController extends IController {
     go = async () => {
         this.addControllerTemplate();
         this.welcomeControl.addEventListeners();
-        const response = await fetch('/routes')
+        const response = await fetch('/approvedroutes')
         try {
             if (response.ok) {
                 this.routesRequestResolver(await response.json());

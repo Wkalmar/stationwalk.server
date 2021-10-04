@@ -5,16 +5,36 @@ open Giraffe
 open System.Text.Json
 open Microsoft.AspNetCore.Http
 
-let getAll =
+let getAll page =
     fun next httpContext ->
     task {
-        try 
+        try             
+            let calculatePaging page =
+                let pageSize = 10
+                (page-1)*pageSize, pageSize
+            let (skip, take) = calculatePaging page
             Log.instance.Debug("Making call to RouteApi.getAll")
-            let! routes = DbAdapter.getAllRoutes |> Async.StartAsTask
-            let result = DbMappers.dbRoutesToRoutes routes
+            let! routes = DbAdapter.getAllRoutes skip take |> Async.StartAsTask
+            let domainRoutes = DbMappers.dbRoutesToRoutes routes
+            let result = RouteModels.toFullRoutes domainRoutes 
             let serialized = JsonSerializer.Serialize(result, Common.serializerOptions)
             Log.instance.Debug("Call to RouteApi.delete ended. result {getAll}", serialized)
-            return! text serialized next httpContext
+            return! text serialized next httpContext            
+        with
+        | e -> return Common.logException e
+    }
+
+let getApproved =
+    fun next httpContext ->
+    task {
+        try             
+            Log.instance.Debug("Making call to RouteApi.getApproved")
+            let! routes = DbAdapter.getApprovedRoutes |> Async.StartAsTask
+            let domainRoutes = DbMappers.dbRoutesToRoutes routes
+            let result = RouteModels.toShortRoutes domainRoutes
+            let serialized = JsonSerializer.Serialize(result, Common.serializerOptions)
+            Log.instance.Debug("Call to RouteApi.delete ended. result {getAll}", serialized)
+            return! text serialized next httpContext            
         with
         | e -> return Common.logException e
     }
@@ -25,11 +45,35 @@ let submit =
         try
             let! body = httpContext.ReadBodyFromRequestAsync()
             Log.instance.Debug("Making call to RouteApi.submit. body: {body}", body)
-            let route = Common.fromJson<Route> body
+            let apiRoute = Common.fromJson<RouteModels.ShortRoute> body
+            let route = RouteModels.fromShortRoute apiRoute
             let dbRoute = DbMappers.routeToDbRoute route
-            do! DbAdapter.submitRoute dbRoute |> Async.StartAsTask
+            do! DbAdapter.createRoute dbRoute |> Async.StartAsTask
             Log.instance.Debug("Call to RouteApi.submit ended")
             return! text "" next httpContext
+        with
+        | e -> return Common.logException e
+    }
+
+let update = 
+    fun next (httpContext : HttpContext) ->
+    task {
+        try
+            let! body = httpContext.ReadBodyFromRequestAsync()
+            Log.instance.Debug("Making call to RouteApi.update. body: {body}", body)
+            let parseBodyAndUpdate b =
+                let apiRoute = Common.fromJson<RouteModels.FullRoute> b
+                let route = RouteModels.fromFullRoute apiRoute
+                let dbRoute = DbMappers.routeToDbRoute route
+                DbAdapter.updateRoute dbRoute |> Async.StartAsTask
+            let result =
+                AuthApi.authorize httpContext
+                |> Result.map (fun _ -> parseBodyAndUpdate body)
+            Log.instance.Debug("Call to RouteApi.update ended")
+            match result with
+            | Ok _ -> return! text "" next httpContext
+            | Error "Forbidden" -> return! RequestErrors.FORBIDDEN "" next httpContext
+            | Error _ -> return! ServerErrors.INTERNAL_ERROR "" next httpContext          
         with
         | e -> return Common.logException e
     }

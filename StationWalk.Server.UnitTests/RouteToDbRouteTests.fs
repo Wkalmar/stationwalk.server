@@ -8,7 +8,7 @@ open Xunit
 [<Fact>]
 let sussessPath() =
     let input : Domain.Route = {
-        id = null
+        id = "5c2e1d0c867a6335386700e1"
         name = {
             en = "Sagaydachnogo pedestrian walk"
             ua = "Пішохідна вулиця Сагайдачного"
