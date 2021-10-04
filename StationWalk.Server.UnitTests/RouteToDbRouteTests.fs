@@ -8,7 +8,7 @@ open Xunit
 [<Fact>]
 let sussessPath() =
     let input : Domain.Route = {
-        id = null
+        id = "5c2e1d0c867a6335386700e1"
         name = {
             en = "Sagaydachnogo pedestrian walk"
             ua = "Пішохідна вулиця Сагайдачного"
@@ -48,7 +48,7 @@ let sussessPath() =
                 longitude = 30.525684356689457M }
         |]
     }
-    let res = routeToDbRoute input DbMappers.generateStringId
+    let res = routeToDbRoute input
     Assert.Equal("Sagaydachnogo pedestrian walk", res.name.en)
     Assert.Equal("Пішохідна вулиця Сагайдачного", res.name.ua)
     Assert.Equal("5c2e1d0c867a6335386700ef", res.stationStartId)
