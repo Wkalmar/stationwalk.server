@@ -9,6 +9,7 @@ declare const window: any;
 const L = window.L;
 export class RouteDrawer {
     private neglectibleDistance: number = 0.0003;
+    private zoom: number = 16;
     private startStation : Station;
     private endStation: Station;
 
@@ -19,7 +20,7 @@ export class RouteDrawer {
     private initDrawingIfNeeded = (map: L.Map, point: [number, number]) => {
         if (!this.isDrawingInProgress) {
             this.isDrawingInProgress = true;
-            map.setView(point, 15);
+            map.setView(point, this.zoom);
         }
     }
     private mapLatLngToExpression = (lat: number, lng: number) : [number, number] => {

@@ -12,6 +12,8 @@ export class HomeController extends IController {
     }
 
     private welcomeControl: WelcomeControl = new WelcomeControl();
+    private zoom: number = 11;
+    private mapCenter: L.LatLngExpression = [50.45, 30.52];
 
     path = "home";
 
@@ -34,7 +36,8 @@ export class HomeController extends IController {
     go = async () => {
         this.addControllerTemplate();
         this.welcomeControl.addEventListeners();
-        const response = await fetch('/approvedroutes')
+        const response = await fetch('/approvedroutes');
+        ApplicationContext.map.setView(this.mapCenter, this.zoom);
         try {
             if (response.ok) {
                 this.routesRequestResolver(await response.json());
