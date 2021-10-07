@@ -18,6 +18,7 @@
     <Compile Include="Db\DbConfig.fs" />
     <Compile Include="Db\DbAdapter.fs" />
     <Compile Include="Db\SeedStations.fs" />
+    <Compile Include="Api\LoggingMiddleware.fs" />
     <Compile Include="Api\Auth\JwtConfig.fs" />
     <Compile Include="Api\Auth\JwtValidator.fs" />
     <Compile Include="Api\Auth\AuthApi.fs" />

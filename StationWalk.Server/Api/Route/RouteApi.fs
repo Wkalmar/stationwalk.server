@@ -13,7 +13,6 @@ let getAll page =
                 let pageSize = 10
                 (page-1)*pageSize, pageSize
             let (skip, take) = calculatePaging page
-            Log.instance.Debug("Making call to RouteApi.getAll")
             let! routes = DbAdapter.getAllRoutes skip take |> Async.StartAsTask
             let domainRoutes = DbMappers.dbRoutesToRoutes routes
             let result = RouteModels.toFullRoutes domainRoutes 
@@ -28,7 +27,6 @@ let getApproved =
     fun next httpContext ->
     task {
         try             
-            Log.instance.Debug("Making call to RouteApi.getApproved")
             let! routes = DbAdapter.getApprovedRoutes |> Async.StartAsTask
             let domainRoutes = DbMappers.dbRoutesToRoutes routes
             let result = RouteModels.toShortRoutes domainRoutes

@@ -8,7 +8,6 @@ let getAll =
     fun next httpContext ->
     task {
         try
-            Log.instance.Debug("Making call to StationApi.getAll")
             let! dbStations = DbAdapter.getAllStations |> Async.StartAsTask
             let result = DbMappers.dbStationsToStations dbStations
             let serialized = JsonSerializer.Serialize(result, Common.serializerOptions)
