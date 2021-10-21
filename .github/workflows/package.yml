@@ -8,6 +8,7 @@ jobs:
   package:
     name: package
     runs-on: ubuntu-latest
+    steps:
     - uses: actions/checkout@v2
     - shell: bash
       env:
