@@ -20,9 +20,9 @@ jobs:
       env:
         STATIONWALK_GRAPHHOPPER_KEY: ${{ secrets.STATIONWALK_GRAPHHOPPER_KEY }}
     - name: Setup .NET
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 5.0.x
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
     - name: install node v12
       uses: actions/setup-node@v1
       with:
