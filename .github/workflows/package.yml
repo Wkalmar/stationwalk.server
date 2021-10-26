@@ -19,20 +19,21 @@ jobs:
     - shell: bash
       env:
         STATIONWALK_GRAPHHOPPER_KEY: ${{ secrets.STATIONWALK_GRAPHHOPPER_KEY }}
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
     - name: install node v12
       uses: actions/setup-node@v1
       with:
         node-version: 12
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build -c Release --no-restore
     - name: zip artifact
-      run: zip -p ${{secrets.STATIONWALK_ARTIFACT_PASS}} -r stationwalk.zip ./StationWalk.Server/bin/Release/net5.0/*
+      run: |
+      zip -p ${{secrets.STATIONWALK_ARTIFACT_PASS}} -r stationwalk.zip ./StationWalk.Server/bin/Release/net5.0/*
     - name: create release
       id: create_release
       uses: actions/create-release@v1
