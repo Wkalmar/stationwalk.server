@@ -31,9 +31,6 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build -c Release --no-restore
-    - name: zip artifact
-      run: |
-      zip -p ${{secrets.STATIONWALK_ARTIFACT_PASS}} -r stationwalk.zip ./StationWalk.Server/bin/Release/net5.0/*
     - name: create release
       id: create_release
       uses: actions/create-release@v1
