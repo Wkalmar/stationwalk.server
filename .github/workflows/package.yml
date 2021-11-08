@@ -10,15 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - shell: bash
-      env:
-        STATIONWALK_MAPBOX_TOKEN: ${{ secrets.STATIONWALK_MAPBOX_TOKEN }}
-    - shell: bash
-      env:
-        STATIONWALK_GRAPHHOPPER_HOST: ${{ secrets.STATIONWALK_GRAPHHOPPER_HOST }}
-    - shell: bash
-      env:
-        STATIONWALK_GRAPHHOPPER_KEY: ${{ secrets.STATIONWALK_GRAPHHOPPER_KEY }}
     - name: install node v12
       uses: actions/setup-node@v1
       with:
@@ -30,6 +21,10 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
+      env:
+        STATIONWALK_MAPBOX_TOKEN: ${{ secrets.STATIONWALK_MAPBOX_TOKEN }}
+        STATIONWALK_GRAPHHOPPER_HOST: ${{ secrets.STATIONWALK_GRAPHHOPPER_HOST }}
+        STATIONWALK_GRAPHHOPPER_KEY: ${{ secrets.STATIONWALK_GRAPHHOPPER_KEY }}
       run: dotnet build -c Release --no-restore
     - name: zip files
       run: zip -p ${{secrets.STATIONWALK_ARTIFACT_PASS}} -r stationwalk.zip /StationWalk.Server/bin/Release/net5.0/*
