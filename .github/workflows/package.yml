@@ -26,8 +26,12 @@ jobs:
         STATIONWALK_GRAPHHOPPER_HOST: ${{ secrets.STATIONWALK_GRAPHHOPPER_HOST }}
         STATIONWALK_GRAPHHOPPER_KEY: ${{ secrets.STATIONWALK_GRAPHHOPPER_KEY }}
       run: dotnet build -c Release --no-restore
+    - name: publish
+      run: dotnet publish "StationWalk.Server.fsproj" -c Release
+    - name: debug step
+      run: ls
     - name: zip files
-      run: zip -p ${{secrets.STATIONWALK_ARTIFACT_PASS}} -r stationwalk.zip /StationWalk.Server/bin/Release/net5.0/*
+      run: zip -p ${{secrets.STATIONWALK_ARTIFACT_PASS}} -r stationwalk.zip /StationWalk.Server/bin/Release/net5.0/publish
     - name: create artifact
       uses: actions/upload-artifact@v2
       with:
