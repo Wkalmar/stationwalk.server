@@ -27,7 +27,7 @@ jobs:
         STATIONWALK_GRAPHHOPPER_KEY: ${{ secrets.STATIONWALK_GRAPHHOPPER_KEY }}
       run: dotnet build -c Release --no-restore
     - name: publish
-      run: dotnet publish "StationWalk.Server.fsproj" -c Release
+      run: cd StationWalk.Server && dotnet publish "StationWalk.Server.fsproj" -c Release
     - name: debug step
       run: ls
     - name: zip files
