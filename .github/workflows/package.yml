@@ -29,9 +29,9 @@ jobs:
     - name: publish
       run: cd StationWalk.Server && dotnet publish "StationWalk.Server.fsproj" -c Release
     - name: debug step
-      run: ls
+      run: cd StationWalk.Server && ls
     - name: zip files
-      run: zip -p ${{secrets.STATIONWALK_ARTIFACT_PASS}} -r stationwalk.zip /StationWalk.Server/bin/Release/net5.0/publish
+      run: zip -P ${{secrets.STATIONWALK_ARTIFACT_PASS}} -r stationwalk.zip StationWalk.Server/bin/Release/net5.0/publish
     - name: create artifact
       uses: actions/upload-artifact@v2
       with:
