@@ -35,5 +35,5 @@ jobs:
     - name: create artifact
       uses: actions/upload-artifact@v2
       with:
-        path: '/StationWalk.Server/bin/Release/net5.0/stationwalk.zip'
+        path: 'StationWalk.Server/bin/Release/net5.0/publish/stationwalk.zip'
         retention-days: 1
