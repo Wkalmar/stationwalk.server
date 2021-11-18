@@ -16,7 +16,8 @@ module.exports = {
       from: './assets/*'
     }]),
     new Dotenv({
-      path:"../.env"
+      path:"../.env",
+      systemvars: true
     })
   ],
   module: {
