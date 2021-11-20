@@ -32,10 +32,10 @@ jobs:
       run: cd StationWalk.Server/bin/Release/net5.0/publish && zip -P ${{secrets.STATIONWALK_ARTIFACT_PASS}} -r stationwalk.zip .
     - name: upload artifact
       uses: nogsantos/scp-deploy@master
-        with:
-          src: 'StationWalk.Server/bin/Release/net5.0/publish/stationwalk.zip'
-          host: ${{ secrets.SSH_HOST }}
-          remote: ${{ secrets.SSH_DIR }}
-          port: 22
-          user: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
+      with:
+        src: 'StationWalk.Server/bin/Release/net5.0/publish/stationwalk.zip'
+        host: ${{ secrets.SSH_HOST }}
+        remote: ${{ secrets.SSH_DIR }}
+        port: 22
+        user: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
