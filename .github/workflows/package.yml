@@ -39,3 +39,11 @@ jobs:
         port: 22
         user: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
+    - name: deploy artifact
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        port: 22
+        script: sudo su && rm -rf stationwalk && unzip -P ${{secrets.STATIONWALK_ARTIFACT_PASS}} -d stationwalk stationwalk.zip && rm -f stationwalk.zip && cd stationwalk/ && fuser -k 5000/tcp && nohup dotnet StationWalk.Server.dll > /dev/null 2>&1 &
