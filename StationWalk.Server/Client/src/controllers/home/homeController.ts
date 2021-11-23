@@ -12,7 +12,7 @@ export class HomeController extends IController {
     }
 
     private welcomeControl: WelcomeControl = new WelcomeControl();
-    private zoom: number = 11;
+    private zoom: number = 12;
     private mapCenter: L.LatLngExpression = [50.45, 30.52];
 
     path = "home";
