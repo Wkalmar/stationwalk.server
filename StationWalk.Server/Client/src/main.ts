@@ -21,7 +21,7 @@ declare const process: any;
     }
 
     const mymap = L.map('mapid', {
-        minZoom: 11,
+        minZoom: 12,
         maxZoom: 18,
         zoomControl: false
     });

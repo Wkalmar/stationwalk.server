@@ -1,0 +1,47 @@
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  package:
+    name: package
+    runs-on: ubuntu-latest
+    env:
+      STATIONWALK_MAPBOX_TOKEN: ${{ secrets.STATIONWALK_MAPBOX_TOKEN }}
+      STATIONWALK_GRAPHHOPPER_HOST: ${{ secrets.STATIONWALK_GRAPHHOPPER_HOST }}
+      STATIONWALK_GRAPHHOPPER_KEY: ${{ secrets.STATIONWALK_GRAPHHOPPER_KEY }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: install node v12
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build -c Release --no-restore
+    - name: publish
+      run: cd StationWalk.Server && dotnet publish "StationWalk.Server.fsproj" -c Release
+    - name: zip files
+      run: cd StationWalk.Server/bin/Release/net5.0/publish && zip -P ${{secrets.STATIONWALK_ARTIFACT_PASS}} -r stationwalk.zip .
+    - name: upload artifact
+      uses: nogsantos/scp-deploy@master
+      with:
+        src: 'StationWalk.Server/bin/Release/net5.0/publish/stationwalk.zip'
+        host: ${{ secrets.SSH_HOST }}
+        remote: ${{ secrets.SSH_DIR }}
+        port: 22
+        user: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+    - name: deploy artifact
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        port: 22
+        script: sudo su && rm -rf stationwalk && unzip -P ${{secrets.STATIONWALK_ARTIFACT_PASS}} -d stationwalk stationwalk.zip && rm -f stationwalk.zip && cd stationwalk/ && kill -9 $(lsof -t -i:5000) && nohup dotnet StationWalk.Server.dll > /dev/null 2>&1 &
