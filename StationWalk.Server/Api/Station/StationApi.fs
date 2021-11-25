@@ -1,8 +1,7 @@
 ﻿module StationApi
 
-open FSharp.Control.Tasks.V2
+open FSharp.Control.Tasks
 open Giraffe
-open System.Text.Json
 
 let getAll =
     fun next httpContext ->
@@ -10,10 +9,9 @@ let getAll =
         try
             Log.instance.Debug("Making call to StationApi.getAll")
             let! dbStations = DbAdapter.getAllStations |> Async.StartAsTask
-            let result = DbMappers.dbStationsToStations dbStations
-            let serialized = JsonSerializer.Serialize(result, Common.serializerOptions)
-            Log.instance.Debug("Call to StationApi.getAll ended. result: {serialized}", serialized)
-            return! text serialized next httpContext
+            let result = DbMappers.dbStationsToStations dbStations            
+            Log.instance.Debug("Call to StationApi.getAll ended. result: {serialized}", result)
+            return! json result next httpContext
         with
         | e -> return Common.logException e
     }

@@ -35,6 +35,7 @@ let configureApp (appBuilder : IApplicationBuilder) =
 let configureServices (services : IServiceCollection) =
     services.AddGiraffe() |> ignore
     services.AddSpaStaticFiles(fun configuration -> configuration.RootPath <- "Client/dist")
+    services.AddSingleton<Json.ISerializer>(SystemTextJson.Serializer(Common.serializerOptions)) |> ignore
 
 [<EntryPoint>]
 let main argv =

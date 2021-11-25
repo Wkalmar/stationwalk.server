@@ -44,4 +44,4 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
         port: 22
-        script: sudo su && rm -rf stationwalk && unzip -P ${{secrets.STATIONWALK_ARTIFACT_PASS}} -d stationwalk stationwalk.zip && rm -f stationwalk.zip && cd stationwalk/ && kill -9 $(lsof -t -i:5000) && nohup dotnet StationWalk.Server.dll > /dev/null 2>&1 &
+        script: sudo su && kill -9 $(lsof -t -i:5000)  && rm -rf stationwalk && unzip -P ${{secrets.STATIONWALK_ARTIFACT_PASS}} -d stationwalk stationwalk.zip && rm -f stationwalk.zip && cd stationwalk/ && nohup dotnet StationWalk.Server.dll > /dev/null 2>&1 &

@@ -1,8 +1,7 @@
 ﻿module RouteApi
 
-open FSharp.Control.Tasks.V2.ContextInsensitive
+open FSharp.Control.Tasks
 open Giraffe
-open System.Text.Json
 open Microsoft.AspNetCore.Http
 
 let getAll page =
@@ -17,9 +16,8 @@ let getAll page =
             let! routes = DbAdapter.getAllRoutes skip take |> Async.StartAsTask
             let domainRoutes = DbMappers.dbRoutesToRoutes routes
             let result = RouteModels.toFullRoutes domainRoutes 
-            let serialized = JsonSerializer.Serialize(result, Common.serializerOptions)
-            Log.instance.Debug("Call to RouteApi.delete ended. result {getAll}", serialized)
-            return! text serialized next httpContext            
+            Log.instance.Debug("Call to RouteApi.delete ended. result {getAll}", result)
+            return! json result next httpContext            
         with
         | e -> return Common.logException e
     }
@@ -32,9 +30,8 @@ let getApproved =
             let! routes = DbAdapter.getApprovedRoutes |> Async.StartAsTask
             let domainRoutes = DbMappers.dbRoutesToRoutes routes
             let result = RouteModels.toShortRoutes domainRoutes
-            let serialized = JsonSerializer.Serialize(result, Common.serializerOptions)
-            Log.instance.Debug("Call to RouteApi.delete ended. result {getAll}", serialized)
-            return! text serialized next httpContext            
+            Log.instance.Debug("Call to RouteApi.delete ended. result {getAll}", result)
+            return! json result next httpContext            
         with
         | e -> return Common.logException e
     }
