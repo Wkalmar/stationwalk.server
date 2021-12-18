@@ -18,3 +18,4 @@ StationWalk.Server/.ionide/*
 .fake
 .ionide
 StationWalk.Server/log/*
+node_modules/

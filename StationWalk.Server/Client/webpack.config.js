@@ -1,25 +1,11 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/main.ts',
   devtool: 'inline-source-map',
-  plugins: [
-    new CopyWebpackPlugin([{
-      from: './index.html'
-    }]),
-    new CopyWebpackPlugin([{
-      from: './styles/*'
-    }]),
-    new CopyWebpackPlugin([{
-      from: './assets/*'
-    }]),
-    new Dotenv({
-      path:"../.env",
-      systemvars: true
-    })
-  ],
   module: {
     rules: [
       {
@@ -37,7 +23,37 @@ module.exports = {
     extensions: [ '.ts', '.tsx', '.js' ]
   },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  }
+    filename: '[name].[contenthash]',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
+  optimization: {
+    moduleIds: 'deterministic',
+    runtimeChunk: 'single',
+    splitChunks: {
+     cacheGroups: {
+       vendor: {
+         test: /[\\/]node_modules[\\/]/,
+         name: 'vendors',
+         chunks: 'all'
+       }
+     }
+   }
+  },
+  plugins: [
+    new CopyWebpackPlugin([{
+      from: './styles/*'
+    }]),
+    new CopyWebpackPlugin([{
+      from: './assets/*'
+    }]),
+    new Dotenv({
+      path:"../.env",
+      systemvars: true
+    }),
+    new HtmlWebpackPlugin({
+      template:"./index.ejs",
+      inject: 'body'
+    }),
+  ]
 };
