@@ -143,8 +143,8 @@ let stations : DbModels.Station array =
            branch = "Red"
            location =
            {
-               lat = decimal(50.357425)
-               lon = decimal(30.439872)
+               lat = decimal(50.4473701)
+               lon = decimal(30.5196683)
            }
        }
        {
