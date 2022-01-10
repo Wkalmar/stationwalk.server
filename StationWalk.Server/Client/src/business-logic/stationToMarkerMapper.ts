@@ -1,4 +1,5 @@
 
+import { ApplicationContext } from "../applicationContext";
 import { Station } from "../models/station";
 
 declare const window: any;
@@ -11,7 +12,7 @@ export class StationToMarkerMapper {
             icon: L.icon({
                 iconUrl: `../assets/${station.branch.toLowerCase()}.png`
             }),
-            title: station.name.en
+            title: station.name[ApplicationContext.currentLang]
         })
     }
 }

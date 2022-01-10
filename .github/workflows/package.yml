@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ karma-tests ]
+    branches: [ master ]
 
 jobs:
   package:
