@@ -9,7 +9,7 @@ declare const window: any;
 const L = window.L;
 export class RouteDrawer {
     private neglectibleDistance: number = 0.0003;
-    private zoom: number = 16;
+    private zoom: number = 17;
     private startStation : Station;
     private endStation: Station;
 
