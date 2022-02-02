@@ -17,8 +17,10 @@ export class StartStationControl {
         <div id="${this.startStationSelectorId}" class="modal" style="display: block;">
             <div class="modal-content">
                 <div>
-                    <label for="${this.startStationInputId}">Start station</label>
-                    <input type="text" id="${this.startStationInputId}" placeholder="Enter start station...">
+                    <div>Start station</div>
+                    <div>
+                        <input type="text" id="${this.startStationInputId}" class="text-input" placeholder="Enter start station...">
+                    </div>
                     <div id="${this.startStationAutoCompleteContainerId}"></div>
                 </div>
             </div>

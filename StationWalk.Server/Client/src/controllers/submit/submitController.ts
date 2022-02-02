@@ -30,15 +30,14 @@ export class SubmitController extends IController {
         <div id="${this.submitModalId}" class="modal">
             <div id="${this.submitModalFormId}">
                 <div class="modal-content">
+                    <div>Tell us a bit about the route</div>
                     <div>
-                        <label for="${this.routeNameInputId}">Name</label>
-                        <input type="text" id="${this.routeNameInputId}" placeholder="Enter route name...">
+                        <input type="text" id="${this.routeNameInputId}" class="text-input" placeholder="Enter route name...">
                     </div>
                     <div>
-                        <label for="${this.routeDescriptionInputId}">Desctiption</label>
-                        <input type="text" id="${this.routeDescriptionInputId}" placeholder="Tell us why do you like this route">
+                        <textarea id="${this.routeDescriptionInputId}" class="text-input" placeholder="Tell us why do you like this route..."></textarea>
                     </div>
-                    <button id="${this.submitButtonId}">Submit</button>
+                    <button id="${this.submitButtonId}" class="button-ok">Submit</button>
                 </div>
             </div>
             <div id="${this.submitSuccessNotificationContainerId}" class="modal-content" style="display: none;">
@@ -159,7 +158,7 @@ export class SubmitController extends IController {
         const descriptionInput = document.getElementById(this.routeDescriptionInputId) as HTMLInputElement;
         const descriptionText = descriptionInput && descriptionInput.value;
         this.routeToSubmit.name = Property.set(this.routeToSubmit.name, ApplicationContext.currentLang, inputText as string);
-        this.routeToSubmit.description = Property.set(this.routeToSubmit.description, ApplicationContext.currentLang, descriptionText || '');        
+        this.routeToSubmit.description = Property.set(this.routeToSubmit.description, ApplicationContext.currentLang, descriptionText || '');
         await fetch('/route', {
             method: 'POST',
             headers: {
