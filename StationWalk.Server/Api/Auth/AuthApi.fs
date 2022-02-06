@@ -3,10 +3,9 @@
 open Microsoft.AspNetCore.Http
 open Giraffe
 
-let authorize (httpContext : HttpContext) =    
+let authorize (httpContext : HttpContext) =
     let authorizationHeader = httpContext.GetRequestHeader "Authorization"
-    let authorizationResult = 
-        authorizationHeader
-        |> Result.bind JwtValidator.validateToken
-    authorizationResult
+    match authorizationHeader with
+    | Ok token -> JwtValidator.validateToken token
+    | Error _ -> Error "Forbidden"
 
