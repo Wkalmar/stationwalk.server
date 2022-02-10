@@ -23,6 +23,7 @@ export class SubmitController extends IController {
     private routeDescriptionInputId : string = "route-description";
     private submitButtonId : string = "route-submit-button";
     private submitSuccessNotificationContainerId : string = "submit-modal-success";
+    private submitErrorNotificationContainerId : string = "submit-modal-error";
     private gotoHomeButtonId : string = "route-submit-goto-home";
 
     template =
@@ -41,7 +42,11 @@ export class SubmitController extends IController {
                 </div>
             </div>
             <div id="${this.submitSuccessNotificationContainerId}" class="modal-content" style="display: none;">
-                Thank you for submitting your route. It will be published afrer being reviewed by members of our community.
+                <p>Thank you for submitting your route. It will be published afrer being reviewed by members of our community.</p>
+                <button id="${this.gotoHomeButtonId}" class="button-ok">Go to home page</button>
+            </div>
+            <div id="${this.submitErrorNotificationContainerId}" class="modal-content" style="display: none;">
+                <p>Something went wrong during submission of the route. Please try again later.</p>
                 <button id="${this.gotoHomeButtonId}" class="button-ok">Go to home page</button>
             </div>
         </div>`
@@ -148,6 +153,18 @@ export class SubmitController extends IController {
         (submitSuccessNotificationContrainer as HTMLElement).style.display = 'block';
     }
 
+    private showErrorNotification = () => {
+        const submitErrorNotificationContrainer = document.getElementById(this.submitErrorNotificationContainerId);
+        const submitFormContainer = document.getElementById(this.submitModalFormId);
+
+        if (!submitFormContainer || !submitErrorNotificationContrainer) {
+            throw new Error("Invalid markup. Expected to have form container and successfull notification container");
+        }
+
+        (submitFormContainer as HTMLElement).style.display = 'none';
+        (submitErrorNotificationContrainer as HTMLElement).style.display = 'block';
+    }
+
     private submit = async () => {
         const nameInput = document.getElementById(this.routeNameInputId) as HTMLInputElement;
         const inputText = nameInput && nameInput.value;
@@ -159,7 +176,7 @@ export class SubmitController extends IController {
         const descriptionText = descriptionInput && descriptionInput.value;
         this.routeToSubmit.name = Property.set(this.routeToSubmit.name, ApplicationContext.currentLang, inputText as string);
         this.routeToSubmit.description = Property.set(this.routeToSubmit.description, ApplicationContext.currentLang, descriptionText || '');
-        await fetch('/route', {
+        const response = await fetch('/route', {
             method: 'POST',
             headers: {
             'Accept': 'application/json',
@@ -167,6 +184,10 @@ export class SubmitController extends IController {
             },
             body: JSON.stringify(this.routeToSubmit)
         })
-        this.showSuccessNotification();
+        if (response.ok) {
+            this.showSuccessNotification();
+        } else {
+            this.showErrorNotification();
+        }
     }
 }
