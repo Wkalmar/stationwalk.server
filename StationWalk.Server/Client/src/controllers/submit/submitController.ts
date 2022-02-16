@@ -24,7 +24,7 @@ export class SubmitController extends IController {
     private submitButtonId : string = "route-submit-button";
     private submitSuccessNotificationContainerId : string = "submit-modal-success";
     private submitErrorNotificationContainerId : string = "submit-modal-error";
-    private gotoHomeButtonId : string = "route-submit-goto-home";
+    private gotoHomeButtonClass : string = "route-submit-goto-home";
 
     template =
         `${this.startStationControl.template}
@@ -43,11 +43,11 @@ export class SubmitController extends IController {
             </div>
             <div id="${this.submitSuccessNotificationContainerId}" class="modal-content" style="display: none;">
                 <p>Thank you for submitting your route. It will be published afrer being reviewed by members of our community.</p>
-                <button id="${this.gotoHomeButtonId}" class="button-ok">Go to home page</button>
+                <button class="${this.gotoHomeButtonClass} button-ok">Go to home page</button>
             </div>
             <div id="${this.submitErrorNotificationContainerId}" class="modal-content" style="display: none;">
                 <p>Something went wrong during submission of the route. Please try again later.</p>
-                <button id="${this.gotoHomeButtonId}" class="button-ok">Go to home page</button>
+                <button class="${this.gotoHomeButtonClass} button-ok">Go to home page</button>
             </div>
         </div>`
 
@@ -59,9 +59,8 @@ export class SubmitController extends IController {
         if (submitButton != null)
             submitButton.addEventListener('click', this.submit);
 
-        const goToHomeButton  = document.getElementById(this.gotoHomeButtonId);
-        if (goToHomeButton != null)
-            goToHomeButton.addEventListener('click', this.goToHome);
+        const goToHomeButtons  = document.querySelectorAll(`.${this.gotoHomeButtonClass}`);
+        goToHomeButtons.forEach(goToHomeButton => goToHomeButton.addEventListener('click', this.goToHome));
     }
 
     private showSubmitModal = (e: CustomEvent) => {
@@ -119,9 +118,8 @@ export class SubmitController extends IController {
         if (submitButton != null)
             submitButton.removeEventListener('click', this.submit);
 
-        const goToHomeButton  = document.getElementById(this.gotoHomeButtonId);
-        if (goToHomeButton != null)
-            goToHomeButton.addEventListener('click', this.goToHome);
+        const goToHomeButtons  = document.querySelectorAll(`.${this.gotoHomeButtonClass}`);
+        goToHomeButtons.forEach(goToHomeButton => goToHomeButton.removeEventListener('click', this.goToHome));
     }
 
     private removeMapEventListeners = () => {
