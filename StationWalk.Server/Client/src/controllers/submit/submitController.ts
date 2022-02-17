@@ -140,27 +140,23 @@ export class SubmitController extends IController {
     }
 
     private showSuccessNotification = () => {
-        const submitSuccessNotificationContrainer = document.getElementById(this.submitSuccessNotificationContainerId);
-        const submitFormContainer = document.getElementById(this.submitModalFormId);
-
-        if (!submitFormContainer || !submitSuccessNotificationContrainer) {
-            throw new Error("Invalid markup. Expected to have form container and successfull notification container");
-        }
-
-        (submitFormContainer as HTMLElement).style.display = 'none';
-        (submitSuccessNotificationContrainer as HTMLElement).style.display = 'block';
+        this.showNotification(this.submitSuccessNotificationContainerId);
     }
 
     private showErrorNotification = () => {
-        const submitErrorNotificationContrainer = document.getElementById(this.submitErrorNotificationContainerId);
+        this.showNotification(this.submitErrorNotificationContainerId);
+    }
+
+    private showNotification = (notificationId : string) => {
+        const submitNotificationContainer = document.getElementById(notificationId);
         const submitFormContainer = document.getElementById(this.submitModalFormId);
 
-        if (!submitFormContainer || !submitErrorNotificationContrainer) {
+        if (!submitFormContainer || !submitNotificationContainer) {
             throw new Error("Invalid markup. Expected to have form container and successfull notification container");
         }
 
         (submitFormContainer as HTMLElement).style.display = 'none';
-        (submitErrorNotificationContrainer as HTMLElement).style.display = 'block';
+        (submitNotificationContainer as HTMLElement).style.display = 'block';
     }
 
     private submit = async () => {
