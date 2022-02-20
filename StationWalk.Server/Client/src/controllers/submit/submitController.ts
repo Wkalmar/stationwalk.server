@@ -23,7 +23,8 @@ export class SubmitController extends IController {
     private routeDescriptionInputId : string = "route-description";
     private submitButtonId : string = "route-submit-button";
     private submitSuccessNotificationContainerId : string = "submit-modal-success";
-    private gotoHomeButtonId : string = "route-submit-goto-home";
+    private submitErrorNotificationContainerId : string = "submit-modal-error";
+    private gotoHomeButtonClass : string = "route-submit-goto-home";
 
     template =
         `${this.startStationControl.template}
@@ -41,8 +42,12 @@ export class SubmitController extends IController {
                 </div>
             </div>
             <div id="${this.submitSuccessNotificationContainerId}" class="modal-content" style="display: none;">
-                Thank you for submitting your route. It will be published afrer being reviewed by members of our community.
-                <button id="${this.gotoHomeButtonId}" class="button-ok">Go to home page</button>
+                <p>Thank you for submitting your route. It will be published afrer being reviewed by members of our community.</p>
+                <button class="${this.gotoHomeButtonClass} button-ok">Go to home page</button>
+            </div>
+            <div id="${this.submitErrorNotificationContainerId}" class="modal-content" style="display: none;">
+                <p>Something went wrong during submission of the route. Please try again later.</p>
+                <button class="${this.gotoHomeButtonClass} button-ok">Go to home page</button>
             </div>
         </div>`
 
@@ -54,9 +59,8 @@ export class SubmitController extends IController {
         if (submitButton != null)
             submitButton.addEventListener('click', this.submit);
 
-        const goToHomeButton  = document.getElementById(this.gotoHomeButtonId);
-        if (goToHomeButton != null)
-            goToHomeButton.addEventListener('click', this.goToHome);
+        const goToHomeButtons  = document.querySelectorAll(`.${this.gotoHomeButtonClass}`);
+        goToHomeButtons.forEach(goToHomeButton => goToHomeButton.addEventListener('click', this.goToHome));
     }
 
     private showSubmitModal = (e: CustomEvent) => {
@@ -114,9 +118,8 @@ export class SubmitController extends IController {
         if (submitButton != null)
             submitButton.removeEventListener('click', this.submit);
 
-        const goToHomeButton  = document.getElementById(this.gotoHomeButtonId);
-        if (goToHomeButton != null)
-            goToHomeButton.addEventListener('click', this.goToHome);
+        const goToHomeButtons  = document.querySelectorAll(`.${this.gotoHomeButtonClass}`);
+        goToHomeButtons.forEach(goToHomeButton => goToHomeButton.removeEventListener('click', this.goToHome));
     }
 
     private removeMapEventListeners = () => {
@@ -137,15 +140,23 @@ export class SubmitController extends IController {
     }
 
     private showSuccessNotification = () => {
-        const submitSuccessNotificationContrainer = document.getElementById(this.submitSuccessNotificationContainerId);
+        this.showNotification(this.submitSuccessNotificationContainerId);
+    }
+
+    private showErrorNotification = () => {
+        this.showNotification(this.submitErrorNotificationContainerId);
+    }
+
+    private showNotification = (notificationId : string) => {
+        const submitNotificationContainer = document.getElementById(notificationId);
         const submitFormContainer = document.getElementById(this.submitModalFormId);
 
-        if (!submitFormContainer || !submitSuccessNotificationContrainer) {
+        if (!submitFormContainer || !submitNotificationContainer) {
             throw new Error("Invalid markup. Expected to have form container and successfull notification container");
         }
 
         (submitFormContainer as HTMLElement).style.display = 'none';
-        (submitSuccessNotificationContrainer as HTMLElement).style.display = 'block';
+        (submitNotificationContainer as HTMLElement).style.display = 'block';
     }
 
     private submit = async () => {
@@ -159,7 +170,7 @@ export class SubmitController extends IController {
         const descriptionText = descriptionInput && descriptionInput.value;
         this.routeToSubmit.name = Property.set(this.routeToSubmit.name, ApplicationContext.currentLang, inputText as string);
         this.routeToSubmit.description = Property.set(this.routeToSubmit.description, ApplicationContext.currentLang, descriptionText || '');
-        await fetch('/route', {
+        const response = await fetch('/route', {
             method: 'POST',
             headers: {
             'Accept': 'application/json',
@@ -167,6 +178,10 @@ export class SubmitController extends IController {
             },
             body: JSON.stringify(this.routeToSubmit)
         })
-        this.showSuccessNotification();
+        if (response.ok) {
+            this.showSuccessNotification();
+        } else {
+            this.showErrorNotification();
+        }
     }
 }
