@@ -1,5 +1,4 @@
 export abstract class IController {
-    abstract path: string;
     abstract template: string;
     abstract go(): void;
     abstract clear(): void;

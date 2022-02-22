@@ -15,11 +15,9 @@ export class HomeController extends IController {
     private zoom: number = 12;
     private mapCenter: L.LatLngExpression = [50.45, 30.52];
 
-    path = "home";
-
     template = `${this.welcomeControl.render()}`
 
-    routesRequestResolver = (routesResponse: Route[]) => {
+    private routesRequestResolver = (routesResponse: Route[]) => {
         routesResponse.map(async (route: Route) => {
             const mapper = new RouteToCheckPointsMapper(route);
             const checkpoints = await mapper.map();

@@ -13,8 +13,6 @@ export class SubmitController extends IController {
         super();
     }
 
-    path = "submit";
-
     private startStationControl: StartStationControl = new StartStationControl();
 
     private submitModalId: string = "submit-modal";
