@@ -2,11 +2,12 @@
 
 open System
 open System.Text.Json
+open System.Text.Json.Serialization
 open System.Runtime.ExceptionServices
 open MongoDB.Bson
 
 let serializerOptions = JsonSerializerOptions()
-serializerOptions.IgnoreNullValues <- true
+serializerOptions.DefaultIgnoreCondition <- JsonIgnoreCondition.WhenWritingNull
 
 let fromJson<'a> (json : string) =
   JsonSerializer.Deserialize<'a>(json, serializerOptions)
