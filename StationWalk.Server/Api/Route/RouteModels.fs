@@ -20,7 +20,7 @@ type ShortRoute = {
     name: LocalizableString
     stationStartId: string
     stationEndId: string
-    checkpoints: Location[]    
+    checkpoints: Location[]
     description: LocalizableString
 }
 
@@ -30,8 +30,11 @@ type CheckPointExtendedInfo = {
     distanceToNextCheckPoint: float
 }
 
+
 let removeRedundantCheckpoints (checkPoints : Location[]) =
     let checkPointsMaxCount = 5
+    let isStartOrEndOfTheRoute (checkPoints : Location[]) i =
+       i = 0 || i = checkPoints.Length - 1
     let euclidianDistance c1 c2 =
         Math.Pow(float(c1.lattitude - c2.lattitude), float(2)) + Math.Pow(float(c1.longitude - c2.longitude), float(2))
     if checkPoints.Length <= 5 then
@@ -39,7 +42,7 @@ let removeRedundantCheckpoints (checkPoints : Location[]) =
     else
         checkPoints
         |> Array.mapi(fun i c ->
-            if i = 0 || i = checkPoints.Length - 1 then
+            if isStartOrEndOfTheRoute checkPoints i then
                 {
                     index = i
                     checkPoint = c
@@ -57,36 +60,36 @@ let removeRedundantCheckpoints (checkPoints : Location[]) =
         |> Array.sortBy(fun i -> i.index)
         |> Array.map(fun i -> i.checkPoint)
 
-let toShortRoute (route: Domain.Route) : ShortRoute = 
+let toShortRoute (route: Domain.Route) : ShortRoute =
     let route = {
         id = route.id.ToString()
         name = {
             ua = route.name.ua
             en = route.name.en
-        } 
+        }
         description = {
             ua = route.description.ua
             en = route.description.en
-        } 
+        }
         stationStartId = route.stationStartId
         stationEndId = route.stationEndId
         checkpoints =
             route.checkpoints
-            |> removeRedundantCheckpoints        
+            |> removeRedundantCheckpoints
     }
     route
 
-let fromShortRoute (route: ShortRoute) : Domain.Route  = 
+let fromShortRoute (route: ShortRoute) : Domain.Route  =
     let route : Domain.Route = {
         id = Common.generateStringId
         name = {
             ua = route.name.ua
             en = route.name.en
-        } 
+        }
         description = {
             ua = route.description.ua
             en = route.description.en
-        } 
+        }
         stationStartId = route.stationStartId
         stationEndId = route.stationEndId
         checkpoints = route.checkpoints
@@ -94,17 +97,17 @@ let fromShortRoute (route: ShortRoute) : Domain.Route  =
     }
     route
 
-let toFullRoute (route: Domain.Route) : FullRoute = 
+let toFullRoute (route: Domain.Route) : FullRoute =
     let route = {
         id = route.id.ToString()
         name = {
             ua = route.name.ua
             en = route.name.en
-        } 
+        }
         description = {
             ua = route.description.ua
             en = route.description.en
-        } 
+        }
         stationStartId = route.stationStartId
         stationEndId = route.stationEndId
         checkpoints = route.checkpoints
@@ -112,17 +115,17 @@ let toFullRoute (route: Domain.Route) : FullRoute =
     }
     route
 
-let fromFullRoute (route: FullRoute) : Domain.Route  = 
+let fromFullRoute (route: FullRoute) : Domain.Route  =
     let route : Domain.Route = {
         id = route.id.ToString()
         name = {
             ua = route.name.ua
             en = route.name.en
-        } 
+        }
         description = {
             ua = route.description.ua
             en = route.description.en
-        } 
+        }
         stationStartId = route.stationStartId
         stationEndId = route.stationEndId
         checkpoints = route.checkpoints
@@ -130,10 +133,10 @@ let fromFullRoute (route: FullRoute) : Domain.Route  =
     }
     route
 
-let toShortRoutes routes = 
+let toShortRoutes routes =
     routes
-    |> Seq.map(fun i -> toShortRoute i)    
+    |> Seq.map(fun i -> toShortRoute i)
 
-let toFullRoutes routes = 
+let toFullRoutes routes =
     routes
     |> Seq.map(fun i -> toFullRoute i)
