@@ -19,3 +19,5 @@ StationWalk.Server/.ionide/*
 .ionide
 StationWalk.Server/log/*
 node_modules/
+StationWalk.Server/Client/debug.log
+StationWalk.Server/Client/**/debug.log
